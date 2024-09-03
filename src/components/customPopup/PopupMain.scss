@@ -1,0 +1,210 @@
+@import "../../themes/generated/variables.base.scss";
+@import "../../dx-styles.scss";
+@import "../../variable.scss";
+
+* {
+  line-height: 150%;
+}
+
+.popup-content {
+    .popup-custom-header {
+      // border: 1px solid;
+      // height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding-bottom: 8px;
+      width: 100%;
+  
+      .popup-headings {
+        width: 100%;
+        // margin: 24px;
+        .popup-head1 {
+          width: 100%;
+          font-family: "Inter";
+          font-size: 18px;
+          font-weight: 500;
+          color: #344450;
+          margin-bottom: 4px;
+        }
+  
+        .popup-head2 {
+          width: 100%;
+          font-family: "Inter";
+          font-size: 14px;
+          font-weight: 400;
+          color: #687787;
+        }
+      }
+  
+      .closeBtnInHeader {
+        width: 44px;
+        height: 44px;
+        border-radius: 0;
+        background-color: transparent;
+  
+        .dx-button-content {
+          width: 44px;
+          height: 44px;
+        }
+  
+        .dx-icon {
+          width: 24px;
+          height: 24px;
+          color: $text-darker;
+        }
+      }
+    }
+  
+    .popup-middle-section{
+      height: auto;
+      // background-color: #fce5ec;
+      padding: 16px 0px;
+    }
+
+    .middle-send{
+      height: 105px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 0px;
+    }
+
+    .middle-schedule-send{
+      // width: 480px;
+      height: 330px;
+      padding: 16px 0px;
+      gap: 24px;
+      display: flex;
+      align-items: center;
+      // justify-content: center;
+
+      .schedule-send-calender{
+        width: 100%;
+
+        .dx-button-mode-text.dx-button-default{
+          background-color: transparent;
+        }
+        
+        .dx-calendar-cell.dx-calendar-date:active{
+          background-color: skyblue;
+        }
+
+        .dx-calendar-cell span{
+          border-radius: 3.24px;
+          border: none;
+        }
+
+        .dx-calendar-cell.dx-calendar-selected-date span{
+          background-color: $button-primary;
+        }
+
+      }
+
+      .schedule-popup-userbox{
+        width: 100%;
+        height: 100%;
+        margin: 10px 0px;
+        
+        .date-inputs{
+          // gap: 16px;
+          .required-field-schedule {
+            color: #910000;
+            font-weight: 500;
+          }
+  
+          .user-text-calender {
+            font-size: 14px;
+            font-weight: 400;
+            color: #344450;
+          }
+  
+          .input-user-data-calender.dx-texteditor.dx-editor-outlined {
+            height: 48px;
+            margin-top: 2px;
+            margin-bottom: 16px;
+  
+            .dx-placeholder {
+              color: rgba(78, 93, 107, 0.32);
+              font-size: 16px;
+            }
+  
+            &.dx-state-focused {
+              box-shadow: inset 0 0 0 2px $button-primary;
+            }
+          }
+  
+          .dx-texteditor.dx-editor-outlined {
+            box-shadow: inset 0 0 0 1px rgba(78, 93, 107, 0.32);
+          }
+        }
+      }
+      
+    } 
+  
+    .popup-custom-body {
+      // border: 1px solid;
+      // height: 92px;
+      display: flex;
+      // margin-top: 24px;
+      // margin-bottom: 90px;
+      align-items: center;
+      // justify-content: space-between;
+  
+      .popup-button-container {
+        display: flex;
+        gap: 16px;
+        width: 100%;
+        padding-top: 24px;
+        // margin-top: auto;
+        // padding-top: 127px;
+        // padding-top: auto;
+      }
+  
+      .my-btn-cancel {
+        color: #344450;
+        background-color: #fff;
+        width: 100%;
+        height: 44px;
+        border: none;
+        border-radius: 4px;
+        box-shadow: 0 0 0 1px rgba(78, 93, 107, 0.24);
+        margin-right: 0px;
+  
+        .dx-button-text {
+          text-transform: none;
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+  
+      .my-btn-continue {
+        color: #f7f8f9;
+        background-color: $button-primary;
+        width: 100%;
+        height: 44px;
+        // margin-left: 8px;
+        padding: 8px;
+        margin-right: 0px;
+        border: 1px solid $button-primary;
+        border-radius: 4px;
+        box-shadow: 0 0 0 1px $button-primary;
+  
+        .dx-button-text {
+          text-transform: none;
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+  
+      .my-btn-continue:hover {
+        border: 1px solid $button-selected-hover;
+        background-color: $button-selected-hover;
+      }
+    }
+  }
+
+// .dx-popup-wrapper > .dx-overlay-content{
+//   box-shadow: none !important;
+// }

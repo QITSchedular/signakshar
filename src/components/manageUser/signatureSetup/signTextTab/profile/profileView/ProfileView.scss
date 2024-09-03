@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Inter:wght@100..900&display=swap');
+
+
+.profileCardMain {
+    background-color: #FBFBFB;
+    padding: 24px 32px 24px 32px;
+  
+    .profileaCard {
+        display: flex;
+        align-items: center;
+        background-color: #FFFFFF;
+        padding: 12px 16px 12px 16px;
+    }
+
+    .profileCardImg {
+        height: 98px;
+        width: 96px;
+        border-radius: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .userIcon {
+        position: absolute;
+        top: 65px;
+        left: 75px;
+        // transform: translate(-50%, -50%);
+        height: 44px;
+        width: 44px;
+        background-color: #FFFFFF;
+        border-radius: 50%;
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .userIconImg{
+        height: 24px;
+        width: 24px;
+    }
+    .profile-tabs-main .dx-state-hover:not(.dx-tab-selected) {
+      background-color: #FFFFFF !important;
+    }
+
+    .card-content {
+        padding: 4px 30px 4px 30px;
+    }
+
+    .card-title {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-size: 20px;
+        font-weight: 500;
+        color: #344450;
+        padding-bottom:6px ;
+    }
+
+    .card-description {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-size: 16px;
+        font-weight: 500;
+        color: #344450;
+        padding-bottom: 6px;
+    }
+
+    .card-email {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-size: 16px;
+        font-weight: 400;
+        color: #344450;
+    }
+    
+      
+}
+.edit-profile-main{
+    margin-top: 16px;
+    .dx-accordion{
+        margin: 0%;
+    }
+     .dx-accordion-item {
+        box-shadow: none;
+        border: none;
+        margin-bottom: 16px;
+
+     }
+      .dx-accordion-item-title{
+        height: 68px;
+
+     }
+     .dx-accordion-wrapper{
+        background-color: #FBFBFB !important;
+     }
+     .dx-accordion-item-title-caption{
+        font-size: 16px;
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        color: #344450;
+        font-weight: 500;
+     }
+
+     .dx-accordion-item-title::before{
+      left: 160px;
+     }
+
+     .dx-accordion-item.dx-state-active > .dx-accordion-item-title, .dx-accordion-item.dx-state-focused > .dx-accordion-item-title{
+        background-color: #FFFFFF;
+     }
+     .dx-accordion-item.dx-state-hover > .dx-accordion-item-title {
+        background-color: #FFFFFF;
+    }
+     
+    }

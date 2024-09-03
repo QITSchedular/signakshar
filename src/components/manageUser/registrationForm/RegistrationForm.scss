@@ -1,0 +1,432 @@
+@import "../../../themes/generated/variables.base.scss";
+
+* {
+  line-height: 150%;
+}
+
+.container-main-signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 100vw;
+
+  .box {
+    height: 100vh;
+    width: 100vw;
+
+    &.box-1 {
+      background-size: cover;
+      background-image: url("../../LP\ Pictorial\ Part\ 1.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: rgb(253, 206, 230);
+    }
+
+    &.box-2 {
+      height: 100vh;
+      width: 100%;
+      background-color: #fff;
+      align-items: center;
+      justify-content: center;
+
+      .card {
+        height: 100%;
+        width: calc(100% - 180px);
+        margin: auto auto;
+        background-color: #fff;
+        border: 1px solid transparent;
+        overflow-y: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        .dx-button-content {
+          padding: 0px;
+        }
+
+        .backBtn {
+          color: #000;
+          margin-top: 10px;
+          box-shadow: none;
+        }
+
+        .dx-button-has-icon.dx-button-has-text .dx-icon {
+          font-size: 28px;
+          color: #000;
+        }
+
+        .dx-button .dx-button-content {
+          padding: none;
+        }
+
+        .upper-section {
+          width: 80%;
+          display: flex;
+          font-size: 40px;
+          font-family: "Allerta Stencil";
+          justify-content: left;
+          align-items: center;
+          font-weight: 500;
+        }
+
+        .lower-section {
+          width: 80%;
+          margin-top: 32px;
+          justify-content: left;
+          align-items: center;
+          color: rgb(72, 69, 69);
+          font-family: "Inter";
+          overflow-y: auto;
+          // scrollbar-width: thin;
+          // scrollbar-color: transparent transparent;
+
+          &::-webkit-scrollbar {
+            width: 0;
+          }
+
+          .step {
+            font-weight: 500;
+            font-size: 12px;
+            margin-top: 5px;
+            color: #687787;
+            font-family: "Inter";
+          }
+
+          .create-acc {
+            font-size: 20px;
+            margin-top: 4px;
+            color: #344450;
+            font-weight: 500 !important;
+            margin-bottom: 0;
+            font-family: Inter;
+          }
+
+          .already {
+            font-size: 14px;
+            font-weight: 500 !important;
+            margin-top: 2px;
+            color: #687787;
+            margin-bottom: 24px;
+          }
+
+          .login {
+            font-size: 14px;
+            line-height: 150%;
+            font-weight: 500 !important;
+            color: #c51149 !important;
+            font-family: Inter;
+            text-decoration: none;
+          }
+
+          .email-add {
+            font-size: 14px;
+            line-height: 150%;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            color: #344450;
+            font-weight: 400 !important;
+            font-family: Inter;
+          }
+
+          .custom-textbox {
+            height: 48px;
+            margin-top: 2px;
+
+            &.dx-state-focused {
+              box-shadow: inset 0 0 0 2px #da1c5c !important;
+
+            }
+          }
+
+          .custom-textbox .dx-placeholder {
+            color: rgba(78, 93, 107, 0.32);
+            font-size: 16px;
+          }
+
+          .custom-textbox .dx-texteditor.dx-editor-outlined {
+            box-shadow: inset 0 0 0 1px rgba(78, 93, 107, 0.24);
+          }
+
+          .custom-textbox .dx-texteditor.dx-editor-outlined:focus {
+            box-shadow: inset 0 0 0 2px #da1c5c;
+          }
+
+          .required {
+            color: #910000;
+            font-weight: 900;
+          }
+
+          .password {
+            font-size: 14px;
+            line-height: 150%;
+            color: #344450;
+            font-weight: 500;
+            font-family: Inter;
+            background-color: #fbfbfb;
+            padding-bottom: 16px;
+          }
+
+          .visible-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+          }
+
+          .dx-invalid-message>.dx-overlay-content {
+            color: #910000;
+            font-style: italic;
+            background-color: #fff;
+            padding-left: 24px;
+            padding-top: 6px;
+            font-size: 14px;
+            position: relative;
+            /* Added from the second block */
+          }
+
+          .dx-invalid-message>.dx-overlay-content::before {
+            pointer-events: none;
+            position: absolute;
+            top: 3;
+            left: 0;
+            margin-left: 0px;
+            font-style: normal;
+            width: 15px;
+            height: 15px;
+            text-align: center;
+            line-height: 18px;
+            font-size: 14px;
+            font-weight: 400;
+            background-color: #bb0000;
+            color: #fff;
+            content: "!";
+            border-radius: 50%;
+          }
+
+          .custom-textbox.dx-texteditor.dx-editor-outlined.dx-state-focused.dx-invalid {
+            margin-bottom: 40px;
+            /* Adjusted from the first block */
+          }
+
+          .dx-invalid.dx-texteditor.dx-show-invalid-badge .dx-texteditor-input-container::after {
+            display: none;
+          }
+
+          .checkbox {
+            background-color: #fbfbfb;
+            line-height: 150%;
+            display: flex !important;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+
+            .dx-widget.dx-checkbox.dx-checkbox-checked.dx-checkbox-has-text {
+              background-color: #fff;
+            }
+
+            .dx-checkbox-icon {
+              width: 12px;
+              height: 12px;
+              background-color: white;
+              color: #0c6230;
+              // margin-right: 20px;
+            }
+
+            font-size: 14px;
+            margin-top: 6px;
+            // padding-top: 5px;
+            width: 100%;
+            display: inline-flex;
+            font-family: Inter;
+            color: #344450;
+            font-weight: 400 !important;
+            height: 20px;
+
+            span {
+              white-space: nowrap;
+              width: 99%;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+
+          .dx-checkbox-checked .dx-checkbox-icon {
+            background-color: white;
+          }
+
+          .forgot-pass {
+            font-size: 100%;
+            line-height: 150%;
+            margin-top: 12px;
+            margin-bottom: 24px;
+            font-weight: 400 !important;
+            color: #c51149;
+            font-family: Inter;
+            text-decoration: none;
+          }
+
+          .submit-button {
+            margin-top: 2%;
+            width: 100%;
+            background-color: #da1c5c;
+            font-family: Inter;
+            box-shadow: none;
+            height: 44px;
+            text-transform: none;
+            margin-right: 0px;
+          }
+
+          .or {
+            font-size: 86%;
+            line-height: 150%;
+            font-weight: medium;
+            margin: 16px 0px;
+            color: #687787;
+            justify-content: center;
+            text-align: center;
+            font-family: "Inter";
+          }
+
+          .google-button {
+            width: 100%;
+            background-color: #fff;
+            font-family: Inter;
+            color: #344450;
+            box-shadow: none;
+            border: 1px solid black;
+            height: 44px;
+            text-transform: none;
+            border-color: #4e5d6b;
+            margin-right: 0px;
+          }
+
+          .google-icon {
+            margin-right: 5px;
+          }
+
+          .agree {
+            margin-top: 3%;
+            width: 100%;
+            background-color: #fff;
+            font-family: Inter;
+            color: #687787;
+          }
+
+          .terms-of-service {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .container-main-signup {
+    .box {
+      &.box-1 {
+        display: none;
+      }
+
+      &.box-2 {
+        .card {
+          height: 100%;
+          width: 90%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 450px) {
+  .container-main-signup {
+    .box {
+      &.box-1 {
+        display: none;
+      }
+
+      &.box-2 {
+        .card {
+          height: 100%;
+          width: 90%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container-main-signup {
+    .box {
+      &.box-1 {
+        display: none;
+      }
+
+      &.box-2 {
+        background-size: cover;
+        background-image: url("../../LP\ Pictorial\ Part\ 1.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: rgb(253, 206, 230);
+
+        .card {
+          background: rgba(255, 255, 255, 1);
+          width: calc(100% - 180px);
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 840px) {
+  .container-main-signup {
+    .box {
+      &.box-1 {
+        display: block;
+      }
+
+      &.box-2 {
+        background: rgba(255, 255, 255, 1);
+
+        .card {
+          width: calc(100% - 180px);
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .container-main-signup {
+    .box {
+      &.box-1 {
+        display: block;
+      }
+
+      &.box-2 {
+        background: rgba(255, 255, 255, 1);
+
+        .card {
+          width: calc(100% - 180px);
+        }
+      }
+    }
+  }
+}
+
+.checkbox {
+  .dx-checkbox-icon {
+    background: white;
+    color: #0c6230;
+    border: 2px solid #0c6230;
+    /* padding: 4px; */
+    font-size: 8px;
+    font-weight: bold;
+    border-radius: 0px;
+    height: 20px;
+    width: 16px;
+  }
+}

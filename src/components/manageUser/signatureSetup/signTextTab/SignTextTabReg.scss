@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Inter:wght@100..900&display=swap");
+@import "../../../../variable.scss";
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Shadows+Into+Light&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Great+Vibes&family=Shadows+Into+Light&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Birthstone+Bounce:wght@400;500&family=Dancing+Script:wght@400..700&family=Great+Vibes&family=Shadows+Into+Light&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Birthstone+Bounce:wght@400;500&family=Dancing+Script:wght@400..700&family=Great+Vibes&family=Reenie+Beanie&family=Shadows+Into+Light&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Zeyada&display=swap');
+
+.signTextTab-main-forReg {
+  margin-top: 16px;
+  padding: 10px 28px;
+  min-height: 240px;
+  border: 1px solid $border-light;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
+  position: relative;
+  width: 100%;
+
+  .signTextTab-form {
+    input#signTextTabInput {
+      padding: 10px;
+    }
+    .signTextNameInput {
+      height: 30px;
+      width: 180px;
+      border: 1px solid;
+      border-radius: 3px;
+      border-color: #d9dde1;
+
+      .dx-placeholder {
+        color: rgba(78, 93, 107, 0.32);
+        font-size: 16px;
+      }
+
+      &.dx-state-focused {
+        box-shadow: inset 0 0 0 2px $button-primary;
+      }
+    }
+    .signTextNameInput:focus {
+      border-color: #344450 !important;
+      outline: none;
+      border: 1.5px solid;
+    }
+    .signTextBox {
+      padding: 0px 16px 0px 0px;
+    }
+    .signTextLabel {
+      display: flex;
+      padding: 4px;
+      .mainLabel {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        color: #344450;
+        font-size: 13px;
+      }
+      .signTextNameAsh {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        color: #910000;
+        font-size: 13px;
+      }
+    }
+    .signTextTabRadioGroup {
+      .dx-widget .dx-collection {
+        margin-top: 16px;
+        // padding: 28px 28px;
+        min-height: 140px;
+        border-top: 1px solid #d9dde1;
+        border-right: 1px solid #d9dde1;
+        border-left: 1px solid #d9dde1;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        // align-items: center;
+        // justify-content: center;
+        position: relative;
+        width: 416px;
+        overflow-y: auto;
+        height: 156px;
+      }
+      .dx-item.dx-radiobutton {
+        border-bottom: 1px solid #d9dde1;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        padding: 10px;
+        height: 45px !important;
+      }
+      .dx-radiobutton-icon-dot {
+        background-color: #da1c5c;
+      }
+      .dx-radiobutton-icon-checked {
+        border-color: #da1c5c;
+      }
+      .dx-radiobutton.dx-state-active .dx-radiobutton-icon-checked::after,
+      .dx-radiobutton.dx-state-focused .dx-radiobutton-icon-checked::after {
+        background-color: rgba(218, 28, 92, 0.1);
+        transform: scale(1);
+      }
+      .dx-item-content {
+        font-size: 20px;
+        padding-left: 5px;
+      }
+    }
+    .colorSelctionTextTab {
+      display: flex;
+      align-items: center;
+    }
+    .colorLabel {
+      font-size: 14px;
+      margin-right: 10px;
+      margin-left: 4px;
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      color: #344450;
+    }
+  }
+}
+

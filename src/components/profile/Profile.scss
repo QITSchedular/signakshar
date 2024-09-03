@@ -1,0 +1,47 @@
+body {
+    line-height: 150% !important;
+}
+
+.my-container{
+    width:100%;
+    background-color: #FBFBFB;
+    
+    & .header-main{
+        width: 100%;
+        height: 68px;
+        background-color: #FBFBFB;
+        padding: 16px 16px 16px 32px;
+        border-bottom: 1px solid;
+        border-color: #D9DDE1;
+    
+        
+    }
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      
+      .modal {
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+      
+      .enlarged-profile-img {
+        max-width: 100%;
+        max-height: 100%;
+      } 
+}

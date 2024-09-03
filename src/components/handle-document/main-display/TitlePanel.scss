@@ -1,0 +1,198 @@
+@import "../../../themes/generated/variables.base.scss";
+@import "../../../variable.scss";
+
+
+*{
+    line-height: 150%;
+}
+
+.main-title-panel{
+    // width: 1728px;
+    width: 100%;
+    height: 70px;
+    // background-color: #efdfdf;
+    gap: 8px;
+    background-color: #ffffff;  
+    display: flex;
+    // justify-content: center; //hori
+    align-items: center; //verti
+    padding: 0px 32px;
+
+    .panel-title{
+        margin: 12px 0px 14px 0px;
+        // background-color: #a07b7b;
+        // margin-left: 32px;
+        // padding-top: 12px;
+        // padding-bottom: 12px;
+        // width: 1323px;
+        width: 100%;
+        height: 46px;
+        font-family: "Inter";
+        font-size: 20px;
+        font-weight: 500;
+        color: #344450;
+        display: flex;
+        align-items: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          .titleName{
+            width: 25%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+    }
+
+    .split-btn{
+        // width: 140px;
+        width: 100%;
+        height: 44px;
+        background-color: #ed8f9a;
+        margin: 12px 32px 14px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .statusDetails {
+        height: 69px;
+        display: flex;
+        align-items: center;
+
+        .statusBtn {
+          border-radius: 16px;
+          height: 24px;
+          width: fit-content;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &[statustype="Completed"] {
+            background-color: rgba(16, 126, 62, 0.09);
+            .statusCircle {
+              background-color: #0c6230;
+            }
+            .statusText {
+              color: #0c6230;
+            }
+          }
+
+          &[statustype="Lapsed"] {
+            background-color: rgba(187, 0, 0, 0.09);
+            .statusCircle {
+              background-color: #910000;
+            }
+            .statusText {
+              color: #910000;
+            }
+          }
+
+          &[statustype="Pending"] {
+            background-color: rgba(233, 115, 12, 0.09);
+            .statusCircle {
+              background-color: #934908;
+            }
+            .statusText {
+              color: #934908;
+            }
+          }
+
+          &[statustype="Draft"] {
+            background-color: rgba(17, 100, 180, 0.09);
+            .statusCircle {
+              background-color: #0d4d8b;
+            }
+            .statusText {
+              color: #0d4d8b;
+            }
+          }
+
+          .statusCircle {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-left: 8px;
+            // margin-top: 5px;
+          }
+          .statusText {
+            margin-left: 7px;
+            margin-right: 8px;
+            font-weight: 500;
+            font-family: "Inter";
+            font-size: 14px;
+          }
+        }
+        .subtext {
+          color: #687787;
+          font-weight: 400;
+          font-family: "Inter";
+          font-size: 14px;
+        }
+      }
+
+      .btn-statusCompleted{
+        height: 44px;
+        background-color: #DA1C5C;
+        padding: 16px 16px;
+        font-size: 14px;
+        font-family: 'Inter';
+        width: 10% !important;
+        margin-right: 0px;
+
+        .dx-dropdownbutton-action{
+            background-color: $button-primary;
+            height: 44px;
+            width: 100%;   
+            border-radius: 4px 0px 0px 4px;
+            margin-right:2px
+        }
+    
+        .dx-button-text{
+            color: #F7F8F9;
+            text-transform: none;
+            text-overflow: none;
+            font-size: 14px;
+            font-family: 'Inter';
+            font-weight: 400;
+        }
+      }
+
+      .btn-statusLapsed{
+        height: 44px;
+        background-color: transparent;
+        padding: 11.5px 16px;
+        font-size: 14px;
+        font-family: 'Inter';
+        width: 150%;
+        border: 1px solid rgba(78, 93, 107, 0.24);
+        box-shadow: none;
+        margin-right: 0px;
+
+        .dx-dropdownbutton-action{
+            background-color: $button-primary;
+            height: 44px;
+            width: 110px; //actual= 90px    
+            // width: auto;
+            border-radius: 4px 0px 0px 4px;
+            margin-right:2px
+        }
+    
+        .dx-button-text{
+            color: #344450;
+            text-transform: none;
+            text-overflow: none;
+            font-size: 14px;
+            font-family: 'Inter';
+            font-weight: 400;
+        }
+      }
+
+      .btn-statusPending{
+
+      }
+
+      .btn-statusDraft{
+
+      }
+}

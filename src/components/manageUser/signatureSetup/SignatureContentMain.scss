@@ -1,0 +1,518 @@
+@import "../../../themes/generated/variables.base.scss";
+@import "../../../variable.scss";
+
+.popup-custom-tab-panel-container {
+  height: 80%;
+  // max-height: 332px;
+  // width: 684px;
+
+  .mytabpanel {
+    min-height: 240px;
+    // background-color: rgb(200, 174, 219); //chk2
+    .dx-tabs-wrapper {
+      margin: 10px 0px;
+      border-bottom: 1px solid #d9dde1;
+      gap: 32px;
+    }
+
+    .dx-multiview.dx-swipeable.dx-tabpanel.dx-tabpanel-tabs-position-top.dx-widget.dx-visibility-change-handler.dx-collection {
+      border: 2px;
+      background-color: transparent !important;
+    }
+
+    .dx-multiview-wrapper {
+      margin: 0px;
+    }
+
+    .dx-item.dx-tab.dx-tabpanel-tab {
+      padding: 16px 8px;
+      // height: 52px; //original
+      height: 55px; //56
+      // width: 62px;
+    }
+
+    .dx-tab-text-span {
+      padding: 0%;
+    }
+
+    .dx-item.dx-tab.dx-tabpanel-tab {
+      font-weight: 600;
+    }
+
+    .dx-item.dx-tab.dx-tabpanel-tab.dx-state-hover {
+      background-color: transparent !important;
+    }
+
+    .dx-item.dx-tab.dx-tabpanel-tab.dx-tab-selected {
+      // border-bottom: 1.5px solid #da1c5c !important;
+      .dx-tab-text {
+        color: #da1c5c !important;
+        box-shadow: none;
+        font-size: 14px;
+        font-weight: 600;
+        // border-bottom: 1px solid #da1c5c !important;
+      }
+    }
+
+    .dx-item.dx-tab.dx-tabpanel-tab.dx-tab-selected.dx-state-focused {
+      background-color: transparent !important;
+      color: #da1c5c !important;
+      border-bottom: 1px solid #da1c5c;
+    }
+
+    .dx-item.dx-tab.dx-tabpanel-tab.dx-tab-selected.dx-state-active {
+      background-color: transparent !important;
+    }
+
+    .dx-item.dx-multiview-item.dx-item.dx-tab.dx-tabpanel-tab {
+      margin: 0px;
+      padding: 0px !important;
+    }
+
+    .sub-tab-signature {
+      margin: 10px 0px;
+
+      .dx-tabs-wrapper {
+        border: 1px solid #b3bac3;
+        width: 234px !important;
+        height: 52px;
+        gap: 4px;
+        padding: 8px 4px;
+      }
+
+      .dx-item.dx-tab.dx-tabpanel-tab {
+        padding: 8px 4px;
+        height: 36px;
+        // width: 62px;
+      }
+
+      .dx-item-content.dx-tab-content {
+        border-radius: 2px;
+        padding: 8px 4px;
+      }
+
+      .dx-item-content.dx-tab-content:hover {
+        border-radius: 2px;
+        padding: 8px 4px;
+        // background-color: rgba(218, 28, 92, 0.09);
+      }
+
+      .dx-item.dx-tab.dx-tabpanel-tab.dx-tab-selected {
+        // background-color: rgb(190, 242, 190);
+        background-color: rgba(218, 28, 92, 0.09) !important;
+        border-bottom: none !important;
+      }
+
+      .dx-item.dx-tab.dx-tabpanel-tab.dx-state-hover {
+        background-color: rgba(218, 28, 92, 0.09) !important;
+        // color: #da1c5c !important;
+        // border-bottom: 1px solid #da1c5c !important;
+      }
+
+      // .dx-item.dx-tab.dx-tabpanel-tab.dx-tab-selected.dx-state-hover {
+      //   border-bottom: none !important;
+      // }  
+
+      .dx-item.dx-tab.dx-tabpanel-tab.dx-tab-selected.dx-state-focused {
+        // background-color: transparent !important;
+        background-color: rgba(218, 28, 92, 0.09) !important;
+        color: #da1c5c !important;
+        font-size: 14px;
+        // border-bottom: 1px solid #da1c5c !important;
+      }
+      
+      .dx-tabs-styling-mode-primary.dx-tab-indicator-position-bottom .dx-tab-selected::after {
+        background-color: transparent;
+      }
+
+      .demo {
+        margin-top: 16px;
+        padding: 8px 8px;
+        // min-height: 240px;
+        height: 300px;
+        border: 1px solid $border-light;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        .image-upload-area {
+          width: 410px;
+          height: 54px;
+          border: 1px dashed $border-light;
+          border-radius: 4px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          margin: 4px auto;
+          padding: 8px;
+          gap: 16px;
+
+          .img-box {
+            width: 100%;
+            padding: 12px 2px;
+            gap: 4px;
+            text-align: center;
+
+            .drag-img {
+              color: $text-darker;
+              font-family: "Inter", sans-serif;
+              font-size: 16px;
+              font-weight: 400;
+            }
+
+            .upload-img {
+              color: $button-primary;
+              font-family: "Inter", sans-serif;
+              font-size: 16px;
+              font-weight: 500;
+            }
+          }
+        }
+
+        .file-validation-info {
+          width: 410px;
+          margin: 4px auto 0px auto;
+          padding: 0 !important;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-style: italic;
+          color: $text-darker;
+        }
+
+        .file-validation-error-msg {
+          width: 410px;
+          margin: 4px auto 0px auto;
+          padding: 0;
+          font-family: "Inter", sans-serif;
+          color: #910000;
+          font-style: italic;
+          background-color: #fff;
+          padding-left: 24px;
+          // padding-top: 6px;
+          font-size: 14px;
+          position: relative;
+        }
+
+        .file-validation-error-msg::before {
+          pointer-events: none;
+          position: absolute;
+          top: 3;
+          left: 0;
+          margin-top: 2px;
+          font-style: normal;
+          width: 16px;
+          height: 16px;
+          text-align: center;
+          line-height: 18px;
+          font-size: 14px;
+          font-weight: 400;
+          background-color: #bb0000;
+          color: #fff;
+          content: "!";
+          border-radius: 50%;
+        }
+
+        .img-link {
+          text-decoration: none;
+        }
+
+        .image-details {
+          width: 410px;
+          height: 54px;
+          border: 1px solid $border-light;
+          border-radius: 4px;
+          background-color: $bg-color1;
+          display: flex;
+          align-items: center;
+          margin: 16px auto 4px auto;
+          padding: 8px;
+          row-gap: 4px;
+
+          .details-section {
+            display: flex;
+            align-items: center;
+            flex: 1;
+
+            .file-icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 44px;
+              height: 44px;
+              color: $icon-color;
+            }
+
+            .file-info {
+              display: flex;
+              align-items: center;
+              flex-grow: 1;
+              margin: auto;
+
+              .image-info {
+                margin: auto;
+                text-align: left;
+                height: 39px;
+                width: 282px;
+
+                .name {
+                  font-family: "Inter", sans-serif;
+                  font-size: 14px;
+                  font-weight: 500;
+                  color: $icon-color;
+                  margin: 0%;
+                }
+
+                .size {
+                  font-family: "Inter", sans-serif;
+                  font-size: 12px;
+                  font-weight: 500;
+                  color: $text-darker;
+                  margin: 0%;
+                }
+              }
+            }
+
+            .remove-icon {
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-left: auto;
+              width: 44px;
+              height: 44px;
+              color: $text-darker;
+            }
+          }
+        }
+      }
+
+      .demo-draw-tab {
+        margin-top: 20px;
+
+        .pen-color-selection {
+          // width: 341px;
+          width: auto;
+          height: 36px;
+          display: flex;
+          gap: 16px;
+          margin-left: 2px;
+
+          .btn-pen-color {
+            // width: auto;
+            height: 36px;
+            font-family: "Inter", sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            border: 1px solid rgba(78, 93, 107, 0.24);
+            border-radius: 1000px;
+            background-color: transparent;
+            box-shadow: none;
+
+            .dx-button-content {
+              // padding: 8px 16px;
+              text-overflow: ellipsis;
+              // width: 50px;
+            }
+
+            .dx-icon {
+              width: 24px;
+              height: 24px;
+              padding: 2px;
+            }
+
+            .dx-button-text {
+              text-transform: none;
+              color: $icon-color;
+            }
+
+            &:hover {
+              border: 1px solid $text-darker;
+            }
+
+            &.selected {
+              border: 1px solid $button-primary;
+            }
+
+            &:active {
+              border: 1px solid $text-darker;
+            }
+          }
+
+          .pen-red {
+            width: 95.6px;
+          }
+
+          .pen-black {
+            // width: 106.6px;
+            width: auto;
+          }
+
+          .pen-green {
+            width: 111.6px;
+          }
+        }
+
+        .drawing-pad-area {
+          margin-top: 20px;
+          padding: 8px 8px;
+          min-height: 240px;
+          border: 1px solid $border-light;
+          border-radius: 4px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+
+          .icon-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            border-radius: 0;
+            width: 44px;
+            height: 44px;
+
+            .dx-button-content {
+              width: 44px;
+              height: 44px;
+              // background-color: aliceblue;
+            }
+
+            .dx-icon {
+              width: 24px;
+              height: 24px;
+              color: $text-darker;
+            }
+
+            &:hover {
+              background-color: transparent;
+            }
+
+            &:focus {
+              background-color: transparent;
+            }
+
+            // &:active{
+            //   background-color: transparent;
+            // }
+
+            &.selected {
+              border: 1px solid $button-primary !important;
+              // background-color: peachpuff;
+            }
+          }
+
+          .signature-canvas {
+            width: 450px;
+            height: 200px;
+            // background-color: aliceblue;
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  .dx-tab-text {
+    text-transform: none;
+    font-family: "Inter", sans-serif;
+    color: #687787;
+  }
+
+  .dx-tab-text:hover {
+    text-transform: none;
+    font-family: "Inter", sans-serif;
+    color: #344450;
+  }
+
+  .dx-tab-text:active {
+    text-transform: none;
+    font-family: "Inter", sans-serif;
+    color: $button-primary;
+  }
+  .dx-tab-text:focus {
+    text-transform: none;
+    font-family: "Inter", sans-serif;
+    color: $button-primary;
+  }
+}
+
+.bottom-panel-popup {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  margin-top: 24px;
+  // margin-bottom: 90px;
+  align-items: center;
+  justify-content: space-between;
+
+  .skip-step {
+    color: $button-primary;
+    text-decoration: underline;
+    margin-right: 8px;
+    // padding-left: 4px;
+
+    .skip-step-text {
+      font-size: 14px;
+      font-weight: 400px;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    gap: 8px;
+    //   padding-bottom: 24px;
+  }
+
+  .my-btn-cancel {
+    color: #344450;
+    background-color: #fff;
+    width: 144px;
+    height: 44px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(78, 93, 107, 0.24);
+
+    .dx-button-text {
+      text-transform: none;
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+
+  .my-btn-continue {
+    color: #f7f8f9;
+    background-color: $button-primary;
+    width: 144px;
+    height: 44px;
+    margin-left: 8px;
+    margin-right: 0.5px;
+    padding: 8px;
+    border: 1px solid $button-primary;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px $button-primary;
+
+    .dx-button-text {
+      text-transform: none;
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+
+  .my-btn-continue:hover {
+    border: 1px solid $button-selected-hover;
+    background-color: $button-selected-hover;
+  }
+}
+
+.demo-company-stamp {
+  min-height: 240px;
+  margin-top: 16px;
+  padding: 8px 8px;
+  border: 1px solid $border-light;
+  border-radius: 4px;
+}

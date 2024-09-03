@@ -1,0 +1,150 @@
+@import "../../../themes/generated/variables.base.scss";
+@import "../../../variables.base.scss";
+@import "../../../dx-styles.scss";
+
+* {
+    line-height: 150%;
+}
+
+.headertest {
+
+    .dx-toolbar-label .dx-toolbar-item-content > div{
+        font-family: "Allerta Stencil";
+      }
+
+    width: 100%;
+    // height: 68px;
+    
+
+
+    .header2-component {
+        flex: 0 0 auto;
+        z-index: 1;
+        border-bottom: 1px solid #d9dde1;
+        background-color: #fbfbfb;
+
+        .dx-toolbar.header-toolbar {
+
+            .dx-toolbar-items-container {
+                .dx-toolbar-label {
+                    margin: 0px;
+
+                    >div {
+                        margin: 0px; // Apply negative horizontal margin
+                        padding: 0px; // Apply padding
+                    }
+                }
+
+                .dx-toolbar-item {
+                    padding: 0;
+                    padding-inline-end: none; // Apply horizontal padding
+                }
+
+                .dx-toolbar-before {
+                    padding-inline-end: 0px; // Apply padding
+                }
+
+                .dx-toolbar-after {
+                    display: none;
+                    padding: 0px 32px;
+
+                    .screen-x-small & {
+                        padding: 0 16px;
+                    }
+                }
+            }
+        }
+
+        .dx-toolbar {
+            .dx-toolbar-item:last-child {
+                // width: 1499px;
+
+                .demo {
+                    margin: 0px;
+                    padding-right: 32px;
+                    padding-top: 16px;
+                    padding-bottom: 16px;
+                    font-family: Inter;
+                    font-size: 14px;
+                    font-weight: 500 !important;
+                    color: #344450 !important;
+                }
+            }
+        }
+
+        .dx-item-content .dx-toolbar-item-content {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    .dx-toolbar.header-toolbar .dx-toolbar-items-container {
+        height: 68px;
+        background-color: #fbfbfb;
+    }
+
+    .header-title .dx-item-content {
+        // padding: 0;
+        padding: 16px 8px 16px 32px !important;
+        text-transform: none;
+        margin: 0;
+        font-family: "Allerta Stencil";
+        letter-spacing: 0.04em;
+        font-size: 24px;
+        line-height: 150%;
+        font-weight: 400;
+        color: #142129;
+
+    }
+
+    .button-custom {
+        background-color: transparent;
+        box-shadow: none;
+
+
+        .dx-button-text {
+            color: #344450;
+            font-size: 14px;
+            font-family: 'Inter';
+            line-height: 150%;
+            font-weight: 500;
+        }
+
+        .dx-button-content {
+            background-color: transparent;
+        }
+
+        .dx-button-mode-contained,
+        .dx-button-mode-contained.dx-state-hover {
+            box-shadow: none;
+        }
+    }
+
+    .dx-button-mode-contained.dx-state-focused {
+        box-shadow: none;
+    }
+
+    .dx-button.dx-state-focused,
+    .dx-button.dx-state-hover {
+        background-color: #fbfbfb;
+    }
+
+    .button-custom:hover {
+        box-shadow: none;
+        background-color: transparent;
+    }
+
+    .dx-button-has-icon.dx-button-has-text .dx-button-content {
+        padding: 0px 0px 0px 8px;
+    }
+
+    .dx-button-has-icon{
+        width :auto;
+        height: 48px;
+    }
+
+    .dx-button-has-icon.dx-button-has-text .dx-icon {
+        width: 24px;
+        height: 24px;
+    }
+}

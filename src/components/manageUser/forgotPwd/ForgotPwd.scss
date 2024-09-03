@@ -1,0 +1,345 @@
+// @import "../../../themes/generated/variables.base.scss";
+@import "../../../variables.base.scss";
+ 
+* {
+  line-height: 150%;
+}
+ 
+.dx-button-has-text .dx-button-content {
+  padding: none;
+}
+ 
+.container-main-mainuser {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 100vw;
+ 
+  .dx-button-has-text .dx-button-content {
+    padding: none;
+  }
+ 
+  .box {
+    height: 100vh;
+    width: 100vw;
+ 
+    &.box-1 {
+      background-image: url('../../../../LP\ Pictorial\ Part\ 1.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+ 
+    // .box-1 {
+    //   background-color: rgb(244, 226, 235);
+    // }
+ 
+    &.box-2 {
+      height: 100vh;
+      width: 100%;
+      background-color: #fff;
+      align-items: center;
+      justify-content: center;
+ 
+      .card {
+        height: 100%;
+        width: 100%;
+        margin: auto auto;
+        background-color: #fff;
+        overflow-y: auto;
+ 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+ 
+        .upper-section {
+          width: 80%;
+          display: flex;
+          font-weight: 400;
+          font-size: 40px;
+          color: #262626;
+          font-family: "Allerta Stencil";
+          justify-content: left;
+          align-items: center;
+        }
+ 
+        .dx-button-has-icon.dx-button-has-text .dx-button-content {
+          padding: none !important;
+        }
+ 
+        .dx-button-has-text .dx-button-content {
+          padding: none !important;
+        }
+ 
+        .lower-section {
+          // height: 81.2%;
+          /* Height of the lower section */
+          width: 80%;
+          /* Full width */
+          margin-top: 32px;
+          // justify-content: left;
+          /* Center content horizontally */
+          align-items: center;
+          color: rgb(72, 69, 69);
+          font-family: "Inter", sans-serif;
+ 
+          .resetText {
+            font-weight: 500;
+            font-size: 20px;
+            margin-top: 4px;
+            margin-bottom: 0;
+            font-family: "Inter";
+            color: $icon-color;
+          }
+ 
+          .resetTxtInfo {
+            font-size: 14px;
+            margin-top: 2px;
+            margin-bottom: 24px;
+            font-family: "Inter";
+            color: $text-darker;
+          }
+ 
+          .emailText {
+            // padding-top: 5%;
+            font-weight: 400;
+            font-size: 14px;
+            margin: 0px 0px 5px 0px;
+            font-family: "Inter";
+            color: $icon-color;
+ 
+            .required-field {
+              color: $errTxt;
+              font-family: "Inter";
+              font-weight: 500;
+            }
+          }
+ 
+          .pwdField{
+            margin-bottom: 24px;
+          }
+ 
+          .dx-invalid-message>.dx-overlay-content {
+            color: $errTxt;
+            font-style: italic;
+            background-color: #fff;
+            padding-left: 28px;
+            font-family: "Inter";
+            padding-top: 6px;
+            font-size: 13px;
+          }
+ 
+          .dx-invalid-message>.dx-overlay-content::before {
+            pointer-events: none;
+            position: absolute;
+            top: 50%;
+            left: 2%;
+            margin-left: 0px;
+            margin-top: -9px;
+            font-style: normal;
+            width: 17px;
+            height: 17px;
+            text-align: center;
+            line-height: 18px;
+            font-size: 11px;
+            font-family: "Inter";
+            font-weight: 600;
+            background-color: $errTxt;
+            color: #fff;
+            content: "!";
+            border-radius: 50%;
+          }
+ 
+          .dx-invalid.dx-texteditor.dx-show-invalid-badge .dx-texteditor-input-container::after {
+            content: "";
+            background: none;
+            font-size: 0px;
+            width: 0px;
+            height: 0px;
+            font-family: "Inter";
+          }
+ 
+          .custom-textbox.dx-texteditor.dx-editor-outlined {
+            border: 0px;
+          }
+ 
+          .dx-placeholder {
+            color: rgba(78, 93, 107, 0.32);
+            font-size: 16px;
+            font-family: "Inter";
+          }
+ 
+          .dx-texteditor.dx-editor-outlined {
+            box-shadow: inset 0 0 0 1px rgba(78, 93, 107, 0.24);
+            font-family: "Inter";
+          }
+ 
+          .custom-textbox.dx-texteditor.dx-editor-outlined {
+            &.dx-state-focused {
+              font-family: "Inter";
+              box-shadow: inset 0 0 0 1px #717271;
+ 
+            }
+          }
+ 
+          .custom-button {
+            margin: 6% 0%;
+            font-family: "Inter";
+            background-color: $primaryColor;
+          }
+ 
+          .custom-button.dx-button-mode-contained.dx-state-active {
+            box-shadow: none;
+            background-color: $button-selected-hover;
+          }
+ 
+          .termsText {
+            font-size: 14px;
+ 
+            color: rgb(124, 123, 123);
+            font-family: "Inter";
+ 
+            .termslink {
+              font-family: "Inter";
+              color: rgb(124, 123, 123);
+            }
+          }
+ 
+          .checkbox {
+            background-color: #fbfbfb;
+            line-height: 150%;
+            display: flex !important;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+ 
+            .dx-widget.dx-checkbox.dx-checkbox-checked.dx-checkbox-has-text {
+              background-color: #fff;
+            }
+ 
+            .dx-checkbox-icon {
+              width: 12px;
+              height: 12px;
+              background-color: white;
+              color: #0c6230;
+              // margin-right: 20px;
+            }
+ 
+            font-size: 14px;
+            margin-top: 6px;
+            // padding-top: 5px;
+            width: 100%;
+            display: inline-flex;
+            font-family: Inter;
+            color: #344450;
+            font-weight: 400 !important;
+            height: 20px;
+ 
+            span {
+              white-space: nowrap;
+              width: 99%;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+ 
+        }
+      }
+    }
+  }
+}
+ 
+@media only screen and (max-width: 450px) {
+  .container-main-mainuser {
+    .box {
+      &.box-1 {
+        display: none;
+      }
+ 
+      &.box-2 {
+        .card {
+          height: 100%;
+          width: 90%;
+        }
+      }
+    }
+  }
+}
+ 
+@media only screen and (min-width: 450px) {
+  .container-main-mainuser {
+    .box {
+      &.box-1 {
+        display: none;
+      }
+ 
+      &.box-2 {
+        .card {
+          height: 100%;
+          width: 90%;
+        }
+      }
+    }
+  }
+}
+ 
+@media only screen and (min-width: 768px) {
+  .container-main-mainuser {
+    .box {
+      &.box-1 {
+        display: none;
+      }
+ 
+      &.box-2 {
+        background-size: cover;
+        background-image: url("../../LP\ Pictorial\ Part\ 1.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: rgb(253, 206, 230);
+ 
+        .card {
+          background: rgba(255, 255, 255, 1);
+          width: calc(100% - 180px);
+        }
+      }
+    }
+  }
+}
+ 
+@media only screen and (min-width: 840px) {
+  .container-main-mainuser {
+    .box {
+      &.box-1 {
+        display: block;
+      }
+ 
+      &.box-2 {
+        background: rgba(255, 255, 255, 1);
+ 
+        .card {
+          width: calc(100% - 180px);
+        }
+      }
+    }
+  }
+}
+ 
+@media only screen and (min-width: 1440px) {
+  .container-main-mainuser {
+    .box {
+      &.box-1 {
+        display: block;
+      }
+ 
+      &.box-2 {
+        background: rgba(255, 255, 255, 1);
+ 
+        .card {
+          width: calc(100% - 180px);
+        }
+      }
+    }
+  }
+}

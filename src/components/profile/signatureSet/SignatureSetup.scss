@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Inter:wght@100..900&display=swap");
+@import "../../../../src/variable.scss";
+
+.signatureSetup-tabPanel {
+  .dx-tabs.dx-tabs-scrolling-enabled.dx-tabs-horizontal.dx-tab-indicator-position-bottom.dx-tabs-icon-position-start.dx-tabs-styling-mode-primary.dx-widget.dx-visibility-change-handler.dx-collection.dx-tabs-expanded {
+    border-bottom: 1px;
+    border-color: #ffffff !important ;
+  }
+  .dx-tab {
+    margin-right: 32px !important;
+  }
+  .dx-tab:last-child {
+    margin-right: 0px !important;
+  }
+  .dx-tab .dx-tab-text {
+    text-transform: none;
+    color: #687787;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px;
+  }
+  .dx-tabs-wrapper {
+    height: 52px;
+    width: 100%;
+    border-bottom: 1px solid #b3bac3;
+  }
+  .dx-tabs-styling-mode-primary.dx-tab-indicator-position-bottom
+    .dx-tab-selected::after {
+    background-color: #da1c5c;
+    height: 1px !important;
+  }
+  .dx-tabs-styling-mode-primary.dx-tab-indicator-position-bottom
+    .dx-state-focused::after {
+    background-color: #da1c5c;
+    height: 1px !important;
+  }
+  .dx-tabpanel-tabs {
+    padding: 0px !important;
+  }
+  .dx-tab-selected {
+    background-color: #ffffff;
+    .dx-tab-text-span {
+      color: #da1c5c;
+    }
+  }
+
+  .dx-state-active {
+    background-color: #ffffff;
+  }
+  .dx-state-focused {
+    background-color: #ffffff !important;
+  }
+  .dx-icon {
+    height: 16px;
+    width: 16px;
+  }
+  .dx-tab.dx-tab-selected,
+  .dx-tab.dx-tab-selected .dx-icon {
+    color: #ffffff;
+  }
+  .dx-tabpanel {
+    // width: 100px;
+    height: 80px !important;
+  }
+  .dx-tabpanel-container {
+    min-height: auto;
+  }
+  .dx-tabpanel-tabs-position-top.dx-widget.dx-visibility-change-handler.dx-collection {
+    height: 100% !important;
+    padding-top: 24px;
+  }
+  .dx-theme-background-color.dx-multiview.dx-swipeable.dx-tabpanel.dx-tabpanel-tabs-position-top.dx-widget.dx-visibility-change-handler.dx-collection {
+    padding: 0%;
+  }
+}

@@ -1,0 +1,95 @@
+@import "../../../themes/generated/variables.base.scss";
+@import "../../../variable.scss";
+
+* {
+  line-height: 150%;
+}
+
+.draggable-fields-inner-container {
+  // border: 1px solid;
+  gap: 12px;
+
+  .draggable-fields {
+    // box-shadow: none;
+    background-color: rgba(184, 122, 254, 0.05);
+    // background-color: rgba(184, 122, 254, 0.1);
+    margin-bottom: 12px;
+    padding: 0px 8px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 20;
+    // justify-content: center;
+
+    .draggable-icon {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    //   margin-left: 8px;
+      width: 44px;
+      height: 44px;
+      color: $text-darker;
+    }
+
+    .field-text{
+        color: #344450;
+        font-family: 'Inter';
+        font-size: 16px;
+        font-weight: 500;
+        margin: 12px 0px;
+        width: 100%;
+    }
+
+    .edit-icon{
+        // cursor: pointer;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        // margin-left: 8px;
+        width: 44px;
+        height: 44px;
+        border-radius: 0;
+        background-color: transparent;
+
+        // .dx-button{
+        //     background-color: transparent;
+        // }
+
+        // .dx-button-content {
+        //     width: 44px;
+        //     height: 44px;
+        //   }
+  
+        //   .dx-icon {
+        //     width: 24px;
+        //     height: 24px;
+        //     color: $text-darker;
+        //   }
+    }
+  }
+}
+
+.dx-widget.dx-button.dx-button-mode-contained.dx-button-normal.dx-button-has-icon.edit-pen{
+    width: 44px;
+    height: 44px;   
+    border-radius: 0;
+    background-color: transparent;
+    
+}
+
+.dx-widget.dx-button.dx-button-mode-contained.dx-button-normal.dx-button-has-icon.edit-pen{
+    .dx-button-content{
+        width: 44px;
+        height: 44px;   
+        // padding: 10px;
+
+        .dx-icon {
+            width: 24px;
+            height: 24px;
+            color: $text-darker;
+          }
+    }
+}

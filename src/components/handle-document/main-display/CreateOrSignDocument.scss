@@ -1,0 +1,38 @@
+// .my-container {
+//     width: 100%;
+//     background-color: #ffffff;
+// }
+
+// .my-main-container{
+//     padding-left: 32px;
+//     padding-right: 32px;
+// }
+
+// CreateOrSignDocument.scss
+
+// CreateOrSignDocument.scss
+
+.my-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto; // Add vertical scrollbar
+    overflow-x: hidden; // Prevent horizontal scrollbar
+}
+
+.my-main-container {
+    flex: 1;
+    // padding: 20px;
+}
+
+.title-panel,
+.detail-panel,
+.document-main {
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 300px; // Adjust as necessary
+    overflow-y: auto; // Add vertical scrollbar if content exceeds max height
+}

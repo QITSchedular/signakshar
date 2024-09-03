@@ -1,0 +1,165 @@
+@import "../../../variables.base.scss";
+.container-main-mainuser {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 100vw;
+
+    .box {
+        height: 100vh;
+        width: 100vw;
+
+        &.box-1 {
+            background-size: cover;
+            background-image: url("../../LP\ Pictorial\ Part\ 1.png");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: rgb(253, 206, 230);
+        }
+
+        &.box-2 {
+            height: 100vh;
+            width: 100%;
+            background-color: #fff;
+            align-items: center;
+            justify-content: center;
+
+            .card-otp {
+                height: 100%;
+                width: 100%;
+                margin: auto auto;
+                background-color: #fff;
+                // border: 1px solid transparent;
+                overflow-y: auto;
+
+                .extra-box {
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    margin: auto;
+
+                    .upper-section {
+                        width: 50%;
+                        font-size: 40px;
+                        font-family: "Allerta Stencil";
+                        font-weight: 500;
+                    }
+
+                    .lower-section {
+                        width: 50%;
+                        margin-top: 32px;
+                        color: rgb(72, 69, 69);
+                        font-family: "Inter";
+                        overflow-y: auto;
+
+                        .resetText {
+                            font-weight: 500;
+                            font-size: 20px;
+                            margin-top: 4px;
+                            margin-bottom: 0;
+                            font-family: "Inter";
+                            color: $icon-color;
+                          }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .container-main-mainuser {
+        .box {
+            &.box-1 {
+                display: none;
+            }
+
+            &.box-2 {
+                .card-otp {
+                    height: 100%;
+                    width: 90%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 450px) {
+    .container-main-mainuser {
+        .box {
+            &.box-1 {
+                display: none;
+            }
+
+            &.box-2 {
+                .card-otp {
+                    height: 100%;
+                    width: 90%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .container-main-mainuser {
+        .box {
+            &.box-1 {
+                display: none;
+            }
+
+            &.box-2 {
+                background-size: cover;
+                background-image: url("../../LP\ Pictorial\ Part\ 1.png");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-color: rgb(253, 206, 230);
+
+                .card-otp {
+                    background: rgba(255, 255, 255, 1);
+                    width: calc(100% - 120px);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 840px) {
+    .container-main-mainuser {
+        .box {
+            &.box-1 {
+                display: block;
+            }
+
+            &.box-2 {
+                background: rgba(255, 255, 255, 1);
+
+                .card-otp {
+                    width: calc(100% - 20px);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .container-main-mainuser {
+        .box {
+            &.box-1 {
+                display: block;
+            }
+
+            &.box-2 {
+                background: rgba(255, 255, 255, 1);
+
+                .card-otp {
+                    width: calc(100% - 20px);
+                }
+            }
+        }
+    }
+}
