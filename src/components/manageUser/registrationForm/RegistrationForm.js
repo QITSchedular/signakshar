@@ -32,6 +32,8 @@ export default function RegistrationForm() {
   const { signInWithGoogle } = useAuth();
   const [showpwd, setshowpwd] = useState(false);
   const [passwordMode, setPasswordMode] = useState("password");
+  const passwordTextBoxRef = useRef(null);
+
 
   // Track the current step
   const [currentStep, setCurrentStep] = useState(1);
@@ -160,6 +162,11 @@ export default function RegistrationForm() {
                 className="custom-textbox"
                 value={email}
                 onValueChanged={(e) => setEmail(e.value.toLowerCase())}
+                onEnterKey={(e) => {
+                  if (e.event.key === 'Enter') {
+                    passwordTextBoxRef.current.instance.focus();
+                  }
+                }}
               >
                 <Validator ref={emailValidatorRef}>
                   <EmailRule message="Please enter a valid email address." />
@@ -181,6 +188,12 @@ export default function RegistrationForm() {
                 // }}
                 valueChangeEvent="keyup"
                 onValueChanged={handlePasswordChange}
+                ref={passwordTextBoxRef}
+                onEnterKey={(e) => {
+                  if (e.event.key === 'Enter') {
+                    handleContinue()
+                  }
+                }}
               >
                 <Validator ref={passwordValidatorRef}>
                   <CustomRule

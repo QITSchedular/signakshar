@@ -77,6 +77,7 @@ function PopupMain({
 
 
   const [selectedDate, setSelectedDate] = useState(scheduleDateState);
+  // const [selectedDate, setSelectedDate] = useState("");
 
 
   const handleNavigate = () => {
@@ -109,7 +110,7 @@ function PopupMain({
     const minutes = String(date.getMinutes()).padStart(2, "0");
     const formattedTime = `${hours}:${minutes}`;
     console.log("formattedTime-----------", formattedTime);
-    setSelectedTime(formattedTime);
+    setSelectedTime(formattedTime)
   };
 
   const handleTimeInput = (e) => {
@@ -117,7 +118,8 @@ function PopupMain({
 
     if (time24HourRegex.test(e.event.target.value)) {
       console.log("Valid time format:", e.event.target.value);
-      setSelectedTime(e.event.target.value);  // Update state if the input is valid
+      console.log('setSelectedTime prop:', setSelectedTime);
+      setSelectedTime(e.event.target.value)  // Update state if the input is valid
     } else {
       console.log("Invalid time format");
     }
