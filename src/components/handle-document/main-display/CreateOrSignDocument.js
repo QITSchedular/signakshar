@@ -19,7 +19,7 @@ import axios from "axios";
 import LoadPanel from 'devextreme-react/load-panel';
 
 function CreateOrSignDocument() {
-  const { user } = useAuth();
+  const { user,userDetailAuth } = useAuth();
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const mystatus = location.state?.status;
@@ -50,9 +50,9 @@ function CreateOrSignDocument() {
 
   const fetchUser = async () => {
     setLoading(true);
-    const resp = await fetchUserDetails(user);
+    // const resp = await fetchUserDetails(user);
     setLoading(false);
-    setLoggedInUserdetail(resp);
+    setLoggedInUserdetail(userDetailAuth);
   };
 
   useEffect(() => {

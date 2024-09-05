@@ -45,7 +45,7 @@ function SplitButtonSign({
   updatedEditRecipients,
   isSigned,
 }) {
-  const { user } = useAuth();
+  const { user,userDetailAuth } = useAuth();
   const [userObj, setuserObj] = useState([]);
   const [popupVisibleSend, setPopupVisibleSend] = useState(false);
   const [popupVisibleSchedule, setPopupVisibleSchedule] = useState(false);
@@ -61,8 +61,8 @@ function SplitButtonSign({
   useEffect(() => {
     const fetchuserData = async () => {
       try {
-        const response = await fetchUserDetails(user);
-        setuserObj(response);
+        // const response = await fetchUserDetails(user);
+        setuserObj(userDetailAuth);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -74,7 +74,6 @@ function SplitButtonSign({
     if (dateString === new Date().toLocaleDateString()) {
       const [month, day, year] = dateString.split("/"); // Adjust parsing for MM/DD/YYYY format
       const [hours, minutes] = timeString.split(":");
-      console.log("dateString:", dateString);
       // Create a new Date object by parsing the components
       const mergedDate = new Date(
         parseInt(year, 10), // Year

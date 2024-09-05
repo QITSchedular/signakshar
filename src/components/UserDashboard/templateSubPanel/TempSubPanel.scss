@@ -115,144 +115,152 @@
   .tempMainList {
     background-color: #fbfbfb;
 
+    .template-list{
+
+      .dx-list-items {
+        display: flex;
+        // gap: 28.75px;
+        row-gap: 28px;
+        column-gap: 2%;
+        flex-wrap: wrap;
+        padding: 24px 32px;
+
+        .dx-list-item {
+          // width: 305px;
+          min-width: 233px;
+          width: 15%;
+          padding: 1rem;
+          box-shadow: 0 2px 16px 0px rgba(78, 93, 107, 0.09);
+        
+          &:hover {
+            transition: .2s ease-in-out;
+            transform: scale(1.01);
+            box-shadow: 0px 10px 10px -10px #bababa;
+          }
+
+          .listBox {
+            display: flex;
+            flex-direction: column;
+            // background-color: #ffffff;
+
+            .pdfImg {
+              border: 1px solid #e2e2e2;
+              box-shadow: inset 0px 10px 10px -10px #9a9a9a;
+              background-image: url("../../../SVG/1\ 2.png");
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: center;
+              height: 250px;
+              width: 100%;
+            }
+
+            .listContent {
+              display: flex;
+              padding-top: 16px;
+              align-items: center;
+              justify-content: space-evenly;
+              gap: .5rem;
+
+              .listInfo {
+                flex: 1;
+                min-width: 0;
+
+                .listDocName {
+                  font-family: "Inter";
+                  font-size: 18px;
+                  font-weight: 500;
+                  color: #344450;
+                  padding-bottom: 4px;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                }
+
+                .listRec {
+                  font-family: "Inter";
+                  font-size: 14px;
+                  font-weight: 500;
+                  color: #687787;
+                }
+              }
+
+              .listAction {
+                flex-shrink: 0;
+              }
+            }
+          }
+
+
+          .dx-button {
+            margin-right: 0px;
+          }
+
+          .dx-button-mode-outlined {
+            border: 1px solid rgba(78, 93, 107, 0.24);
+          }
+
+          .dx-button-mode-outlined:hover {
+            border: 1px solid #687787;
+          }
+
+          .dx-button-mode-outlined.dx-state-focused,
+          .dx-button-mode-outlined.dx-state-hover {
+            background-color: transparent;
+          }
+
+          .dx-list-item-content {
+            padding: 0px;
+            margin: 0px;
+          }
+        
+        }
+
+
+      }
+
+    }
+
     .dx-list-item-content {
       display: contents;
     }
+
   }
 
-  .dx-list-items {
-    display: flex;
-    // gap: 28.75px;
-    row-gap: 28px;
-    column-gap: 2%;
-    flex-wrap: wrap;
-    padding: 24px 32px;
-  }
-
-  .dx-list-item {
-    // width: 305px;
-    width: 15%;
-    box-shadow: 0 2px 16px 0px rgba(78, 93, 107, 0.09);
-  }
-  // .listBox {
-  //   // height: 363px;
-  //   background-color: #ffffff;
-  //   .pdfImg {
-  //     background-image: url("../../../SVG/1\ 2.png");
-  //     background-size: cover;
-  //     background-repeat: no-repeat;
-  //     background-position: center;
-  //     height: 279px;
-  //     width: 100%;
-  //   }
-
-  //   .listContent {
-  //     display: flex;
-  //     height: 84px;
-  //     padding: 16px 24px;
-  //     align-items: center;
-  //     justify-content: space-between;
-
-  //     .dx-button.dx-button-has-icon:not(.dx-button-has-text):not(
-  //         .dx-shape-standard
-  //       ) {
-  //       border-radius: 4px;
-  //     }
-
-  //     .listInfo {
-  //       .listDocName {
-  //         font-family: "Inter";
-  //         font-size: 18px;
-  //         font-weight: 500;
-  //         color: #344450;
-  //         padding-bottom: 4px;
-  //       }
-  //       .listRec {
-  //         font-family: "Inter";
-  //         font-size: 14px;
-  //         font-weight: 500;
-  //         color: #687787;
-  //       }
-  //     }
-  //   }
-  // }
-
-  .listBox {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    .pdfImg {
-      background-image: url("../../../SVG/1\ 2.png");
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      height: 250px;
-      width: 100%;
-    }
-  
-    .listContent {
-      display: flex;
-      padding: 16px 24px;
-      align-items: center;
-      justify-content: space-between;
-  
-      .listInfo {
-        flex: 1;
-        min-width: 0; // Important for flexbox to handle overflow
-        .listDocName {
-          font-family: "Inter";
-          font-size: 18px;
-          font-weight: 500;
-          color: #344450;
-          padding-bottom: 4px;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        }
-        .listRec {
-          font-family: "Inter";
-          font-size: 14px;
-          font-weight: 500;
-          color: #687787;
-        }
-      }
-  
-      .listAction {
-        flex-shrink: 0;
-        margin-left: 16px;
-      }
-    }
-  }
-  
-
-  .dx-button {
-    margin-right: 0px;
-  }
-
-  .dx-button-mode-outlined {
-    border: 1px solid rgba(78, 93, 107, 0.24);
-  }
-
-  .dx-button-mode-outlined:hover {
-    border: 1px solid #687787;
-  }
-
-  .dx-button-mode-outlined.dx-state-focused,
-  .dx-button-mode-outlined.dx-state-hover {
-    background-color: transparent;
-  }
-
-  .dx-list-item-content {
-    padding: 0px;
-    margin: 0px;
-  }
 }
+
+// .dx-context-menu.moreMenu .dx-submenu {
+//   padding: 20px 16px;
+//   // box-shadow: 0px 0px 5px -3px rgba(0, 0, 0, 0.2);
+//   box-shadow:0 1px 9px -4px rgba(0, 0, 0, 0.1)
+// }
+
+// .dx-context-menu.moreMenu .dx-menu-item .dx-menu-item-content {
+//   padding: 9.5px 8px;
+// }
+// .dx-context-menu.moreMenu .dx-submenu {
+//   padding: 20px 16px;
+//   box-shadow: 0px 0px 5px -3px rgba(0, 0, 0, 0.2);
+//   height: 160px;
+//   margin-bottom: 0;
+// }
+
+// .dx-context-menu.moreMenu .dx-menu-item .dx-menu-item-content {
+//   // overflow: hidden;
+//   padding: 10px 8px;
+// }
 
 .dx-context-menu.moreMenu .dx-submenu {
-  padding: 20px 16px;
-  box-shadow: 0px 0px 5px -3px rgba(0, 0, 0, 0.2);
-}
+  width: auto;
+  height: 100%;
+  padding: 1rem 16px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
 
-.dx-context-menu.moreMenu .dx-menu-item .dx-menu-item-content {
-  padding: 9.5px 8px;
+  ul {
+    margin-bottom: 0 !important;
+    height: 100%;
+
+    li {
+      margin: 4px 0 4px 0;
+    }
+  }
 }

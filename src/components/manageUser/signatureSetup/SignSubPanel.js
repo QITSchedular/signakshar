@@ -94,7 +94,6 @@ function SignSubPanel({
       const image = new Image();
       image.src = loggedInUserDetail.signature_details.draw_img_name;
       image.onload = () => {
-        console.log("signatureCanvasa:",signatureCanvas)
         if (signatureCanvas) {
           const canvas = signatureCanvas.getCanvas();
           const ctx = canvas.getContext("2d");

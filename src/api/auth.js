@@ -68,6 +68,7 @@ export async function signInWithGoogleAPI(access_token) {
           token: access_token,
         }
       );
+      console.log("--:",response.data);
       const token = response.data.jwt;
       localStorage.setItem("jwt", token);
       toastDisplayer("success", "Login Successful");
@@ -75,6 +76,7 @@ export async function signInWithGoogleAPI(access_token) {
         isOk: true,
         // data: defaultUser
         data: token,
+        // userData:
       };
     } catch (error) {
       console.error("Error during login:", error);
@@ -92,7 +94,7 @@ export async function signInWithGoogleAPI(access_token) {
 export async function getUser() {
   try {
     const jwtToken = localStorage.getItem("jwt");
-    await axios.get(process.env.REACT_APP_API_URL+"/api/user/", {
+    const userResponse=await axios.get(process.env.REACT_APP_API_URL+"/api/user/", {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
       },
@@ -100,6 +102,7 @@ export async function getUser() {
     return {
       isOk: true,
       data: jwtToken,
+      userData:userResponse.data
       // data: defaultUser
     };
   } catch (error) {

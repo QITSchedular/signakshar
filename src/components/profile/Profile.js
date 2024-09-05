@@ -7,8 +7,10 @@ import LoadPanel from 'devextreme-react/load-panel';
 import { toastDisplayer } from "../../components/toastDisplay/toastDisplayer";
 import { fetchUserDetails, updateUserData } from "../../api/UserDashboardAPI";
 import { Link, useNavigate } from "react-router-dom";
- 
+import { useAuth } from "../../contexts/auth";
+
 export default function Profile() {
+  const {userDetailAuth,fetchAuthUserData} = useAuth();
   const navigate = useNavigate();
   const [myData, setMyData] = useState(null);
   const [updatedData, setUpdatedData] = useState(null);
@@ -104,13 +106,6 @@ export default function Profile() {
   const handleCloseModal = () => {
     setShowModal(false); // Close modal
   };
- 
-  // useEffect(() => {
-  //   const profileImgFromLocalStorage = localStorage.getItem("profileImage");
-  //   if (profileImgFromLocalStorage) {
-  //     setSelectedImage(profileImg);
-  //   }
-  // }, []);
  
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -271,26 +266,26 @@ export default function Profile() {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("jwt");
-      const response = await fetchUserDetails(token);
-      setRegisteredUserDetails(response);
-      setMyData(response.user);
+      // const response = await fetchUserDetails(token);
+      setRegisteredUserDetails(userDetailAuth);
+      setMyData(userDetailAuth.user);
       setValues({
-        textbox1: response.user.full_name || "",
-        textbox2: response.user.email || "",
-        textbox3: response.user.initial || "",
+        textbox1: userDetailAuth.user.full_name || "",
+        textbox2: userDetailAuth.user.email || "",
+        textbox3: userDetailAuth.user.initial || "",
       });
       // setSelectedImage(response.user.profile_pic || profileImg);
-      setSelectedImage(response.user.profile_pic);
+      setSelectedImage(userDetailAuth.user.profile_pic);
  
-      if (response.signature_details.img_name) {
+      if (userDetailAuth.signature_details.img_name) {
         const binaryString = atob(
-          response.signature_details.img_name.split(",")[1]
+          userDetailAuth.signature_details.img_name.split(",")[1]
         );
         // setSignatureCanvas(response.signature_details.draw_img_name || '');
         // setInitialCanvas(response.initials_details.draw_img_name || '');
         // setStoredImageURL(response.data.signature_details.draw_img_name || "");
-        setStoredImageURL(response.signature_details.draw_img_name || "");
-        setInitImageURL(response.initials_details.draw_img_name || '');
+        setStoredImageURL(userDetailAuth.signature_details.draw_img_name || "");
+        setInitImageURL(userDetailAuth.initials_details.draw_img_name || '');
         const len = binaryString.length;
         const bytes = new Uint8Array(len);
  
@@ -315,17 +310,17 @@ export default function Profile() {
         setImageDetails(null);
       }
       setSignatureTextDataProfile((prevState) => ({
-        signature_text_value: response.signature_details.sign_text_value,
-        signature_text_font: response.signature_details.sign_text_font,
-        signature_text_color: response.signature_details.sign_text_color,
+        signature_text_value: userDetailAuth.signature_details.sign_text_value,
+        signature_text_font: userDetailAuth.signature_details.sign_text_font,
+        signature_text_color: userDetailAuth.signature_details.sign_text_color,
       }));
-      setSignatureTextTextUrlProfile(response.signature_details.sign_text);
+      setSignatureTextTextUrlProfile(userDetailAuth.signature_details.sign_text);
  
       // //Initials
       // setInitDrawData(response.initials_details.draw_img_name || "");
-      if (response.initials_details.draw_img_name) {
+      if (userDetailAuth.initials_details.draw_img_name) {
         const image = new Image();
-        image.src = response.initials_details.draw_img_name;
+        image.src = userDetailAuth.initials_details.draw_img_name;
         // console.log("img src", image.src);
         image.onload = async () => {
           if (initialCanvas) {
@@ -340,14 +335,14 @@ export default function Profile() {
         };
       }
       setInitalsTextDataProfile((prevState) => ({
-        initials_text_value: response?.initials_details?.initial_text_value,
-        initials_text_color: response?.initials_details?.initial_text_color,
-        initials_text_font: response?.initials_details?.initial_text_font
+        initials_text_value: userDetailAuth?.initials_details?.initial_text_value,
+        initials_text_color: userDetailAuth?.initials_details?.initial_text_color,
+        initials_text_font: userDetailAuth?.initials_details?.initial_text_font
       }));
       // setStoredImageURL(response.initials_details.img_name || "");
-      if (response.signature_details.img_name) {
+      if (userDetailAuth.signature_details.img_name) {
         const binaryString = atob(
-          response.initials_details.img_name.split(",")[1]
+          userDetailAuth.initials_details.img_name.split(",")[1]
         );
         const len = binaryString.length;
         const bytes = new Uint8Array(len);
@@ -372,8 +367,8 @@ export default function Profile() {
  
       // Company Stamp
       // setSelectedImageCS(response.data.user.stamp_img_name || '')
-      if (response.user.stamp_img_name) {
-        const binaryString = atob(response.user.stamp_img_name.split(",")[1]);
+      if (userDetailAuth.user.stamp_img_name) {
+        const binaryString = atob(userDetailAuth.user.stamp_img_name.split(",")[1]);
         const len = binaryString.length;
         const bytes = new Uint8Array(len);
  
@@ -475,11 +470,12 @@ export default function Profile() {
       // formData.append("initials[draw_img_name]", initImageURL);
       formData.append("initials[img_name]", initialsImgNameBase64 || registeredUserDetails?.initials_details?.img_name);
       formData.append("user_id", myData?.id);
-     
+      // console.log("response:",formData.get("initials[draw_img_name]"))
+      // uncomment this
       const response = await updateUserData(token, formData);
       setUpdatedData(response);
+      await fetchAuthUserData();
       await fetchData();
- 
       toastDisplayer("success", "Profile Updated");
       setLoading(false);
       navigate('/userdashboard');

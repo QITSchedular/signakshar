@@ -53,7 +53,7 @@ function SidebarMainLeft({
   applyInitialsImageData,
   loggedinRecipientDetail,
 }) {
-  const { user } = useAuth();
+  const { user,userDetailAuth } = useAuth();
   const [signerOptions, setSignerOptions] = useState([]);
   const [selectedSigner, setSelectedSigner] = useState("");
   const [selectedSignerColor, setSelectedSignerColor] = useState();
@@ -174,8 +174,8 @@ function SidebarMainLeft({
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetchUserDetails(user);
-        setLoggedInUserData(response);
+        // const response = await fetchUserDetails(user);
+        setLoggedInUserData(userDetailAuth);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }

@@ -12,22 +12,23 @@ import { fetchUserDetails } from "../../api/UserDashboardAPI";
 import { LoadPanel } from "devextreme-react";
 
 export default function UserPanel({ menuMode }) {
-  const { user, signOut } = useAuth();
+  const { user, userDetailAuth,signOut } = useAuth();
+  console.log("userDetailAuth:",userDetailAuth);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(null);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetchUserDetails(user);
-        setUserData(response);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    fetchUserData();
-  }, [user.data]);
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const response = await fetchUserDetails(user);
+  //       setUserData(response);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
+  //   fetchUserData();
+  // }, [user.data]);
 
 
   const navigateToProfile = useCallback(() => {
@@ -54,16 +55,16 @@ export default function UserPanel({ menuMode }) {
       {loading && <LoadPanel visible={true} />}
       <div className={"user-panel"}>
         <div className={"user-info"}>
-          {userData && (
+          {userDetailAuth && (
             <>
               <div className={"image-container"}>
                 {
-                  (userData.user.profile_pic && (userData.user.profile_pic != "null"))
-                    ? <img src={userData.user.profile_pic} alt="profile_img" height={35} width={35} />
-                    : <span>{userData ? userData.user.email[0].toUpperCase() : ""}</span>
+                  (userDetailAuth.user.profile_pic && (userDetailAuth.user.profile_pic != "null"))
+                    ? <img src={userDetailAuth.user.profile_pic} alt="profile_img" height={35} width={35} />
+                    : <span>{userDetailAuth ? userDetailAuth.user.email[0].toUpperCase() : ""}</span>
                 }
               </div>
-              <div className={"user-name"}>{userData && userData.user.full_name !== null ? userData.user.full_name : userData.user.email.split('@')[0]}</div>
+              <div className={"user-name"}>{userDetailAuth && userDetailAuth.user.full_name !== null ? userDetailAuth.user.full_name : userDetailAuth.user.email.split('@')[0]}</div>
             </>
           )}
 

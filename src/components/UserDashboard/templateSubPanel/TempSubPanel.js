@@ -22,7 +22,7 @@ import { useAuth } from "../../../contexts/auth";
 import { LoadPanel } from "devextreme-react";
 
 function TempSubPanel() {
-  const { user } = useAuth();
+  const { user,userDetailAuth } = useAuth();
   const [searchValue, setSearchValue] = useState("");
   const [templateData, setTemplateData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -36,36 +36,40 @@ function TempSubPanel() {
     try {
       setLoading(true);
       const jwtToken = localStorage.getItem("jwt");
-      const userResponse = await fetchUserDetails(user);
+      // const userResponse = await fetchUserDetails(user);
+
 
       // Fetch templates
-      const templates = await fetchTemplates(jwtToken, userResponse.user.id);
+      const templates = await fetchTemplates(jwtToken, userDetailAuth.user.id);
+      if (templates.length > 0) {
+        const imgResponse = await fetchTemplateBucketForImages(userDetailAuth);
 
-      const imgResponse = await fetchTemplateBucketForImages(userResponse);
+        // Create a map of template_id to image
+        const imgMap = imgResponse.documents.reduce((map, doc) => {
+          map[doc.template_id] = doc.image;
+          return map;
+        }, {});
 
-      // Create a map of template_id to image
-      const imgMap = imgResponse.documents.reduce((map, doc) => {
-        map[doc.template_id] = doc.image;
-        return map;
-      }, {});
+        // Fetch recipients and merge with images
+        const templateDataWithRecipients = await Promise.all(
+          templates.map(async (template) => {
+            const recipientResponse = await fetchRecipientsByTemplateId(
+              template.template_id,
+              jwtToken
+            );
+            template.recData = recipientResponse;
 
-      // Fetch recipients and merge with images
-      const templateDataWithRecipients = await Promise.all(
-        templates.map(async (template) => {
-          const recipientResponse = await fetchRecipientsByTemplateId(
-            template.template_id,
-            jwtToken
-          );
-          template.recData = recipientResponse;
-
-          // Add image data if available
-          template.image = imgMap[template.template_id] || null;
-          return template;
-        })
-      );
-      setTemplateData(templateDataWithRecipients);
+            // Add image data if available
+            template.image = imgMap[template.template_id] || null;
+            return template;
+          })
+        );
+        setTemplateData(templateDataWithRecipients);
+      }
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching template data:", error);
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -83,9 +87,9 @@ function TempSubPanel() {
   const templateDelete = async (rowData) => {
     try {
       setLoading(true);
-      const userResponse = await fetchUserDetails(user);
+      // const userResponse = await fetchUserDetails(user);
       const delTempResponse = await deleteTemplateFromS3(
-        userResponse,
+        userDetailAuth,
         rowData.template_id,
         rowData.createTempfile
       );
@@ -93,12 +97,15 @@ function TempSubPanel() {
         const responseDel = await deleteTemplate(
           rowData.template_id,
           user,
-          userResponse.user.id
+          userDetailAuth.user.id
         );
         if (
           responseDel.message === "Template deleted successfully" &&
           responseDel.status === 200
         ) {
+          if(templateData.length===1){
+            setTemplateData([]);
+          }
           fetchTemplateData();
           toastDisplayer("success", "Template deleted successfully");
         }
@@ -106,6 +113,7 @@ function TempSubPanel() {
       setLoading(false);
     } catch (error) {
       console.error("Error deleting template:", error);
+      setLoading(false);
     }
   };
 
@@ -215,6 +223,7 @@ function TempSubPanel() {
                 dataSource={templateData}
                 searchExpr="templateName"
                 itemRender={ItemTemplate}
+                className={"template-list"}
               />
             </div>
           ) : (

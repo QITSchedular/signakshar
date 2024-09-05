@@ -120,7 +120,7 @@ export default function Profile() {
   //     signatureCanvas.fromDataURL(savedSignature);
   //   }
   // }, [signatureCanvas, savedSignature]);
-
+console.log("heyyyehyehey");
   const fetchData = async () => {
     try {
       const token = localStorage.getItem('jwt');

@@ -24,7 +24,7 @@ export default function MyHeader({
   tempID,
   templateDraggedData,
 }) {
-  const { user } = useAuth();
+  const { user,userDetailAuth } = useAuth();
   const [popupVisible, setPopupVisible] = useState(false);
   const navigate = useNavigate();
   const [loggedInUserDetail, setLoggedInUserdetail] = useState([]);
@@ -33,8 +33,8 @@ export default function MyHeader({
     if (user) {
       const getLoggedInUser = async () => {
         try {
-          const userDetails = await fetchUserDetails(user);
-          setLoggedInUserdetail(userDetails);
+          // const userDetails = await fetchUserDetails(user);
+          setLoggedInUserdetail(userDetailAuth);
         } catch (error) {
           console.error("Error fetching user details:", error);
         }

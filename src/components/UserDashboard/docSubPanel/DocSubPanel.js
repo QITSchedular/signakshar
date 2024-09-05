@@ -24,7 +24,7 @@ const DocSubPanel = () => {
     loggedInEmail: null,
   });
 
-  const { user } = useAuth();
+  const { user,userDetailAuth } = useAuth();
 
   const onTabSelectionChanged = useCallback((index) => {
     setSelectedTabIndex(index.addedItems[0].title);
@@ -34,9 +34,9 @@ const DocSubPanel = () => {
     const initializeData = async () => {
       try {
         setLoading(true);
-        const userData = await fetchUserDetails(user);
-        setUserDetails({ loggedInUserId: userData.user.id, loggedInEmail: userData.user.email });
-        const documentsData = await fetchDocuments(userData.user.id, userData.user.email);
+        // const userData = await fetchUserDetails(user);
+        setUserDetails({ loggedInUserId: userDetailAuth.user.id, loggedInEmail: userDetailAuth.user.email });
+        const documentsData = await fetchDocuments(userDetailAuth.user.id, userDetailAuth.user.email);
         setDocuments({
           dataSource: documentsData,
           dataSource1: documentsData,

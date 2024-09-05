@@ -50,7 +50,7 @@ function InitialTextTab({registeredUserDetails,initalsTextDataProfile,setInitals
       initials_text_color: textContent.selectedColor,
       initials_text_font: textContent.selectedFont,
       // initials_text_value: textContent?.inputValue || registeredUserDetails?.initials_details?.initial_text_value || "Initials",
-      initials_text_value: textContent?.inputValue || "Initials",
+      initials_text_value: textContent?.inputValue ,
     });
 
     const textToImg=textToBase64Image(textContent.inputValue,textContent.selectedFont,textContent.selectedColor);
