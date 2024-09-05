@@ -90,6 +90,20 @@ const RecipientItem = ({
       handleAddYourselfClick();
     },
   };
+  const handleInputChange = (e) => {
+    const inputFullName = e.event.target.value;
+  
+    // Update recipient data
+    handleRecipientChange(recipient.id, "fullName", inputFullName);
+  
+    // Check if the input value matches the "Add Yourself" name
+    if (addYourselfUsed[recipient.id] && inputFullName !== addYourselfUsed[recipient.id]) {
+      setOnceClicked(true); // Show "Add Yourself" button for other recipients
+    } else {
+      setOnceClicked(false); // Hide "Add Yourself" button if the name matches
+    }
+  };
+  
 
   return (
     <>
@@ -128,16 +142,17 @@ const RecipientItem = ({
                 <span>Full Name</span>
                 <span className="star">*</span>
                 <TextBox
-                onInput={(e) => {
-                  const inputFullName = e.event.target.value;
-                  // Compare the input with the "Add Yourself" name
-                  if (addYourselfUsed[recipient.id] && inputFullName !== addYourselfUsed[recipient.id]) {
-                    // If the input name does not match, show "Add Yourself" button for other recipients
-                    setOnceClicked(true);
-                  }
-                  // You can also update recipientData if needed
-                  handleRecipientChange(recipient.id, "fullName", inputFullName);
-                }}
+                // onInput={(e) => {
+                //   const inputFullName = e.event.target.value;
+                //   // Compare the input with the "Add Yourself" name
+                //   if (addYourselfUsed[recipient.id] && inputFullName !== addYourselfUsed[recipient.id]) {
+                //     // If the input name does not match, show "Add Yourself" button for other recipients
+                //     setOnceClicked(true);
+                //   }
+                //   // You can also update recipientData if needed
+                //   handleRecipientChange(recipient.id, "fullName", inputFullName);
+                // }}
+                onChange={handleInputChange}
                   placeholder="Enter the full name"
                   stylingMode="outlined"
                   className={
