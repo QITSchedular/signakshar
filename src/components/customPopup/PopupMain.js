@@ -73,12 +73,8 @@ function PopupMain({
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
-
-
-
   const [selectedDate, setSelectedDate] = useState(scheduleDateState);
-
-
+  // const [selectedDate, setSelectedDate] = useState("");
   const handleNavigate = () => {
     // onNavigate(selectedDate1, selectedTime);
     if (selectedDate === new Date().toLocaleDateString()) {
@@ -112,7 +108,6 @@ function PopupMain({
 
   const handleTimeInput = (e) => {
     const time24HourRegex = /^([1-9]|1[0-2]):[0-5][0-9] [APM]{2}$/;
-
     if (time24HourRegex.test(e.event.target.value)) {
       setSelectedTime(e.event.target.value);  // Update state if the input is valid
     } else {

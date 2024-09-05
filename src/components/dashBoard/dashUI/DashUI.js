@@ -357,6 +357,14 @@ function DashUI() {
 
       return newData;
     });
+    // if (addYourselfUsed[id]) {
+    //   setOnceClicked(true);
+    //   setAddYourselfUsed((prevState) => {
+    //     const newState = { ...prevState };
+    //     delete newState[id];
+    //     return newState;
+    //   });
+    // }
     if (addYourselfUsed[id]) {
       setOnceClicked(true);
       setAddYourselfUsed((prevState) => {
@@ -375,17 +383,66 @@ function DashUI() {
     }
   }, [recipientData, addYourselfUsed]);
 
+  // const handleRecipientChange = (id, field, value) => {
+  //   setRecipientData((prevData) =>
+  //     prevData.map((item) => {
+  //       if (item.id === id) {
+  //         return { ...item, [field]: value };
+  //       }
+  //       return item;
+  //     })
+  //   );
+  // };
+
+  useEffect(() => {
+    console.log('Updated addYourselfUsed:', addYourselfUsed);
+    console.log('OnceClicked State:', OnceClicked);
+  }, [addYourselfUsed, OnceClicked]);
+
+  // const handleRecipientChange = (id, field, value) => {
+  //   setRecipientData((prevData) =>
+  //     prevData.map((item) => {
+  //       if (item.id === id) {
+  //         // Check if the field being updated is part of the addYourselfUsed check
+  //         if (field === 'fullName' || field === 'emailId') {
+  //           if (addYourselfUsed[id] && addYourselfUsed[id] !== value) {
+  //             const newAddYourselfUsed = { ...addYourselfUsed };
+  //             delete newAddYourselfUsed[id]; // Remove the entry if it no longer matches
+  //             setAddYourselfUsed(newAddYourselfUsed);
+  //           }
+  //         }
+  //         return { ...item, [field]: value };
+  //       }
+  //       return item;
+  //     })
+  //   );
+  // };
   const handleRecipientChange = (id, field, value) => {
     setRecipientData((prevData) =>
       prevData.map((item) => {
         if (item.id === id) {
-          return { ...item, [field]: value };
+          // Update recipient data with the new value
+          const updatedItem = { ...item, [field]: value };
+  
+          // Check if the field being updated is 'fullName' and if it should affect `addYourselfUsed`
+          if (field === 'fullName') {
+            if (addYourselfUsed[id] && addYourselfUsed[id] !== value) {
+              // Remove entry from `addYourselfUsed` if the name no longer matches
+              setAddYourselfUsed((prevState) => {
+                const newState = { ...prevState };
+                delete newState[id];
+                return newState;
+              });
+            }
+          }
+  
+          return updatedItem;
         }
         return item;
       })
     );
   };
-
+  
   const handleChangeItemDragging = (e) => {
     rearrange(e.fromIndex, e.toIndex);
   };
@@ -631,6 +688,7 @@ function DashUI() {
           selectedTemplate.templateNumPages === numberOfPages
         )
       ) {
+        setIsLoading(false);
         return toastDisplayer(
           "error",
           "Selected Template pages should be equal to the number of pages in the selected PDF!"
@@ -744,6 +802,7 @@ function DashUI() {
 
       const response = await saveDocument(payload);
       if (response.error) {
+        setIsLoading(false);
         toastDisplayer("error", "Error in recipient data" + response.error);
         return;
       } else {

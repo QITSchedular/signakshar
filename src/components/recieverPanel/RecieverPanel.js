@@ -928,7 +928,7 @@ function RecieverPanel() {
                   text={isLoading ? "" : "Done"}
                   className="templateBtn"
                   onClick={ApproveDocument}
-                  disabled={isLoading}
+                  // disabled={isLoading}
                 >
                   {isLoading && (
                     <div className="loader-container">
@@ -945,7 +945,7 @@ function RecieverPanel() {
                   text={isLoading ? "" : "Viewed"}
                   className="templateBtn"
                   onClick={ApproveDocument}
-                  disabled={isLoading}
+                  // disabled={isLoading}
                 >
                   {isLoading && (
                     <div className="loader-container">

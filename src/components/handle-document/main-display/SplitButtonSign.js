@@ -624,6 +624,8 @@ function SplitButtonSign({
             onNavigate={() => navigate("/userdashboard")}
             source="send"
             popupWidth="480px"
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime} 
           />
 
           <PopupMain
@@ -637,8 +639,8 @@ function SplitButtonSign({
             popupWidth="50%"
             scheduleDateState={scheduleDateState}
             selectedTime={selectedTime}
-            setSelectedTime={setSelectedTime}
-          />
+            setSelectedTime={setSelectedTime}          
+            />
         </div>
       )}
 
@@ -666,6 +668,8 @@ function SplitButtonSign({
             onNavigate={() => navigate("/userdashboard")}
             source="send"
             popupWidth="480px"
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime} 
           />
 
           <PopupMain
@@ -678,6 +682,8 @@ function SplitButtonSign({
             source="schedulesend"
             popupWidth="50%"
             scheduleDateState={scheduleDateState}
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime} 
           />
         </div>
       )}
