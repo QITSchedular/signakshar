@@ -119,7 +119,7 @@ function DocTabs({
         const recipientData = await fetchRecipientCount(id);
         container.innerHTML = `
             <div class="document-details">
-                <div class="document-name" title=${displayName}>${displayName}</div> 
+                <div class="document-name" title="${displayName}">${displayName}</div> 
                 <span class="document-status">Created by ${createdBy}</span>,
                 <span class="document-status">Total ${recipientData.recipient_count} Recipients</span>
             </div>

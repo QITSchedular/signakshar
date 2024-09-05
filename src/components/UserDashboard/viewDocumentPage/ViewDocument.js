@@ -27,7 +27,7 @@ function ViewDocument() {
   const [recieverfile, setRecieverFile] = useState(null);
   const [senderData, setSenderData] = useState([]);
   const documentData = location.state.docData;
-  const { user } = useAuth();
+  const { user ,userDetailAuth} = useAuth();
   const [loggedInUserDetail, setLoggedInUserdetail] = useState([]);
   const [mySignStatus, setMySignStatus] = useState("done");
   const navigate = useNavigate();
@@ -36,11 +36,12 @@ function ViewDocument() {
     const jwtToken = localStorage.getItem("jwt");
 
     if (jwtToken) {
-      fetchUserDetails(jwtToken)
-        .then((data) => setLoggedInUserdetail(data))
-        .catch((error) =>
-          console.error("Error fetching logged-in user:", error)
-        );
+      // fetchUserDetails(jwtToken)
+      //   .then((data) => setLoggedInUserdetail(data))
+      //   .catch((error) =>
+      //     console.error("Error fetching logged-in user:", error)
+      //   );
+      setLoggedInUserdetail(userDetailAuth);
     }
   }, []);
 

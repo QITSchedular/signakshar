@@ -103,12 +103,10 @@ function PopupMain({
   };
 
   const handleTimeChange = (e) => {
-    console.log("A :", e.value);
     const date = new Date(e.value);
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
     const formattedTime = `${hours}:${minutes}`;
-    console.log("formattedTime-----------", formattedTime);
     setSelectedTime(formattedTime);
   };
 
@@ -116,7 +114,6 @@ function PopupMain({
     const time24HourRegex = /^([1-9]|1[0-2]):[0-5][0-9] [APM]{2}$/;
 
     if (time24HourRegex.test(e.event.target.value)) {
-      console.log("Valid time format:", e.event.target.value);
       setSelectedTime(e.event.target.value);  // Update state if the input is valid
     } else {
       console.log("Invalid time format");

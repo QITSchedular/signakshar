@@ -44,7 +44,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 function RecieverPanel() {
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
+  const { user,userDetailAuth } = useAuth();
   const navigate = useNavigate();
   const [correctRecData, setCorrectRecData] = useState(null);
   const [numPages, setNumPages] = useState(0);
@@ -106,8 +106,8 @@ function RecieverPanel() {
     if (jwtToken) {
       const getLoggedInUser = async () => {
         try {
-          const userDetails = await fetchUserDetails(jwtToken);
-          setLoggedInUserdetail(userDetails);
+          // const userDetails = await fetchUserDetails(jwtToken);
+          setLoggedInUserdetail(userDetailAuth);
         } catch (error) {
           console.error("Error fetching user details:", error);
         }

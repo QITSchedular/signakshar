@@ -145,7 +145,7 @@ function RegOtp() {
             </div>
 
             <div className="lower-section">
-              <div>
+              <div style={{marginBottom: '2rem'}}>
                 <p className="step">Step 2 of 3</p>
                 <p className="resetText">OTP Verification</p>
                 <p className="resetTxtInfo">

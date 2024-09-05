@@ -9,9 +9,10 @@ function DocumentNameSection({
   setDocName,
   defaultDocumentTitle,
 }) {
+
   useEffect(() => {
     if (screenValue === "Document" || screenValue === "BulkSigning") {
-      console.log("defaultDocumentTitle :  ", defaultDocumentTitle);
+      // console.log("defaultDocumentTitle :  ", defaultDocumentTitle);
     }
   }, [defaultDocumentTitle, screenValue, setDocName]);
 

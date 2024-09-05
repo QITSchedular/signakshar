@@ -54,7 +54,7 @@ function DocumentMain({
   updatedEditRecipients,
   setIsSigned
 }) {
-  const { user } = useAuth();
+  const { user,userDetailAuth } = useAuth();
   const [numPages, setNumPages] = useState(0);
   const [mainContentUrls, setMainContentUrls] = useState([]);
   const mainContainerRef = useRef(null);
@@ -117,8 +117,8 @@ function DocumentMain({
     if (user) {
       const getLoggedInUser = async () => {
         try {
-          const userDetails = await fetchUserDetails(user);
-          setLoggedInUserdetail(userDetails);
+          // const userDetails = await fetchUserDetails(user);
+          setLoggedInUserdetail(userDetailAuth);
         } catch (error) {
           console.error("Error fetching user details:", error);
         }
@@ -208,7 +208,6 @@ function DocumentMain({
           setNumPages(thumbnailUrls.length);
           setThumbnails(thumbnailUrls);
           setMainContentUrls(contentUrls);
-          console.log("content URL : ", contentUrls);
         })
         .catch((error) => {
           console.error("Error generating thumbnails:", error);

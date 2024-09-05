@@ -49,9 +49,6 @@ function UserDashboard() {
         <>
           <div className={"side-nav-outer-toolbar"}>
             <Header menuToggleEnabled title={"Sign-akshar"}></Header>
-
-            {console.log("seleced:", selectedIndex)}
-
             <div className="mainDiv">
               <div className="custom-tab-panel-container">
                 <TabPanel

@@ -38,7 +38,7 @@ function TitlePanel({
   multipleSelectedImage,editRecData,
   updatedEditRecipients,setUpdatedEditRecipients,selectedRowDataTemp,isSigned
 }) {
-  const { user } = useAuth();
+  const { user,userDetailAuth } = useAuth();
   const [loggedInUserDetail, setLoggedInUserdetail] = useState([]);
 
   const [splitDocName, setsplitDocName] = useState();
@@ -54,8 +54,8 @@ function TitlePanel({
     if (user) {
       const getLoggedInUser = async () => {
         try {
-          const userDetails = await fetchUserDetails(user);
-          setLoggedInUserdetail(userDetails);
+          // const userDetails = await fetchUserDetails(user);
+          setLoggedInUserdetail(userDetailAuth);
         } catch (error) {
           console.error("Error fetching user details:", error);
         }

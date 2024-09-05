@@ -2,6 +2,7 @@
 import Header from "../Header2/Header";
 import React, { useState, useRef, useEffect } from "react";
 import "./dashUI.scss";
+import { LoadPanel } from "devextreme-react";
 import Button from "devextreme-react/button";
 import DocumentUpload from "./DocumentUpload";
 import EmailMessageSection from "./EmailMessageSection";
@@ -32,7 +33,7 @@ import {
 import { useAuth } from "../../../contexts/auth";
 
 function DashUI() {
-  const { user } = useAuth();
+  const { user,userDetailAuth } = useAuth();
   const [multipleErrorMessage, setMultipleErrorMessage] = useState([]);
   const [multipleImageDetails, setMultipleImageDetails] = useState([]);
   const [multipleSelectedImage, setMultipleSelectedImage] = useState([]);
@@ -71,7 +72,7 @@ function DashUI() {
   const [docName, setDocName] = useState();
 
   const [isLoading, setIsLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const selectedRowData = location.state?.selectedRowData;
 
   const handleFirstCheckboxChange = () => {
@@ -251,8 +252,6 @@ function DashUI() {
       setRecipientData(updatedRecipientData);
     }
   }, []);
-
-  useEffect(() => {}, [recipientData]);
   // for document
   const [emailTitle, setEmailTitle] = useState(
     "Request for signing / reviewing document"
@@ -270,9 +269,13 @@ function DashUI() {
   useEffect(() => {
     const fetchTemplateOptions = async () => {
       try {
+        setLoading(true);
         const response = await fetchTemplates(user, creatorid);
+        setLoading(false);
+        setLoading(true);
         const templatesWithData = await Promise.all(
           response.map(async (template) => {
+            
             const recipientResponse = await fetchRecipientsByTemplateId(
               template.template_id,
               user
@@ -281,25 +284,18 @@ function DashUI() {
             return template;
           })
         );
+        setLoading(false);
         setTemplateOption(templatesWithData);
         if (selectedTemplate) {
-          console.log("i am reason for template data");
           setRecipientData([]);
-
           const queryParams = new URLSearchParams(location.search);
-
           const docid = queryParams.get("docId");
           let tempData = selectedTemplate.recData;
 
           if (docid !== null && isTemplateDataInitalized === false) {
             setIsTemplateDataInitalized(true);
-            console.log("here3");
-            console.log("checking recipient data: ", recipientData);
-
             tempData.map((e, index) => {
               const recipient = recipientData[index] || {};
-
-              console.log("checking role : ", e.role);
               const data = {
                 created_by: e.created_by,
                 name: e.name,
@@ -370,6 +366,7 @@ function DashUI() {
       });
     }
   };
+  
   useEffect(() => {
     if (recipientData.length === 1 && addYourselfUsed[recipientData[0].id]) {
       setShowSections(false);
@@ -434,8 +431,8 @@ function DashUI() {
     const fetchuserData = async () => {
       try {
         const jwtToken = localStorage.getItem("jwt");
-        const response = await fetchUserDetails(jwtToken);
-        setCreatorid(response.user.id);
+        // const response = await fetchUserDetails(jwtToken);
+        setCreatorid(userDetailAuth.user.id);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -616,191 +613,7 @@ function DashUI() {
     return emailRegex.test(email);
   };
 
-  // const handleProceedDocument = async () => {
-  //   const currentDate = new Date();
-  //   const diffTime = new Date(scheduledDate) - currentDate;
-  //   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-  //   if (selectedImage == null) {
-  //     return toastDisplayer("error", "Please upload the pdf!!!");
-  //   }
-  //   if (selectedTemplate) {
-  //     if (
-  //       !(
-  //         selectedTemplate.pages === numberOfPages ||
-  //         selectedTemplate.templateNumPages === numberOfPages
-  //       )
-  //     ) {
-  //       return toastDisplayer(
-  //         "error",
-  //         "Selected Template pages should be equal to the number of pages in the selected PDF!"
-  //       );
-  //     }
-  //   }
-
-  //   // if (docName === null) {
-  //   //   return toastDisplayer("error", "Please set document name...!!");
-  //   // }
-  //   if (!docName || docName.trim() === "") {
-  //     return toastDisplayer("error", "Please set document name...!!");
-  //   }
-
-  //   const allRecipientsFilled = recipientData.every(
-  //     (recipient) =>
-  //       recipient.fullName.trim() !== "" &&
-  //       recipient.emailId.trim() !== "" &&
-  //       recipient.role !== ""
-  //   );
-
-  //   if (!allRecipientsFilled) {
-  //     return toastDisplayer("error", "Please fill out all recipient details.");
-  //   }
-
-  //   if (screenValue === "Document" && showSections) {
-  //     const emailTitleExists = !!emailTitle;
-  //     if (!emailTitleExists) {
-  //       return toastDisplayer("error", "Please fill the email title");
-  //     }
-
-  //     if (recipientData.length <= 0) {
-  //       return toastDisplayer("error", "Add Recipient...!!");
-  //     }
-  //     if (expirationDays === 0) {
-  //       return toastDisplayer("error", "Set Expiration date...!!");
-  //     }
-  //   }
-
-  //   const emailCounts = recipientData.reduce((acc, recipient) => {
-  //     acc[recipient.emailId] = (acc[recipient.emailId] || 0) + 1;
-  //     return acc;
-  //   }, {});
-
-  //   const duplicateEmails = Object.keys(emailCounts).filter(
-  //     (email) => emailCounts[email] > 1
-  //   );
-  //   if (duplicateEmails.length > 0) {
-  //     return toastDisplayer(
-  //       "error",
-  //       "Duplicate recipient emails found: " + duplicateEmails.join(", ")
-  //     );
-  //   }
-
-  //   const invalidEmails = recipientData.filter(
-  //     (recipient) => !isValidEmail(recipient.emailId)
-  //   );
-  //   if (invalidEmails.length > 0) {
-  //     return toastDisplayer(
-  //       "error",
-  //       "Invalid email address(es) found: " +
-  //         invalidEmails.map((recipient) => recipient.emailId).join(" , ")
-  //     );
-  //   }
-
-  //   try {
-  //     const recDataToSend = recipientData.map((recipient) => ({
-  //       RecipientName: recipient.fullName,
-  //       RecipientEmail: recipient.emailId,
-  //       role:
-  //         recipient.role === 1 || recipient.role === "Signer"
-  //           ? "Signer"
-  //           : "Viewer",
-  //     }));
-
-  //     const timestamp = Date.now();
-  //     const uniqueDocName = `${docName}_${timestamp}`;
-
-  //     const payload = {
-  //       name: uniqueDocName,
-  //       pdfName: selectedImage.name,
-  //       size: selectedImage.size,
-  //       s3Key: selectedImage.name,
-  //       creator_id: creatorid,
-  //       status: "Pending",
-  //       receipientData: recDataToSend,
-  //       email_title: emailTitle,
-  //       email_message: emailMessage,
-  //       emailAction: getEmailAction,
-  //       scheduledDate: scheduledDate,
-  //       expirationDays: expirationDays,
-  //       reminderDays: reminderDays,
-  //       user_id:creatorid
-  //     };
-  //     const response = await saveDocument(payload);
-  //     if (response.error) {
-  //       toastDisplayer("error", "Error in recipient data" + response.error);
-  //       return;
-  //     } else {
-  //       if (isTemplateOptionsSelected != null) {
-  //         navigate(
-  //           `/createorsigndocument?template=Document&tempYes=yes&did=${response?.doc_id}&tid=${recipientData[0].template_id}`,
-  //           {
-  //             state: {
-  //               selectedFile: selectedImage,
-  //               creatorid: creatorid,
-  //               emailTitle: emailTitle,
-  //               emailMessage: emailMessage,
-  //               scheduledDate: scheduledDate,
-  //               reminderDays: reminderDays,
-  //               recipientTempData: recipientData,
-  //               Expiration: {
-  //                 expirationDays: expirationDays,
-  //                 scheduledDate: scheduledDate,
-  //                 reminderDays: reminderDays,
-  //               },
-  //             },
-  //           }
-  //         );
-  //       } else {
-  //         const hasSigner = recipientData.some(
-  //           (recipient) => recipient.role === "Signer"
-  //         );
-  //         if (!hasSigner) {
-  //           return toastDisplayer(
-  //             "error",
-  //             "At least one recipient must have the role of 'Signer'."
-  //           );
-  //         }
-  //         navigate(
-  //           `/createorsigndocument?template=Document&tempYes=no&did=${response?.doc_id}`,
-  //           {
-  //             state: {
-  //               selectedFile: selectedImage,
-  //               creatorid: creatorid,
-  //               emailAction: getEmailAction,
-  //               Expiration: {
-  //                 expirationDays: expirationDays,
-  //                 scheduledDate: scheduledDate,
-  //                 reminderDays: reminderDays,
-  //               },
-  //             },
-  //           }
-  //         );
-  //       }
-  //     }
-  //   } catch (error) {
-  //     if (
-  //       error.response &&
-  //       error.response.data.error ===
-  //         "Document with the same name already exists for this user."
-  //     ) {
-  //       return toastDisplayer(
-  //         "error",
-  //         "Document with the same name already exists for this user."
-  //       );
-  //     } else if (
-  //       error.response &&
-  //       error.response.data.RecipientEmail &&
-  //       error.response.data.RecipientEmail[0] === "Enter a valid email address."
-  //     ) {
-  //       toastDisplayer("error", "Enter a valid email address.");
-  //       return;
-  //     } else {
-  //       return toastDisplayer("error", "Fill Proper Details!");
-  //     }
-  //   }
-  // };
-
-  // =======================================================
+ 
   const handleProceedDocument = async () => {
     setIsLoading(true);
     const currentDate = new Date();
@@ -1026,7 +839,6 @@ function DashUI() {
     const diffTime = new Date(scheduledDate) - currentDate;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     // setReminderDays(0);
-    console.log(" i am changing the value ");
     if (diffDays < 2) {
       setReminderOptions([{ text: "Select days", value: 0 }]);
     } else if (diffDays < 4) {
@@ -1066,7 +878,6 @@ function DashUI() {
   };
 
   const handleReminderChange = (e) => {
-    console.log("checking the reminder day : ", e);
     setReminderDays(parseInt(e));
   };
 
@@ -1101,10 +912,6 @@ function DashUI() {
   const onTemplateSelect = (selectedTemplate) => {
     setIsTemplateOptionsSelected(selectedTemplate);
   };
-
-  useEffect(() => {
-    console.log("this is the selected template : ", isTemplateOptionsSelected);
-  }, [isTemplateOptionsSelected]);
   /// rajvi changes
   const handleMultipleRemoveImage = (index) => {
     setMultipleSelectedImage((prevImages) =>
@@ -1225,6 +1032,7 @@ function DashUI() {
 
   return (
     <>
+    {loading && <LoadPanel visible={true} />}
       <div className="my-container">
         <Header title={"Sign-akshar"} />
         <div className="first-container">

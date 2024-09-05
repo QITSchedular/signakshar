@@ -31,13 +31,11 @@ function TemplateSelectionSection({
 
   useEffect(() => {
     if (selectedRowData) {
-      console.log("this is selected row data : ", selectedRowData);
       setSelectedTemplate(selectedRowData);
     }
   }, [selectedRowData, setSelectedTemplate]);
 
   const handleTemplateSelect = (value) => {
-    console.log("value : ", value);
     setSelectedTemplate(value);
     onTemplateSelect(value);
 
