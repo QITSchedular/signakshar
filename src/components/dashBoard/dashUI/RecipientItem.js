@@ -128,6 +128,16 @@ const RecipientItem = ({
                 <span>Full Name</span>
                 <span className="star">*</span>
                 <TextBox
+                onInput={(e) => {
+                  const inputFullName = e.event.target.value;
+                  // Compare the input with the "Add Yourself" name
+                  if (addYourselfUsed[recipient.id] && inputFullName !== addYourselfUsed[recipient.id]) {
+                    // If the input name does not match, show "Add Yourself" button for other recipients
+                    setOnceClicked(true);
+                  }
+                  // You can also update recipientData if needed
+                  handleRecipientChange(recipient.id, "fullName", inputFullName);
+                }}
                   placeholder="Enter the full name"
                   stylingMode="outlined"
                   className={
