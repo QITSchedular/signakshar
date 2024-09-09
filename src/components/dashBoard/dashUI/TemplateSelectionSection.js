@@ -116,7 +116,7 @@ function TemplateSelectionSection({
               <div className="file-box-data">
                 {selectedTemplate.recData
                   ? `${selectedTemplate.recData.length} recipients`
-                  : "No recipients"}{" "}
+                  : "Loading recipients..."}{" "}
                 - {selectedTemplate.pages || selectedTemplate.templateNumPages}{" "}
                 pages
               </div>

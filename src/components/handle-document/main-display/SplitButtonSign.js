@@ -45,7 +45,7 @@ function SplitButtonSign({
   updatedEditRecipients,
   isSigned,
 }) {
-  const { user,userDetailAuth } = useAuth();
+  const { user, userDetailAuth } = useAuth();
   const [userObj, setuserObj] = useState([]);
   const [popupVisibleSend, setPopupVisibleSend] = useState(false);
   const [popupVisibleSchedule, setPopupVisibleSchedule] = useState(false);
@@ -56,7 +56,6 @@ function SplitButtonSign({
   const [isDocSendOnce, setIsDocSendOnce] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
-
 
   useEffect(() => {
     const fetchuserData = async () => {
@@ -140,9 +139,12 @@ function SplitButtonSign({
         var allFieldsSigned = false,
           someFieldsSigned = false;
 
-          const missingEmails = templateDraggedData
-          .filter(tdata => tdata.roleId === 1)
-          .filter(tdata => !downloadDraggedData.some(ddata => ddata.email === tdata.email));
+        const missingEmails = templateDraggedData
+          .filter((tdata) => tdata.roleId === 1)
+          .filter(
+            (tdata) =>
+              !downloadDraggedData.some((ddata) => ddata.email === tdata.email)
+          );
 
         if (missingEmails.length > 0) {
           setIsLoading(false);
@@ -150,7 +152,7 @@ function SplitButtonSign({
             "error",
             `No matching position found for ${missingEmails[0].name}`
           );
-          return; // Exit the function if there's a missing email
+          return;
         }
 
         if (screenValue === "Document" && tempYEs === "no") {
@@ -199,8 +201,6 @@ function SplitButtonSign({
             scheduleDateAndTime = mergeDateAndTime(scheduleDate, scheduleTime);
           }
           var payloadArray = [];
-
-
           await Promise.all(
             updateRecData.map(async (oneRec, index) => {
               var docRecipients;
@@ -264,8 +264,6 @@ function SplitButtonSign({
           };
           try {
             setLoading(true);
-
-            /// uncomment this:
             const response = await saveDocPositions(newPayload);
             if (response && !response.error && userObj && docapiData) {
               const draggedArray = [];
@@ -469,18 +467,14 @@ function SplitButtonSign({
   };
 
   const handleScheduleSend = (sdate, stime) => {
-    if(selectedTime)
-    {
-      console.log("hello1234----------")
+    if (selectedTime) {
       handleSendButtonClick(stime, sdate);
       setPopupVisibleSchedule(false);
-    }
-    else {
-      toastDisplayer("error", "Time Formate is Invalid")
+    } else {
+      toastDisplayer("error", "Time Formate is Invalid");
       console.log("Invalid time or time not set.");
       // setPopupVisibleSchedule(true);
     }
-    
   };
 
   const editTemplateBtn = async () => {
@@ -557,7 +551,7 @@ function SplitButtonSign({
       {screenValue &&
         (screenValue === "Template" || screenValue === "editTemplate") && (
           // style={{ position: "relative" }}
-          <div className="splitBtnInMainPage" > 
+          <div className="splitBtnInMainPage">
             <Button
               stylingMode="contained"
               text={
@@ -585,7 +579,7 @@ function SplitButtonSign({
         )}
 
       {screenValue && screenValue === "Document" && tempYEs === "no" && (
-        <div className="splitBtnInMainPage" style={{position:"relative"}}>
+        <div className="splitBtnInMainPage" style={{ position: "relative" }}>
           <DropDownButton
             splitButton={true}
             stylingMode="text"
@@ -608,7 +602,7 @@ function SplitButtonSign({
           >
             {/* Move loader here to overlay correctly */}
             {isLoading && (
-              <div className="loader-container">
+              <div className="loader-containerSend">
                 {/* <ClipLoader color="#fff" size={24} /> */}
                 <div className="simple-loader"></div>
               </div>
@@ -625,7 +619,7 @@ function SplitButtonSign({
             source="send"
             popupWidth="480px"
             selectedTime={selectedTime}
-            setSelectedTime={setSelectedTime} 
+            setSelectedTime={setSelectedTime}
           />
 
           <PopupMain
@@ -639,8 +633,8 @@ function SplitButtonSign({
             popupWidth="50%"
             scheduleDateState={scheduleDateState}
             selectedTime={selectedTime}
-            setSelectedTime={setSelectedTime}          
-            />
+            setSelectedTime={setSelectedTime}
+          />
         </div>
       )}
 
@@ -669,7 +663,7 @@ function SplitButtonSign({
             source="send"
             popupWidth="480px"
             selectedTime={selectedTime}
-            setSelectedTime={setSelectedTime} 
+            setSelectedTime={setSelectedTime}
           />
 
           <PopupMain
@@ -683,7 +677,7 @@ function SplitButtonSign({
             popupWidth="50%"
             scheduleDateState={scheduleDateState}
             selectedTime={selectedTime}
-            setSelectedTime={setSelectedTime} 
+            setSelectedTime={setSelectedTime}
           />
         </div>
       )}
