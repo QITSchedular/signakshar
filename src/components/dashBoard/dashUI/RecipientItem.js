@@ -19,7 +19,6 @@ const RecipientItem = ({
   const [isFocused, setIsFocused] = useState(false);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipContent, setTooltipContent] = useState("");
-  // const [emailDomainCompleted, setEmailDomainCompleted] = useState(false);
 
   useEffect(() => {
     if (screenValue === "Template") {
@@ -75,27 +74,50 @@ const RecipientItem = ({
     handleRecipientChange(recipient.id, "fullName", currentUser.full_name);
   };
 
-  const handleEmailChange = (recipientId, newEmail) => {
-    // if (newEmail.includes("@") && !newEmail.includes("@gmail.com")) {
-    //   newEmail += "gmail.com";
-    //   // setEmailDomainCompleted(true);
-    // }
-    handleRecipientChange(recipientId, "emailId", newEmail.toLowerCase());
-  };
+  // const handleEmailChange = (e) => {
+  //   const inputEmail = e.event.target.value;
 
-  const addYourself = {
-    text: "Add yourself",
-    name: "Add",
-    onClick: () => {
-      handleAddYourselfClick();
-    },
-  };
-  const handleInputChange = (e) => {
-    const inputFullName = e.event.target.value;
+  //   // Update recipient data
+  //   handleRecipientChange(recipient.id, "emailId", inputEmail.toLowerCase());
+
+  //   // Check if the input value matches the "Add Yourself" email
+  //   if (addYourselfUsed[recipient.id] && inputEmail !== currentUser.email) {
+  //     setOnceClicked(true); // Show "Add Yourself" button for other recipients
+  //     setAddYourselfUsed((prevState) => {
+  //       const newState = { ...prevState };
+  //       delete newState[recipient.id];
+  //       return newState;
+  //     });
+  //   } else {
+  //     setOnceClicked(false); // Hide "Add Yourself" button if the email matches
+  //   }
+  // };
+
+  const handleEmailChange = (e) => {
+    const inputEmail = e.event.target.value.toLowerCase();
   
     // Update recipient data
-    handleRecipientChange(recipient.id, "fullName", inputFullName);
+    handleRecipientChange(recipient.id, "emailId", inputEmail);
   
+    // Clear the "Add Yourself" functionality if email changes
+    if (addYourselfUsed[recipient.id] && inputEmail !== currentUser.email) {
+      setOnceClicked(true); // Show "Add Yourself" button for other recipients
+      setAddYourselfUsed((prevState) => {
+        const newState = { ...prevState };
+        delete newState[recipient.id];
+        return newState;
+      });
+    } else {
+      setOnceClicked(false); // Hide "Add Yourself" button if the email matches
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const inputFullName = e.event.target.value;
+
+    // Update recipient data
+    handleRecipientChange(recipient.id, "fullName", inputFullName);
+
     // Check if the input value matches the "Add Yourself" name
     if (addYourselfUsed[recipient.id] && inputFullName !== addYourselfUsed[recipient.id]) {
       setOnceClicked(true); // Show "Add Yourself" button for other recipients
@@ -103,7 +125,6 @@ const RecipientItem = ({
       setOnceClicked(false); // Hide "Add Yourself" button if the name matches
     }
   };
-  
 
   return (
     <>
@@ -142,17 +163,7 @@ const RecipientItem = ({
                 <span>Full Name</span>
                 <span className="star">*</span>
                 <TextBox
-                // onInput={(e) => {
-                //   const inputFullName = e.event.target.value;
-                //   // Compare the input with the "Add Yourself" name
-                //   if (addYourselfUsed[recipient.id] && inputFullName !== addYourselfUsed[recipient.id]) {
-                //     // If the input name does not match, show "Add Yourself" button for other recipients
-                //     setOnceClicked(true);
-                //   }
-                //   // You can also update recipientData if needed
-                //   handleRecipientChange(recipient.id, "fullName", inputFullName);
-                // }}
-                onChange={handleInputChange}
+                  // onChange={handleInputChange}
                   placeholder="Enter the full name"
                   stylingMode="outlined"
                   className={
@@ -185,12 +196,13 @@ const RecipientItem = ({
                 <span>Email ID</span>
                 <span className="star">*</span>
                 <TextBox
+                  onChange={handleEmailChange}
                   placeholder="Enter the email id"
                   stylingMode="outlined"
                   className="custom-textbox4"
                   value={recipient.emailId}
-                  onValueChanged={(e) =>
-                    handleEmailChange(recipient.id, e.value)
+                  onValueChange={(e) =>
+                    handleRecipientChange(recipient.id, "emailId", e)
                   }
                 />
               </div>
