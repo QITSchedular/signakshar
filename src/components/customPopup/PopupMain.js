@@ -142,7 +142,7 @@ function PopupMain({
           <div className="schedule-popup-userbox">
             <div className="date-inputs">
               <div className="user-text-calender">
-                Date <span className="required-field">*</span>
+                Date <span className="required-field-schedule">*</span>
               </div>
               {console.log("scheduleDateState:", scheduleDateState)}
               <DateBox
