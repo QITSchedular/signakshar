@@ -33,7 +33,7 @@ import {
 import { useAuth } from "../../../contexts/auth";
 
 function DashUI() {
-  const { user,userDetailAuth } = useAuth();
+  const { user, userDetailAuth } = useAuth();
   const [multipleErrorMessage, setMultipleErrorMessage] = useState([]);
   const [multipleImageDetails, setMultipleImageDetails] = useState([]);
   const [multipleSelectedImage, setMultipleSelectedImage] = useState([]);
@@ -267,35 +267,100 @@ function DashUI() {
   };
 
   useEffect(() => {
+    // const fetchTemplateOptions = async () => {
+    //   try {
+    //     setLoading(true);
+    //     const response = await fetchTemplates(user, creatorid);
+    //     setLoading(false);
+    //     setLoading(true);
+    //     const templatesWithData = await Promise.all(
+    //       response.map(async (template) => {
+
+    //         const recipientResponse = await fetchRecipientsByTemplateId(
+    //           template.template_id,
+    //           user
+    //         );
+    //         template.recipientData = recipientResponse;
+    //         return template;
+    //       })
+    //     );
+    //     setLoading(false);
+    //     console.log("templatesWithData:",templatesWithData)
+    //     setTemplateOption(templatesWithData);
+    //     if (selectedTemplate) {
+    //       setRecipientData([]);
+    //       const queryParams = new URLSearchParams(location.search);
+    //       const docid = queryParams.get("docId");
+    //       let tempData = selectedTemplate.recData;
+
+    //       if (docid !== null && isTemplateDataInitalized === false) {
+    //         setIsTemplateDataInitalized(true);
+    //         tempData.map((e, index) => {
+    //           const recipient = recipientData[index] || {};
+    //           const data = {
+    //             created_by: e.created_by,
+    //             name: e.name,
+    //             role: e.role,
+    //             template_id: e.template,
+    //             id: e.id,
+    //             fullName: recipient.fullName ? recipient.fullName : "",
+    //             emailId: recipient.emailId ? recipient.emailId : "",
+    //             testID: index + 1,
+    //           };
+
+    //           return setRecipientData((prevData) => [...prevData, data]);
+    //         });
+    //       } else {
+    //         tempData.map((e, index) => {
+    //           var data = {
+    //             created_by: e.created_by,
+    //             name: e.name,
+    //             role: e.role,
+    //             template_id: e.template,
+    //             id: e.id,
+    //             fullName: "",
+    //             emailId: "",
+    //             testID: index + 1,
+    //           };
+    //           setRecipientData((prevData) => [...prevData, data]);
+    //         });
+    //       }
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching template options:", error);
+    //   }
+    // };
+
     const fetchTemplateOptions = async () => {
       try {
         setLoading(true);
         const response = await fetchTemplates(user, creatorid);
+        setTemplateOption(response);
         setLoading(false);
-        setLoading(true);
-        const templatesWithData = await Promise.all(
-          response.map(async (template) => {
-            
-            const recipientResponse = await fetchRecipientsByTemplateId(
-              template.template_id,
-              user
-            );
-            template.recipientData = recipientResponse;
-            return template;
-          })
-        );
-        setLoading(false);
-        setTemplateOption(templatesWithData);
         if (selectedTemplate) {
+          setLoading(true);
+          const recipientResponse = await fetchRecipientsByTemplateId(
+            selectedTemplate?.tempid || selectedTemplate?.template_id,
+            user
+          );
+          selectedTemplate.recData = recipientResponse;
+    
+          setLoading(false);
+          setTemplateOption((prevOptions) =>
+            prevOptions.map((template) =>
+              template.template_id === selectedTemplate.tempid
+                ? { ...template, recipientData: recipientResponse }
+                : template
+            )
+          );
           setRecipientData([]);
           const queryParams = new URLSearchParams(location.search);
           const docid = queryParams.get("docId");
-          let tempData = selectedTemplate.recData;
-
+          let tempData = selectedTemplate.recData || [];
           if (docid !== null && isTemplateDataInitalized === false) {
             setIsTemplateDataInitalized(true);
-            tempData.map((e, index) => {
-              const recipient = recipientData[index] || {};
+            tempData.forEach((e, index) => {
+              const recipient = recipientResponse[index] || {};
               const data = {
                 created_by: e.created_by,
                 name: e.name,
@@ -306,11 +371,11 @@ function DashUI() {
                 emailId: recipient.emailId ? recipient.emailId : "",
                 testID: index + 1,
               };
-
-              return setRecipientData((prevData) => [...prevData, data]);
+    
+              setRecipientData((prevData) => [...prevData, data]);
             });
           } else {
-            tempData.map((e, index) => {
+            tempData.forEach((e, index) => {
               var data = {
                 created_by: e.created_by,
                 name: e.name,
@@ -329,6 +394,9 @@ function DashUI() {
         console.error("Error fetching template options:", error);
       }
     };
+    
+    
+
     fetchTemplateOptions();
   }, [selectedTemplate]);
 
@@ -374,7 +442,7 @@ function DashUI() {
       });
     }
   };
-  
+
   useEffect(() => {
     if (recipientData.length === 1 && addYourselfUsed[recipientData[0].id]) {
       setShowSections(false);
@@ -395,8 +463,8 @@ function DashUI() {
   // };
 
   useEffect(() => {
-    console.log('Updated addYourselfUsed:', addYourselfUsed);
-    console.log('OnceClicked State:', OnceClicked);
+    console.log("Updated addYourselfUsed:", addYourselfUsed);
+    console.log("OnceClicked State:", OnceClicked);
   }, [addYourselfUsed, OnceClicked]);
 
   // const handleRecipientChange = (id, field, value) => {
@@ -423,9 +491,9 @@ function DashUI() {
         if (item.id === id) {
           // Update recipient data with the new value
           const updatedItem = { ...item, [field]: value };
-  
+
           // Check if the field being updated is 'fullName' and if it should affect `addYourselfUsed`
-          if (field === 'fullName') {
+          if (field === "fullName") {
             if (addYourselfUsed[id] && addYourselfUsed[id] !== value) {
               // Remove entry from `addYourselfUsed` if the name no longer matches
               setAddYourselfUsed((prevState) => {
@@ -435,14 +503,14 @@ function DashUI() {
               });
             }
           }
-  
+
           return updatedItem;
         }
         return item;
       })
     );
   };
-  
+
   const handleChangeItemDragging = (e) => {
     rearrange(e.fromIndex, e.toIndex);
   };
@@ -670,7 +738,6 @@ function DashUI() {
     return emailRegex.test(email);
   };
 
- 
   const handleProceedDocument = async () => {
     setIsLoading(true);
     const currentDate = new Date();
@@ -1091,7 +1158,7 @@ function DashUI() {
 
   return (
     <>
-    {loading && <LoadPanel visible={true} />}
+      {loading && <LoadPanel visible={true} />}
       <div className="my-container">
         <Header title={"Sign-akshar"} />
         <div className="first-container">
@@ -1132,8 +1199,6 @@ function DashUI() {
                   >
                     {isLoading && (
                       <div className="loader-container">
-                        {/* Using react-spinners */}
-                        {/* <ClipLoader color="#fff" size={24} /> */}
                         <div className="simple-loader"></div>
                       </div>
                     )}

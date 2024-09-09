@@ -405,7 +405,6 @@ export const updateRecStatus = async (docId, email, newStatus) => {
   }
 };
 
-
 /// ViewDocument.js
 export const fetchRecipientDetailData = async (documentId, userEmail) => {
   try {
@@ -714,3 +713,21 @@ export const deleteTemplateFromS3 = async (userdetails, tid,createtempfile) => {
     throw error;
   }
 };
+
+
+// 
+export const getAllDocsData=async (createdByYou,createdByOthers,uid)=>{
+  try {
+    console.log("---uid:",uid);
+    const response=await axios.post(`${process.env.REACT_APP_API_URL}/api/getCombinedDocuments/`,{
+        createdByYou: createdByYou,
+        createdByOthers: createdByOthers,
+        userid: uid
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error in displaying documents:", error);
+    throw error;
+  }
+}

@@ -5,7 +5,7 @@ import TabPanel from 'devextreme-react/tab-panel';
 import { Item } from 'devextreme-react/tabs';
 import MySplitBtn from '../mySplitBtn/MySplitBtn';
 import DocTabs from './docTabs/DocTabs';
-import { fetchUserDetails, fetchDocuments } from '../../../api/UserDashboardAPI';
+import { fetchUserDetails, fetchDocuments ,getAllDocsData} from '../../../api/UserDashboardAPI';
 import { useAuth } from '../../../contexts/auth';
 import { LoadPanel } from "devextreme-react";
 
@@ -23,6 +23,8 @@ const DocSubPanel = () => {
     loggedInUserId: null,
     loggedInEmail: null,
   });
+  // new state for doc data
+  const [newDocData, setnewDocData] = useState([]);
 
   const { user,userDetailAuth } = useAuth();
 
@@ -49,6 +51,28 @@ const DocSubPanel = () => {
         setLoading(false); // Ensure loading is set to false in the finally block
       }
     };
+    //////////////
+    // const initializeData = async () => {
+    //   try {
+    //     setLoading(true);
+    //     // const userData = await fetchUserDetails(user);
+    //     setUserDetails({ loggedInUserId: userDetailAuth.user.id, loggedInEmail: userDetailAuth.user.email });
+    //     // const documentsData = await fetchDocuments(userDetailAuth.user.id, userDetailAuth.user.email);
+    //     const docsAllData=await getAllDocsData(true,true,userDetailAuth.user.id);
+    //     console.log("dcosAllDAta:",docsAllData)
+    //     setnewDocData(docsAllData);
+    //     // setDocuments({
+    //     //   dataSource: documentsData,
+    //     //   dataSource1: documentsData,
+    //     //   noOfDoc: documentsData.length,
+    //     // });
+    //   } catch (error) {
+    //     console.error('Error initializing data:', error);
+    //   }
+    //   finally {
+    //     setLoading(false); // Ensure loading is set to false in the finally block
+    //   }
+    // };
     initializeData();
   }, [user]);
 

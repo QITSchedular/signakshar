@@ -24,7 +24,7 @@ import { useAuth } from "../../../../contexts/auth";
 import { generateBucketName } from "../../../manageUser/signatureSetup/PdfUtils";
 import { fetchDocuments,fetchRecipientCount,
   fetchPendingRecipientCount,
-  deleteDocument,
+  deleteDocument,getAllDocsData,
   deleteFileFromS3,
   generatePresignedUrl, } from '../../../../api/UserDashboardAPI';
 
@@ -47,7 +47,9 @@ function DocTabs({
   const gridContainerRef = useRef();
   const navigate = useNavigate();
   const [documents, setDocuments] = useState([]);
+  const [newDocData, setnewDocData] = useState([]);
   
+  // prevcode
   const fetchDocumentFunc = async (reqObj) => {
     try {
       const data = await fetchDocuments(reqObj.userid, reqObj.email);
@@ -64,6 +66,28 @@ function DocTabs({
       console.error("Error fetching documents:", error);
     }
   };
+  ////
+  // const fetchDocumentFunc = async (reqObj) => {
+  //   try {
+  //     // const data = await fetchDocuments(reqObj.userid, reqObj.email);
+  //     // setdataSource1(data);
+  
+  //     // const countData = await fetchDocuments({
+  //     //   createdByYou: true,
+  //     //   createdByOthers: true,
+  //     //   userid: loggedInUserId,
+  //     //   email: loggedInEmail,
+  //     // });
+  //     // setNoOfDoc(countData.length);
+  //     const createdByYou=true;
+  //     const createdByOthers=true;
+  //     // const docsData=await getAllDocsData(createdByYou,createdByOthers,reqObj.userid);
+  //     // console.log("docsData:",docsData);
+  //     // setnewDocData(docsData);
+  //   } catch (error) {
+  //     console.error("Error fetching documents:", error);
+  //   }
+  // };
   
   useEffect(() => {
     const fetchData = async () => {
@@ -109,6 +133,7 @@ function DocTabs({
     },
   ];
 
+  // prev code
   const docCellTemplate = async (container, options) => {
     const { data } = options;
     const { name, id, creator_id } = data;
@@ -129,25 +154,72 @@ function DocTabs({
     }
 };
 
+// const docCellTemplate = async (container, options) => {
+//   const { data } = options;
+//   const { name, id, creator_id } = data;
+//   let createdBy = creator_id.id === loggedInUserId ? "You" : creator_id.full_name;
+//   const splitName = name.split('_');
+//   const displayName = splitName.slice(0, -1).join('_'); 
+//   try {
+//     /// modify this
+//       // const recipientData = await fetchRecipientCount(id);
+//       const totRecipient=3;
+//       container.innerHTML = `
+//           <div class="document-details">
+//               <div class="document-name" title="${displayName}">${displayName}</div> 
+//               <span class="document-status">Created by ${createdBy}</span>,
+//               <span class="document-status">Total ${totRecipient} Recipients</span>
+//           </div>
+//       `;
+//   } catch (error) {
+//       console.error("Error fetching recipient count:", error);
+//   }
+// };
+
+// prevcode
   const statusCellTemplate = async (container, options) => {
     const { data } = options;
     const { status, id } = data;
 
     try {
-      const pendingData = await fetchPendingRecipientCount(id);
+      ///////modify this
+      // const pendingData = await fetchPendingRecipientCount(id);
+      const pendingData=3;
       container.innerHTML = `
         <div class="statusDetails">
           <div class="statusBtn" statustype="${status}">
             <div class="statusCircle" statustype="${status}"></div>
             <div class="statusText" statustype="${status}">${status}</div>
           </div>
-          <div class="subtext" id="pending${id}">${pendingData.pending_count} people haven't completed</div>
+          <div class="subtext" id="pending${id}">${pendingData} people haven't completed</div>
         </div>
       `;
     } catch (error) {
       console.error("Error fetching pending recipient count:", error);
     }
   };
+
+  // const statusCellTemplate = async (container, options) => {
+  //   const { data } = options;
+  //   const { status, id } = data;
+
+  //   try {
+  //     ///////modify this
+  //     // const pendingData = await fetchPendingRecipientCount(id);
+  //     const pendingData=3;
+  //     container.innerHTML = `
+  //       <div class="statusDetails">
+  //         <div class="statusBtn" statustype="${status}">
+  //           <div class="statusCircle" statustype="${status}"></div>
+  //           <div class="statusText" statustype="${status}">${status}</div>
+  //         </div>
+  //         <div class="subtext" id="pending${id}">${pendingData} people haven't completed</div>
+  //       </div>
+  //     `;
+  //   } catch (error) {
+  //     console.error("Error fetching pending recipient count:", error);
+  //   }
+  // };
 
   const expdateCellTemplate = (container, options) => {
     const { data } = options;
