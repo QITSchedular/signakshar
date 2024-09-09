@@ -30,6 +30,7 @@ import {
   saveMultipleDocument,
 } from "../../../api/UserDashboardAPI";
 import { useAuth } from "../../../contexts/auth";
+import { LoadPanel } from "devextreme-react";
 
 function DashUI() {
 
@@ -72,7 +73,7 @@ function DashUI() {
   const [docName, setDocName] = useState();
 
   const [isLoading, setIsLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const selectedRowData = location.state?.selectedRowData;
 
   const handleFirstCheckboxChange = () => {
