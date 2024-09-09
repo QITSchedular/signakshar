@@ -2,7 +2,6 @@
 import Header from "../Header2/Header";
 import React, { useState, useRef, useEffect } from "react";
 import "./dashUI.scss";
-import { LoadPanel } from "devextreme-react";
 import Button from "devextreme-react/button";
 import DocumentUpload from "./DocumentUpload";
 import EmailMessageSection from "./EmailMessageSection";
@@ -33,6 +32,7 @@ import {
 import { useAuth } from "../../../contexts/auth";
 
 function DashUI() {
+
   const { user, userDetailAuth } = useAuth();
   const [multipleErrorMessage, setMultipleErrorMessage] = useState([]);
   const [multipleImageDetails, setMultipleImageDetails] = useState([]);
@@ -72,7 +72,7 @@ function DashUI() {
   const [docName, setDocName] = useState();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
+
   const selectedRowData = location.state?.selectedRowData;
 
   const handleFirstCheckboxChange = () => {
@@ -252,6 +252,8 @@ function DashUI() {
       setRecipientData(updatedRecipientData);
     }
   }, []);
+
+  useEffect(() => {}, [recipientData]);
   // for document
   const [emailTitle, setEmailTitle] = useState(
     "Request for signing / reviewing document"
@@ -331,7 +333,7 @@ function DashUI() {
     //   }
     // };
 
-    const fetchTemplateOptions = async () => {
+   const fetchTemplateOptions = async () => {
       try {
         setLoading(true);
         const response = await fetchTemplates(user, creatorid);
@@ -394,8 +396,6 @@ function DashUI() {
         console.error("Error fetching template options:", error);
       }
     };
-    
-    
 
     fetchTemplateOptions();
   }, [selectedTemplate]);
@@ -425,15 +425,8 @@ function DashUI() {
 
       return newData;
     });
-    // if (addYourselfUsed[id]) {
-    //   setOnceClicked(true);
-    //   setAddYourselfUsed((prevState) => {
-    //     const newState = { ...prevState };
-    //     delete newState[id];
-    //     return newState;
-    //   });
-    // }
-    if (addYourselfUsed[id]) {
+
+    if (addYourselfUsed[id]){
       setOnceClicked(true);
       setAddYourselfUsed((prevState) => {
         const newState = { ...prevState };
@@ -467,24 +460,34 @@ function DashUI() {
     console.log("OnceClicked State:", OnceClicked);
   }, [addYourselfUsed, OnceClicked]);
 
+
   // const handleRecipientChange = (id, field, value) => {
   //   setRecipientData((prevData) =>
   //     prevData.map((item) => {
   //       if (item.id === id) {
-  //         // Check if the field being updated is part of the addYourselfUsed check
-  //         if (field === 'fullName' || field === 'emailId') {
+  //         // Update recipient data with the new value
+  //         const updatedItem = { ...item, [field]: value };
+  
+  //         // Check if the field being updated is 'fullName' and if it should affect `addYourselfUsed`
+  //         if (field === 'fullName') 
+  //           {
   //           if (addYourselfUsed[id] && addYourselfUsed[id] !== value) {
-  //             const newAddYourselfUsed = { ...addYourselfUsed };
-  //             delete newAddYourselfUsed[id]; // Remove the entry if it no longer matches
-  //             setAddYourselfUsed(newAddYourselfUsed);
+  //             // Remove entry from `addYourselfUsed` if the name no longer matches
+  //             setAddYourselfUsed((prevState) => {
+  //               const newState = { ...prevState };
+  //               delete newState[id];
+  //               return newState;
+  //             });
   //           }
   //         }
-  //         return { ...item, [field]: value };
+  
+  //         return updatedItem;
   //       }
   //       return item;
   //     })
   //   );
   // };
+  
   const handleRecipientChange = (id, field, value) => {
     setRecipientData((prevData) =>
       prevData.map((item) => {
@@ -492,16 +495,17 @@ function DashUI() {
           // Update recipient data with the new value
           const updatedItem = { ...item, [field]: value };
 
-          // Check if the field being updated is 'fullName' and if it should affect `addYourselfUsed`
-          if (field === "fullName") {
-            if (addYourselfUsed[id] && addYourselfUsed[id] !== value) {
-              // Remove entry from `addYourselfUsed` if the name no longer matches
-              setAddYourselfUsed((prevState) => {
-                const newState = { ...prevState };
-                delete newState[id];
-                return newState;
-              });
-            }
+  
+          // If either 'fullName' or 'emailId' is modified, remove entry from `addYourselfUsed` if the new value no longer matches the "Add Yourself" values
+          if (
+            (field === "fullName" && addYourselfUsed[id] && value !== currentUser.full_name) ||
+            (field === "emailId" && addYourselfUsed[id] && value !== currentUser.email)
+          ) {
+            setAddYourselfUsed((prevState) => {
+              const newState = { ...prevState };
+              delete newState[id];
+              return newState;
+            });
           }
 
           return updatedItem;
@@ -556,8 +560,8 @@ function DashUI() {
     const fetchuserData = async () => {
       try {
         const jwtToken = localStorage.getItem("jwt");
-        // const response = await fetchUserDetails(jwtToken);
-        setCreatorid(userDetailAuth.user.id);
+        const response = await fetchUserDetails(jwtToken);
+        setCreatorid(response.user.id);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -738,7 +742,7 @@ function DashUI() {
     return emailRegex.test(email);
   };
 
-  const handleProceedDocument = async () => {
+ const handleProceedDocument = async () => {
     setIsLoading(true);
     const currentDate = new Date();
     const diffTime = new Date(scheduledDate) - currentDate;
@@ -965,6 +969,7 @@ function DashUI() {
     const diffTime = new Date(scheduledDate) - currentDate;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     // setReminderDays(0);
+    console.log(" i am changing the value ");
     if (diffDays < 2) {
       setReminderOptions([{ text: "Select days", value: 0 }]);
     } else if (diffDays < 4) {
@@ -1004,6 +1009,7 @@ function DashUI() {
   };
 
   const handleReminderChange = (e) => {
+    console.log("checking the reminder day : ", e);
     setReminderDays(parseInt(e));
   };
 
@@ -1038,6 +1044,10 @@ function DashUI() {
   const onTemplateSelect = (selectedTemplate) => {
     setIsTemplateOptionsSelected(selectedTemplate);
   };
+
+  useEffect(() => {
+    console.log("this is the selected template : ", isTemplateOptionsSelected);
+  }, [isTemplateOptionsSelected]);
   /// rajvi changes
   const handleMultipleRemoveImage = (index) => {
     setMultipleSelectedImage((prevImages) =>
