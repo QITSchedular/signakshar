@@ -56,6 +56,7 @@ function SplitButtonSign({
   const [isDocSendOnce, setIsDocSendOnce] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
+  
 
   useEffect(() => {
     const fetchuserData = async () => {
@@ -126,6 +127,8 @@ function SplitButtonSign({
   const [scheduleDateState, setscheduleDateState] = useState(
     new Date().toLocaleDateString()
   );
+  const [selectedDate1, setSelectedDate1] = useState("");
+  const [selectedDate, setSelectedDate] = useState(scheduleDateState);
 
   const handleSendButtonClick = async (scheduleTime, scheduleDate) => {
     setIsLoading(true);
@@ -466,17 +469,35 @@ function SplitButtonSign({
     setPopupVisibleDocument(false);
   };
 
+  // const handleScheduleSend = (sdate, stime) => {
+    
+  //   if (selectedTime) {
+  //     handleSendButtonClick(stime, sdate);
+  //     setPopupVisibleSchedule(false);
+  //   } else {
+  //     toastDisplayer("error", "Time Formate is Invalid");
+  //     console.log("Invalid time or time not set.");
+  //     // setPopupVisibleSchedule(true);
+  //   }
+    
+  // };
+
   const handleScheduleSend = (sdate, stime) => {
-    if (selectedTime) {
+    console.log("Selected Date:", selectedDate1); // Log value of selectedDate
+  
+    if (selectedDate1 === "") {
+      console.log("Selected Date is empty");
+      toastDisplayer("error", "Select the date");
+    } else if (selectedTime) {
       handleSendButtonClick(stime, sdate);
       setPopupVisibleSchedule(false);
     } else {
-      toastDisplayer("error", "Time Formate is Invalid");
+      toastDisplayer("error", "Time Format is Invalid");
       console.log("Invalid time or time not set.");
       // setPopupVisibleSchedule(true);
     }
   };
-
+  
   const editTemplateBtn = async () => {
     if (
       (updatedEditRecipients && updatedEditRecipients.length !== 0) ||
@@ -620,6 +641,10 @@ function SplitButtonSign({
             popupWidth="480px"
             selectedTime={selectedTime}
             setSelectedTime={setSelectedTime}
+            selectedDate={selectedDate}
+            selectedDate1={selectedDate1}
+            setSelectedDate={setSelectedDate}
+            setSelectedDate1={setSelectedDate1}
           />
 
           <PopupMain
@@ -634,6 +659,10 @@ function SplitButtonSign({
             scheduleDateState={scheduleDateState}
             selectedTime={selectedTime}
             setSelectedTime={setSelectedTime}
+            selectedDate={selectedDate}
+            selectedDate1={selectedDate1}
+            setSelectedDate={setSelectedDate}
+            setSelectedDate1={setSelectedDate1}
           />
         </div>
       )}
@@ -664,6 +693,10 @@ function SplitButtonSign({
             popupWidth="480px"
             selectedTime={selectedTime}
             setSelectedTime={setSelectedTime}
+            selectedDate={selectedDate}
+            selectedDate1={selectedDate1}
+            setSelectedDate={setSelectedDate}
+            setSelectedDate1={setSelectedDate1}
           />
 
           <PopupMain
@@ -678,6 +711,10 @@ function SplitButtonSign({
             scheduleDateState={scheduleDateState}
             selectedTime={selectedTime}
             setSelectedTime={setSelectedTime}
+            selectedDate={selectedDate}
+            selectedDate1={selectedDate1}
+            setSelectedDate={setSelectedDate}
+            setSelectedDate1={setSelectedDate1}
           />
         </div>
       )}

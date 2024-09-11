@@ -33,7 +33,6 @@ import { useAuth } from "../../../contexts/auth";
 import { LoadPanel } from "devextreme-react";
 
 function DashUI() {
-
   const { user, userDetailAuth } = useAuth();
   const [multipleErrorMessage, setMultipleErrorMessage] = useState([]);
   const [multipleImageDetails, setMultipleImageDetails] = useState([]);
@@ -270,71 +269,7 @@ function DashUI() {
   };
 
   useEffect(() => {
-    // const fetchTemplateOptions = async () => {
-    //   try {
-    //     setLoading(true);
-    //     const response = await fetchTemplates(user, creatorid);
-    //     setLoading(false);
-    //     setLoading(true);
-    //     const templatesWithData = await Promise.all(
-    //       response.map(async (template) => {
-
-    //         const recipientResponse = await fetchRecipientsByTemplateId(
-    //           template.template_id,
-    //           user
-    //         );
-    //         template.recipientData = recipientResponse;
-    //         return template;
-    //       })
-    //     );
-    //     setLoading(false);
-    //     console.log("templatesWithData:",templatesWithData)
-    //     setTemplateOption(templatesWithData);
-    //     if (selectedTemplate) {
-    //       setRecipientData([]);
-    //       const queryParams = new URLSearchParams(location.search);
-    //       const docid = queryParams.get("docId");
-    //       let tempData = selectedTemplate.recData;
-
-    //       if (docid !== null && isTemplateDataInitalized === false) {
-    //         setIsTemplateDataInitalized(true);
-    //         tempData.map((e, index) => {
-    //           const recipient = recipientData[index] || {};
-    //           const data = {
-    //             created_by: e.created_by,
-    //             name: e.name,
-    //             role: e.role,
-    //             template_id: e.template,
-    //             id: e.id,
-    //             fullName: recipient.fullName ? recipient.fullName : "",
-    //             emailId: recipient.emailId ? recipient.emailId : "",
-    //             testID: index + 1,
-    //           };
-
-    //           return setRecipientData((prevData) => [...prevData, data]);
-    //         });
-    //       } else {
-    //         tempData.map((e, index) => {
-    //           var data = {
-    //             created_by: e.created_by,
-    //             name: e.name,
-    //             role: e.role,
-    //             template_id: e.template,
-    //             id: e.id,
-    //             fullName: "",
-    //             emailId: "",
-    //             testID: index + 1,
-    //           };
-    //           setRecipientData((prevData) => [...prevData, data]);
-    //         });
-    //       }
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching template options:", error);
-    //   }
-    // };
-
-   const fetchTemplateOptions = async () => {
+    const fetchTemplateOptions = async () => {
       try {
         setLoading(true);
         const response = await fetchTemplates(user, creatorid);
@@ -347,7 +282,7 @@ function DashUI() {
             user
           );
           selectedTemplate.recData = recipientResponse;
-    
+
           setLoading(false);
           setTemplateOption((prevOptions) =>
             prevOptions.map((template) =>
@@ -374,7 +309,7 @@ function DashUI() {
                 emailId: recipient.emailId ? recipient.emailId : "",
                 testID: index + 1,
               };
-    
+
               setRecipientData((prevData) => [...prevData, data]);
             });
           } else {
@@ -427,7 +362,7 @@ function DashUI() {
       return newData;
     });
 
-    if (addYourselfUsed[id]){
+    if (addYourselfUsed[id]) {
       setOnceClicked(true);
       setAddYourselfUsed((prevState) => {
         const newState = { ...prevState };
@@ -457,10 +392,9 @@ function DashUI() {
   // };
 
   useEffect(() => {
-    console.log("Updated addYourselfUsed:", addYourselfUsed);
-    console.log("OnceClicked State:", OnceClicked);
+    console.log("=======Current State of addYourselfUsed:", addYourselfUsed);
+    console.log("=======Current State of OnceClicked:", OnceClicked);
   }, [addYourselfUsed, OnceClicked]);
-
 
   // const handleRecipientChange = (id, field, value) => {
   //   setRecipientData((prevData) =>
@@ -468,9 +402,9 @@ function DashUI() {
   //       if (item.id === id) {
   //         // Update recipient data with the new value
   //         const updatedItem = { ...item, [field]: value };
-  
+
   //         // Check if the field being updated is 'fullName' and if it should affect `addYourselfUsed`
-  //         if (field === 'fullName') 
+  //         if (field === 'fullName')
   //           {
   //           if (addYourselfUsed[id] && addYourselfUsed[id] !== value) {
   //             // Remove entry from `addYourselfUsed` if the name no longer matches
@@ -481,14 +415,14 @@ function DashUI() {
   //             });
   //           }
   //         }
-  
+
   //         return updatedItem;
   //       }
   //       return item;
   //     })
   //   );
   // };
-  
+
   const handleRecipientChange = (id, field, value) => {
     setRecipientData((prevData) =>
       prevData.map((item) => {
@@ -496,11 +430,14 @@ function DashUI() {
           // Update recipient data with the new value
           const updatedItem = { ...item, [field]: value };
 
-  
           // If either 'fullName' or 'emailId' is modified, remove entry from `addYourselfUsed` if the new value no longer matches the "Add Yourself" values
           if (
-            (field === "fullName" && addYourselfUsed[id] && value !== currentUser.full_name) ||
-            (field === "emailId" && addYourselfUsed[id] && value !== currentUser.email)
+            (field === "fullName" &&
+              addYourselfUsed[id] &&
+              value !== currentUser.full_name) ||
+            (field === "emailId" &&
+              addYourselfUsed[id] &&
+              value !== currentUser.email)
           ) {
             setAddYourselfUsed((prevState) => {
               const newState = { ...prevState };
@@ -743,7 +680,7 @@ function DashUI() {
     return emailRegex.test(email);
   };
 
- const handleProceedDocument = async () => {
+  const handleProceedDocument = async () => {
     setIsLoading(true);
     const currentDate = new Date();
     const diffTime = new Date(scheduledDate) - currentDate;
@@ -970,7 +907,6 @@ function DashUI() {
     const diffTime = new Date(scheduledDate) - currentDate;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     // setReminderDays(0);
-    console.log(" i am changing the value ");
     if (diffDays < 2) {
       setReminderOptions([{ text: "Select days", value: 0 }]);
     } else if (diffDays < 4) {
@@ -1010,7 +946,6 @@ function DashUI() {
   };
 
   const handleReminderChange = (e) => {
-    console.log("checking the reminder day : ", e);
     setReminderDays(parseInt(e));
   };
 
@@ -1046,9 +981,7 @@ function DashUI() {
     setIsTemplateOptionsSelected(selectedTemplate);
   };
 
-  useEffect(() => {
-    console.log("this is the selected template : ", isTemplateOptionsSelected);
-  }, [isTemplateOptionsSelected]);
+  useEffect(() => {}, [isTemplateOptionsSelected]);
   /// rajvi changes
   const handleMultipleRemoveImage = (index) => {
     setMultipleSelectedImage((prevImages) =>
@@ -1391,6 +1324,7 @@ function DashUI() {
                                     setAddYourselfUsed={setAddYourselfUsed}
                                     addYourselfUsed={addYourselfUsed}
                                     OnceClicked={OnceClicked}
+                                    setShowSections={setShowSections}
                                   />
                                 </>
                               ) : (
@@ -1409,6 +1343,10 @@ function DashUI() {
                                     OnceClicked={OnceClicked}
                                     setAddYourselfUsed={setAddYourselfUsed}
                                     addYourselfUsed={addYourselfUsed}
+                                    showSections={showSections}
+                                    setShowSections={setShowSections}
+                                    receipientData={recipientData}
+                                    setRecipientData={setRecipientData}
                                   />
                                 </>
                               )}

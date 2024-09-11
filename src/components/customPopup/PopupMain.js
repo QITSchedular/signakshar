@@ -56,7 +56,11 @@ function PopupMain({
   applyInitialsImageData,
   scheduleDateState,
   selectedTime,
-  setSelectedTime
+  setSelectedTime,
+  selectedDate,
+  selectedDate1,
+  setSelectedDate,
+  setSelectedDate1
 }) {
   const navigate = useNavigate();
   const [navigationPath, setNavigationPath] = useState("");
@@ -64,7 +68,7 @@ function PopupMain({
   const now = new Date();
   const dateBoxLabel = { "aria-label": "Date" };
 
-  const [selectedDate1, setSelectedDate1] = useState("");
+  // const [selectedDate1, setSelectedDate1] = useState("");
   // const [selectedTime, setSelectedTime] = useState(null);
   const getCurrentDate = () => {
     const today = new Date();
@@ -73,7 +77,7 @@ function PopupMain({
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
-  const [selectedDate, setSelectedDate] = useState(scheduleDateState);
+  // const [selectedDate, setSelectedDate] = useState(scheduleDateState);
   // const [selectedDate, setSelectedDate] = useState("");
   const handleNavigate = () => {
     // onNavigate(selectedDate1, selectedTime);
@@ -160,7 +164,6 @@ function PopupMain({
                 Time <span className="required-field-schedule">*</span>
               </div>
               <DateBox
-                
                 onInput={handleTimeInput}
                 onValueChanged={handleTimeChange}
                 inputAttr={timeLabel}
