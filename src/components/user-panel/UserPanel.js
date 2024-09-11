@@ -61,7 +61,7 @@ export default function UserPanel({ menuMode }) {
                 {
                   (userDetailAuth.user.profile_pic && (userDetailAuth.user.profile_pic != "null"))
                     ? <img src={userDetailAuth.user.profile_pic} alt="profile_img" height={35} width={35} />
-                    : <span>{userDetailAuth ? userDetailAuth.user.email[0].toUpperCase() : ""}</span>
+                    : <span>{userDetailAuth ? userDetailAuth?.user?.full_name[0].toUpperCase() || userDetailAuth?.user?.email[0].toUpperCase() : ""}</span>
                 }
               </div>
               <div className={"user-name"}>{userDetailAuth && userDetailAuth.user.full_name !== null ? userDetailAuth.user.full_name : userDetailAuth.user.email.split('@')[0]}</div>

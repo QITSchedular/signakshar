@@ -967,7 +967,7 @@ function RecieverPanel() {
                   className="btn-reset"
                   onClick={handleResetButtonClick}
                 /> */}
-                <div className="single-document-sign">1 Documnet</div>
+                <div className="single-document-sign">1 Document</div>
                 {signerOptions.length != 1 ? (
                   <div className="splitbtnRecipients">
                     <DropDownButton

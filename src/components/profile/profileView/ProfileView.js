@@ -110,7 +110,7 @@ export default function ProfileView({
                 className="profileCardImg"
               />
               :
-              <div className="profileCardImg customeImg">{email ? email[0].toUpperCase() : ''}</div>
+              <div className="profileCardImg customeImg">{fullName ? fullName[0].toUpperCase() : (email ? email[0].toUpperCase : '')}</div>
           }
           {hovered && (
             <div className="userIcon" onClick={(e) => e.stopPropagation()}>

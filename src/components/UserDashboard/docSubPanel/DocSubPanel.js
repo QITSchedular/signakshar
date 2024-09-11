@@ -11,7 +11,7 @@ import { LoadPanel } from "devextreme-react";
 
 
 const DocSubPanel = () => {
-  const [selectedTabIndex, setSelectedTabIndex] = useState('Total');
+  const [selectedTabIndex, setSelectedTabIndex] = useState("Total");
   const [loading, setLoading] = useState(false);
 
   const [documents, setDocuments] = useState({
@@ -23,7 +23,7 @@ const DocSubPanel = () => {
     loggedInUserId: null,
     loggedInEmail: null,
   });
-  // new state for doc data
+  // new state for doc data-rajvi
   const [newDocData, setnewDocData] = useState([]);
 
   const { user,userDetailAuth } = useAuth();
@@ -33,39 +33,17 @@ const DocSubPanel = () => {
   }, []);
 
   useEffect(() => {
-    const initializeData = async () => {
-      try {
-        setLoading(true);
-        // const userData = await fetchUserDetails(user);
-        setUserDetails({ loggedInUserId: userDetailAuth.user.id, loggedInEmail: userDetailAuth.user.email });
-        const documentsData = await fetchDocuments(userDetailAuth.user.id, userDetailAuth.user.email);
-        setDocuments({
-          dataSource: documentsData,
-          dataSource1: documentsData,
-          noOfDoc: documentsData.length,
-        });
-      } catch (error) {
-        console.error('Error initializing data:', error);
-      }
-      finally {
-        setLoading(false); // Ensure loading is set to false in the finally block
-      }
-    };
-    //////////////
     // const initializeData = async () => {
     //   try {
     //     setLoading(true);
     //     // const userData = await fetchUserDetails(user);
     //     setUserDetails({ loggedInUserId: userDetailAuth.user.id, loggedInEmail: userDetailAuth.user.email });
-    //     // const documentsData = await fetchDocuments(userDetailAuth.user.id, userDetailAuth.user.email);
-    //     const docsAllData=await getAllDocsData(true,true,userDetailAuth.user.id);
-    //     console.log("dcosAllDAta:",docsAllData)
-    //     setnewDocData(docsAllData);
-    //     // setDocuments({
-    //     //   dataSource: documentsData,
-    //     //   dataSource1: documentsData,
-    //     //   noOfDoc: documentsData.length,
-    //     // });
+    //     const documentsData = await fetchDocuments(userDetailAuth.user.id, userDetailAuth.user.email);
+    //     setDocuments({
+    //       dataSource: documentsData,
+    //       dataSource1: documentsData,
+    //       noOfDoc: documentsData.length,
+    //     });
     //   } catch (error) {
     //     console.error('Error initializing data:', error);
     //   }
@@ -73,6 +51,28 @@ const DocSubPanel = () => {
     //     setLoading(false); // Ensure loading is set to false in the finally block
     //   }
     // };
+
+    //////////////newcode
+    const initializeData = async () => {
+      try {
+        setLoading(true);
+        // const userData = await fetchUserDetails(user);
+        setUserDetails({ loggedInUserId: userDetailAuth.user.id, loggedInEmail: userDetailAuth.user.email });
+        // const documentsData = await fetchDocuments(userDetailAuth.user.id, userDetailAuth.user.email);
+        const docsAllData=await getAllDocsData(true,true,userDetailAuth.user.id);
+        setnewDocData(docsAllData);
+        // setDocuments({
+        //   dataSource: documentsData,
+        //   dataSource1: documentsData,
+        //   noOfDoc: documentsData.length,
+        // });
+      } catch (error) {
+        console.error('Error initializing data:', error);
+      }
+      finally {
+        setLoading(false); // Ensure loading is set to false in the finally block
+      }
+    };
     initializeData();
   }, [user]);
 
@@ -92,7 +92,7 @@ const DocSubPanel = () => {
         <TabPanel onSelectionChanged={onTabSelectionChanged}>
           {tabItems.map((item) => (
             <Item key={item} title={item}>
-              <DocTabs
+              {/* <DocTabs
                 itemName={item}
                 selectedTabIndex={selectedTabIndex}
                 dataSource={documents.dataSource}
@@ -103,6 +103,14 @@ const DocSubPanel = () => {
                 setNoOfDoc={(count) => setDocuments((prev) => ({ ...prev, noOfDoc: count }))}
                 loggedInUserId={userDetails.loggedInUserId}
                 loggedInEmail={userDetails.loggedInEmail}
+              /> */}
+
+              <DocTabs
+                itemName={item}
+                selectedTabIndex={selectedTabIndex}
+                setSelectedTabIndex={setSelectedTabIndex}
+                newDocData={newDocData}
+                setnewDocData={setnewDocData}
               />
             </Item>
           ))}
