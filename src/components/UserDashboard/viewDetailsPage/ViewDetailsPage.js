@@ -15,7 +15,7 @@ import { LoadPanel } from "devextreme-react";
 function ViewDetailsPage() {
   const location = useLocation();
   const { details } = location.state || {};
-  const [recipientCount, setRecipientCount] = useState(0);
+  // const [recipientCount, setRecipientCount] = useState(0);
   const [recipientDetails, setRecipientDetails] = useState(null);
   const [recipientStatus, setRecipientStatus] = useState({});
   const [pdfImage, setPdfImage] = useState(null);
@@ -27,11 +27,11 @@ function ViewDetailsPage() {
   useEffect(() => {
     if (details && details.id) {
       setLoadingRecipients(true);
-      fetchRecipientCount(details.id)
-        .then((data) => setRecipientCount(data.recipient_count))
-        .catch((error) =>
-          console.error("Error fetching recipient count:", error)
-        );
+      // fetchRecipientCount(details.id)
+      //   .then((data) => setRecipientCount(data.recipient_count))
+      //   .catch((error) =>
+      //     console.error("Error fetching recipient count:", error)
+      //   );
 
       fetchRecipientDetails(details.id)
         .then((data) => {
@@ -130,14 +130,12 @@ function ViewDetailsPage() {
           <div className="docDetailInfo">
             <div className="docImg">
               {loadingPdf ? (
-                <div>Loading PDF...</div>
+                <div className="imgimg1"></div>
               ) : (
                 pdfImage && (
                   <img
                     className="imgimg"
                     src={pdfImage}
-                    width="160px"
-                    height="200px"
                     alt="PDF first page"
                   />
                 )
@@ -159,7 +157,7 @@ function ViewDetailsPage() {
               <p className="expiresClass">
                 Expires on {formatDate(expiryDate)}
               </p>
-              <p className="recClass">{recipientCount} Recipients</p>
+              <p className="recClass">{details.recipient_count} Recipients</p>
             </div>
           </div>
 

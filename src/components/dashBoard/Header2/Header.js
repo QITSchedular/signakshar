@@ -7,7 +7,7 @@ import leftarrow from "../../../SVG/arrow-left-s-line.svg";
 
 export default function Header({ menuToggleEnabled, title, toggleMenu }) {
   const navigate = useNavigate();
-
+  console.log("--titleL",title)
   const handleGoBack = () => {
     sessionStorage.removeItem("fileData");
     sessionStorage.removeItem("filesDataBackup");

@@ -22,7 +22,7 @@ function UserDashboard() {
     sessionStorage.removeItem("filesDataBackup");
     sessionStorage.removeItem("goBackData");
     sessionStorage.removeItem("goBackTemplate");
-    
+
     const storedUrl = localStorage.getItem("initialUrl");
     if (storedUrl) {
       setRedirectUrl(storedUrl);

@@ -381,17 +381,21 @@ function DocumentMain({
 
   const handleDeleteRecipient = async (recipientIdToDelete, e) => {
     setIsAnyFieldClicked(false);
+    console.log("recipientIdTodekete:",recipientIdToDelete);
     if (typeof recipientIdToDelete === "string") {
+      console.log("string",draggedData);
       setDraggedData((prevDraggedData) =>
         prevDraggedData.filter(
           (recipient) => recipient.id !== recipientIdToDelete
         )
       );
-
-      setDownloadDraggedData((prevDragData) =>
-        prevDragData.filter((recipient) => recipient.id !== recipientIdToDelete)
-      );
+          console.log("ddd",downloadDraggedData);
+      // setDownloadDraggedData((prevDragData) =>
+      //   prevDragData.filter((recipient) => recipient.id !== recipientIdToDelete)
+      // );
+      console.log("cscsscs");
     } else if (typeof recipientIdToDelete === "number") {
+      console.log("number");
       const delresponse = await axios.delete(
         `${process.env.REACT_APP_API_URL}/api/templateDraggedDataApi/${recipientIdToDelete}/`,
         {
@@ -401,11 +405,14 @@ function DocumentMain({
         }
       );
       if (delresponse.status === 200) {
-        setUpdatedEditRecipients((prevUpdEdit) =>
-          prevUpdEdit.filter(
-            (rec) => rec !== null && rec.id !== recipientIdToDelete
-          )
-        );
+        console.log("delresponse:",delresponse);
+        console.log("recipientIdToDelete:",recipientIdToDelete);
+        console.log("updatedEditRecipients:",updatedEditRecipients);
+        // setUpdatedEditRecipients((prevUpdEdit) =>
+        //   prevUpdEdit.filter(
+        //     (rec) => rec !== null && rec.id !== recipientIdToDelete
+        //   )
+        // );
 
         setEditRecData((prevEdit) => {
           const flattenedArray = prevEdit.flat();
@@ -460,6 +467,7 @@ function DocumentMain({
     if (activeFieldData) {
       const { x, y, width, height, fieldName } = activeFieldData;
       const updatedDraggedData = [...draggedData];
+      console.log("updatedDraggedData11111:",updatedDraggedData)
       for (let i = 0; i < numPages; i++) {
         const existingFieldOnPage = updatedDraggedData.find(
           (field) =>
@@ -470,6 +478,7 @@ function DocumentMain({
             field.width === width &&
             field.height === height
         );
+        console.log("existingFieldOnPage:",existingFieldOnPage);
         if (!existingFieldOnPage) {
           updatedDraggedData.push({
             id: generateUniqueId(),
@@ -492,6 +501,7 @@ function DocumentMain({
           });
         }
       }
+      console.log("updatedDraggedData22222:",updatedDraggedData)
       setDraggedData(updatedDraggedData);
     }
   };
@@ -2134,6 +2144,7 @@ function DocumentMain({
                                 draggedData.map((recipient, i) => {
                                   const pagePositions =
                                     recipient.pagePositions[index];
+                                    
                                   if (
                                     recipient.id &&
                                     pagePositions &&
@@ -2231,22 +2242,21 @@ function DocumentMain({
                                     selectedRowDataTemp?.recData.find(
                                       (rec) => rec.id === recipient.templateRec
                                     );
-
                                   if (parseInt(recipient.pageNum) === index) {
-                                    const adjustedLeft =
-                                      (recipient.x / pdfImageSize.width) *
-                                      pdfImageRect.width;
-                                    const adjustedTop =
-                                      (recipient.y / pdfImageSize.height) *
-                                      pdfImageRect.height;
-                                    const adjustedWidth =
-                                      (parseFloat(recipient.width) /
-                                        pdfImageSize.width) *
-                                      pdfImageRect.width;
-                                    const adjustedHeight =
-                                      (parseFloat(recipient.height) /
-                                        pdfImageSize.height) *
-                                      pdfImageRect.height;
+                                    // const adjustedLeft =
+                                    //   (recipient.x / pdfImageSize.width) *
+                                    //   pdfImageRect.width;
+                                    // const adjustedTop =
+                                    //   (recipient.y / pdfImageSize.height) *
+                                    //   pdfImageRect.height;
+                                    // const adjustedWidth =
+                                    //   (parseFloat(recipient.width) /
+                                    //     pdfImageSize.width) *
+                                    //   pdfImageRect.width;
+                                    // const adjustedHeight =
+                                    //   (parseFloat(recipient.height) /
+                                    //     pdfImageSize.height) *
+                                    //   pdfImageRect.height;
                                     const isDateField =
                                       recipient.fieldName === "Date" ||
                                       recipient.fieldName === "Name";
@@ -2316,6 +2326,16 @@ function DocumentMain({
                                             </p>
                                           </div>
                                         </div>
+                                        <IconDelete
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleDeleteRecipient(
+                                              recipient.id,
+                                              e
+                                            );
+                                          }}
+                                          className="recipient-box-delete"
+                                        />
                                       </Rnd>
                                     );
                                   }
