@@ -242,6 +242,7 @@ function RecieverPanel() {
     try {
       const response = await fetchDocumentDraggedData(docid, rid);
       setDraggedData(response);
+      
     } catch (error) {
       console.error("Error fetching dragged data:", error);
       toastDisplayer("error", "Failed to fetch dragged data");

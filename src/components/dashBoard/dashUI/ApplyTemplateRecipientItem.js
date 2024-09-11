@@ -12,6 +12,7 @@ const ApplyTemplateRecipientItem = ({
   OnceClicked,
   setAddYourselfUsed = { setAddYourselfUsed },
   addYourselfUsed = { addYourselfUsed },
+  setShowSections={setShowSections}
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -40,6 +41,59 @@ const ApplyTemplateRecipientItem = ({
     onClick: () => {
       handleAddYourselfClick();
     },
+  };
+
+  const handleEmailChange = (e) => {
+    const inputEmail = e.event.target.value.toLowerCase();
+    const addYourselfEmail = currentUser.email.toLowerCase();
+    
+    console.log("Input Email:", inputEmail);
+    console.log("Add Yourself Email:", addYourselfEmail);
+  
+    // Update recipient data
+    handleRecipientChange(recipient.id, "emailId", inputEmail);
+  
+    // Determine if the email matches the "Add Yourself" email
+    const isEmailMatching = inputEmail === addYourselfEmail;
+    console.log("Email Matching Status:", isEmailMatching);
+  
+    if (addYourselfUsed[recipient.id]) {
+      if (isEmailMatching) {
+        // Email matches "Add Yourself" email
+        setOnceClicked(false);
+        console.log("==========Email matches Add Yourself email.");
+      } else {
+        // Email does not match "Add Yourself" email
+        setOnceClicked(true);
+        console.log("==========Email does not match Add Yourself email.");
+      }
+    } else {
+      // "Add Yourself" was not used for this recipient
+      setOnceClicked(false);
+      console.log("==========Add Yourself not used for this recipient.");
+    }
+  
+    // Check if there is only one recipient and "Add Yourself" is used
+    const recipientsCount = Object.keys(addYourselfUsed).length;
+    console.log("==========Number of recipients:", recipientsCount);
+    if (recipientsCount === 1 && addYourselfUsed[recipient.id]) {
+      setShowSections(false); // Hide sections if only one recipient is present and "Add Yourself" is used
+      console.log("==========Only one recipient and Add Yourself used. Hiding sections.");
+    } else {
+      // Ensure sections are visible if conditions are not met
+      setShowSections(true);
+    }
+  
+    // Clear the "Add Yourself" functionality if email changes
+    if (addYourselfUsed[recipient.id] && !isEmailMatching) {
+      setOnceClicked(true); // Show "Add Yourself" button for other recipients
+      setAddYourselfUsed((prevState) => {
+        const newState = { ...prevState };
+        delete newState[recipient.id];
+        return newState;
+      });
+      console.log("==========Clearing Add Yourself functionality as email does not match.");
+    }
   };
 
   return (
@@ -83,6 +137,7 @@ const ApplyTemplateRecipientItem = ({
             <span>Email ID</span>
             <span className="star">*</span>
             <TextBox
+            onChange={handleEmailChange}
               placeholder="Enter the email id"
               stylingMode="outlined"
               className="custom-textbox2"
