@@ -22,7 +22,7 @@ import { useAuth } from "../../../contexts/auth";
 import { LoadPanel } from "devextreme-react";
 
 function TempSubPanel() {
-  const { user,userDetailAuth } = useAuth();
+  const { user, userDetailAuth } = useAuth();
   const [searchValue, setSearchValue] = useState("");
   const [templateData, setTemplateData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,6 @@ function TempSubPanel() {
       setLoading(true);
       const jwtToken = localStorage.getItem("jwt");
       // const userResponse = await fetchUserDetails(user);
-
 
       // Fetch templates
       const templates = await fetchTemplates(jwtToken, userDetailAuth.user.id);
@@ -103,7 +102,7 @@ function TempSubPanel() {
           responseDel.message === "Template deleted successfully" &&
           responseDel.status === 200
         ) {
-          if(templateData.length===1){
+          if (templateData.length === 1) {
             setTemplateData([]);
           }
           fetchTemplateData();

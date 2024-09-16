@@ -127,6 +127,7 @@ function TitlePanel({
                     text="Download"
                     onClick={() => {
                       if(downloadDraggedData){
+                        
                         generateSignedPdf(selectedFile, downloadDraggedData,splitDocName);
                       }else{
                         toastDisplayer("error","Make sure you've applied the signature!");

@@ -459,7 +459,7 @@
                     width: auto;
                     height: 36px;
                     display: flex;
-                    gap: 16px;
+                    // gap: 16px;
                     margin-left: 2px;
 
                     .btn-pen-color {
@@ -468,6 +468,7 @@
                       font-family: "Inter", sans-serif;
                       font-size: 16px;
                       font-weight: 400;
+                      padding: 0px 6px 0px 0px;
                       border: 1px solid rgba(78, 93, 107, 0.24);
                       border-radius: 1000px;
                       background-color: transparent;
