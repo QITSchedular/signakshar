@@ -53,7 +53,7 @@ function DashUI() {
   const [documentBase64File, setDocumentBase64File] = useState("");
   const docId = location.state?.docId;
   // const [showTooltip, setShowTooltip] = useState(false);
-
+  const [currentUser, setCurrentUser] = useState("");
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipContent, setTooltipContent] = useState("");
   const [tooltipTarget, setTooltipTarget] = useState(null);
@@ -74,6 +74,8 @@ function DashUI() {
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const selectedRowData = location.state?.selectedRowData;
+
+  
 
   const handleFirstCheckboxChange = () => {
     if (firstCheckboxChecked) {
@@ -372,13 +374,44 @@ function DashUI() {
     }
   };
 
+  // useEffect(() => {
+  //   if (recipientData.length === 1 && addYourselfUsed[recipientData[0].id]) {
+  //     setShowSections(false);
+  //   } else {
+  //     setShowSections(true);
+  //   }
+  // }, [recipientData, addYourselfUsed]);
+
   useEffect(() => {
-    if (recipientData.length === 1 && addYourselfUsed[recipientData[0].id]) {
-      setShowSections(false);
-    } else {
-      setShowSections(true);
+    // console.log("location.state : ",location.state)
+    // console.log("location.currentUser : ",currentUser)
+    // console.log("recipientData ===> : ",recipientData)
+    // id
+    // const currentUserData = await getCurrentUser();
+    // console.log("currentUserData : ",currentUserData)
+    // Check if the state was passed during navigation
+    if (location.state && location.state.showSections !== undefined) {
+      // setShowSections(location.state.showSections);
+        // setShowSections(false);
+        if(recipientData.length == 1 && recipientData[0].id == currentUser.id){
+          // console.log("==================>inside 1")
+          setShowSections(false);
+        }else{
+          // console.log("==================>inside 2")
+          setShowSections(true);
+        }
+      } else {
+      // console.log("==================>inside 3")
+      // Default logic to determine showSections
+      if (recipientData.length === 1 && addYourselfUsed[recipientData[0].id]) {
+        // console.log("==================>inside 4")
+        setShowSections(false);
+      } else {
+        // console.log("==================>inside 5")
+        setShowSections(true);
+      }
     }
-  }, [recipientData, addYourselfUsed]);
+  }, [location.state, recipientData, addYourselfUsed,currentUser]);
 
   // const handleRecipientChange = (id, field, value) => {
   //   setRecipientData((prevData) =>
@@ -827,6 +860,9 @@ function DashUI() {
                 scheduledDate: scheduledDate,
                 reminderDays: reminderDays,
                 recipientTempData: recipientData,
+                showSections:showSections,
+                // setShowSections:setShowSections,
+                
                 Expiration: {
                   expirationDays: expirationDays,
                   scheduledDate: scheduledDate,
@@ -853,6 +889,8 @@ function DashUI() {
                 selectedFile: selectedImage,
                 creatorid: creatorid,
                 emailAction: getEmailAction,
+                showSections:showSections,
+                // setShowSections:setShowSections,
                 Expiration: {
                   expirationDays: expirationDays,
                   scheduledDate: scheduledDate,
@@ -910,24 +948,24 @@ function DashUI() {
     if (diffDays < 2) {
       setReminderOptions([{ text: "Select days", value: 0 }]);
     } else if (diffDays < 4) {
-      setReminderOptions([{ text: "2 days ago", value: 2 }]);
+      setReminderOptions([{ text: "2 days before the expiration date", value: 2 }]);
     } else if (diffDays >= 4 && diffDays <= 5) {
       setReminderOptions([
-        { text: "2 days ago", value: 2 },
-        { text: "4 days ago", value: 4 },
+        { text: "2 days before the expiration date", value: 2 },
+        { text: "4 days before the expiration date", value: 4 },
       ]);
     } else if (diffDays >= 6 && diffDays <= 7) {
       setReminderOptions([
-        { text: "2 days ago", value: 2 },
-        { text: "4 days ago", value: 4 },
-        { text: "6 days ago", value: 6 },
+        { text: "2 days before the expiration date", value: 2 },
+        { text: "4 days before the expiration date", value: 4 },
+        { text: "6 days before the expiration date", value: 6 },
       ]);
     } else if (diffDays >= 8) {
       setReminderOptions([
-        { text: "2 days ago", value: 2 },
-        { text: "4 days ago", value: 4 },
-        { text: "6 days ago", value: 6 },
-        { text: "8 days ago", value: 8 },
+        { text: "2 days before the expiration date", value: 2 },
+        { text: "4 days before the expiration date", value: 4 },
+        { text: "6 days before the expiration date", value: 6 },
+        { text: "8 days before the expiration date", value: 8 },
       ]);
     }
   }, [scheduledDate]);
@@ -949,19 +987,22 @@ function DashUI() {
     setReminderDays(parseInt(e));
   };
 
-  const [currentUser, setCurrentUser] = useState("");
+  
 
+  const getCurrentUser = async () => {
+    try {
+      console.log("GetCurrentUser =====>")
+      const userData = await fetchCurrentUser();
+      setCurrentUser(userData);
+      // currentUserData = userData;
+      return userData;
+    } catch (error) {
+      console.error("Error fetching current user:", error);
+    }
+  };
   useEffect(() => {
-    var currentUserData;
-    const getCurrentUser = async () => {
-      try {
-        const userData = await fetchCurrentUser();
-        setCurrentUser(userData);
-        currentUserData = userData;
-      } catch (error) {
-        console.error("Error fetching current user:", error);
-      }
-    };
+    // var currentUserData;
+   
 
     getCurrentUser();
   }, []);

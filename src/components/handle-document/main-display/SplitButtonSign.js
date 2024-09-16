@@ -148,7 +148,6 @@ function SplitButtonSign({
             (tdata) =>
               !downloadDraggedData.some((ddata) => ddata.email === tdata.email)
           );
-
         if (missingEmails.length > 0) {
           setIsLoading(false);
           toastDisplayer(
@@ -157,7 +156,7 @@ function SplitButtonSign({
           );
           return;
         }
-
+        
         if (screenValue === "Document" && tempYEs === "no") {
           matchedData = downloadDraggedData.filter(
             (item) => item.email === loggedInUserDetail.user.email
@@ -167,7 +166,10 @@ function SplitButtonSign({
             someFieldsSigned = matchedData.some((item) => item.signatureData);
             setRecEmailForStatus(loggedInUserDetail.user.email);
           }
-        } else if (screenValue === "Document" && tempYEs === "yes") {
+        } 
+        
+        else if (screenValue === "Document" && tempYEs === "yes") {
+          setIsLoading(true);
           templateDraggedData.forEach((tdata) => {
             if (tdata.emailId === loggedInUserDetail.user.email) {
               matchedData = downloadDraggedData.filter(
@@ -233,7 +235,7 @@ function SplitButtonSign({
                   height: oneRec.height,
                   docId: did,
                   signer_status:
-                    docRecipients.roleId == 1 ? "Unsigned" : "null",
+                    docRecipients.roleId== 1 ? "Unsigned" : "null",
                   reviewer_status:
                     docRecipients.roleId == 2 ? "Approved" : "null",
                   docRecipientdetails_id:

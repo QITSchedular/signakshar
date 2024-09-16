@@ -37,6 +37,8 @@ function CreateOrSignDocument() {
   const multipleSelectedImage = location.state?.multipleSelectedImage;
   const multipleImageDetails = location.state?.multipleImageDetails;
   const selectedRowDataTemp = location.state?.selectedRowData;
+  const showSections=location.state?.showSections;
+  // const setShowSections=location.state?.setShowSections;
   const [screenValue, setScreenValue] = useState("");
   const [tid, settid] = useState();
   const [did, setdid] = useState();
@@ -309,6 +311,8 @@ function CreateOrSignDocument() {
           docId={did}
           signerOptions={signerOptions}
           selectedFile={selectedFile}
+          showSections={showSections}
+          // setShowSections={setShowSections}
         />
         <div className="my-main-container">
           {screenValue && screenValue === "Template" && (
