@@ -23,6 +23,8 @@ export default function MyHeader({
   docId,
   tempID,
   templateDraggedData,
+  showSections,
+  // setShowSections
 }) {
   const { user,userDetailAuth } = useAuth();
   const [popupVisible, setPopupVisible] = useState(false);
@@ -67,12 +69,51 @@ export default function MyHeader({
     }
   };
 
+  // const handleGoBackBtn = () => {
+  //   if (screenValue === "Template") {
+  //     navigate("/dashui?template=Template");
+  //   } else if (screenValue === "Document") {
+  //     navigate(`/dashui?template=Document&docId=${docId}`, {
+  //       state: { backUpdocId: docId, backUpSelectedFile: selectedFile },
+  //     });
+  //   } else if (typeReciever === "reciever") {
+  //     navigate("/userdashboard");
+  //   } else if (
+  //     previewScreenValue === "Document" &&
+  //     tempYesState === "yes" &&
+  //     docId &&
+  //     tempID
+  //   ) {
+  //     navigate(
+  //       `/createorsigndocument?template=Document&tempYes=yes&did=${docId}&tid=${tempID}`,
+  //       {
+  //         state: {
+  //           signOpt: signerOptions,
+  //           backUpSelectedFile: selectedFile,
+  //           templateDraggedData: templateDraggedData,
+  //         },
+  //       }
+  //     );
+  //   } else if (screenValue === "viewDocument") {
+  //     navigate("/userdashboard");
+  //   } else if (screenValue === "recipient-panel") {
+  //     navigate("/userdashboard");
+  //   } else if (screenValue === "BulkSigning") {
+  //     navigate("/userdashboard");
+  //   } else if (screenValue === "editTemplate") {
+  //     // navigate("/userdashboard");
+  //     navigate("/userdashboard", { state: { tabIndex: 1 } });
+  //   }
+  // };
+
   const handleGoBackBtn = () => {
+    console.log("Navigating back - Current showSections:", showSections);
     if (screenValue === "Template") {
       navigate("/dashui?template=Template");
-    } else if (screenValue === "Document") {
+    } 
+    else if (screenValue === "Document") {
       navigate(`/dashui?template=Document&docId=${docId}`, {
-        state: { backUpdocId: docId, backUpSelectedFile: selectedFile },
+        state: { backUpdocId: docId, backUpSelectedFile: selectedFile, showSections },
       });
     } else if (typeReciever === "reciever") {
       navigate("/userdashboard");
@@ -104,6 +145,7 @@ export default function MyHeader({
     }
   };
 
+  
   return (
     <div className="headertest2">
       <header className={"header2-component"}>
