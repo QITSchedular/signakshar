@@ -13,7 +13,6 @@ import { LoadPanel } from "devextreme-react";
 
 export default function UserPanel({ menuMode }) {
   const { user, userDetailAuth,signOut } = useAuth();
-  console.log("userDetailAuth:",userDetailAuth);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(null);

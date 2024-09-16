@@ -228,7 +228,6 @@ export const fetchRecipientDetails = async (docid) => {
       }
     );
     const data = await response.json();
-    console.log("---data",data);
     return data;
   } catch (error) {
     console.error("Error fetching recipient details:", error);
@@ -718,7 +717,6 @@ export const deleteTemplateFromS3 = async (userdetails, tid,createtempfile) => {
 // 
 export const getAllDocsData=async (createdByYou,createdByOthers,uid)=>{
   try {
-    console.log("---uid:",uid);
     const response=await axios.post(`${process.env.REACT_APP_API_URL}/api/getCombinedDocuments/`,{
         createdByYou: createdByYou,
         createdByOthers: createdByOthers,

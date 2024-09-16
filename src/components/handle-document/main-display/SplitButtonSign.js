@@ -483,17 +483,13 @@ function SplitButtonSign({
   // };
 
   const handleScheduleSend = (sdate, stime) => {
-    console.log("Selected Date:", selectedDate1); // Log value of selectedDate
-  
     if (selectedDate1 === "") {
-      console.log("Selected Date is empty");
       toastDisplayer("error", "Select the date");
     } else if (selectedTime) {
       handleSendButtonClick(stime, sdate);
       setPopupVisibleSchedule(false);
     } else {
       toastDisplayer("error", "Time Format is Invalid");
-      console.log("Invalid time or time not set.");
       // setPopupVisibleSchedule(true);
     }
   };
@@ -503,13 +499,14 @@ function SplitButtonSign({
       (updatedEditRecipients && updatedEditRecipients.length !== 0) ||
       (updateRecData && updateRecData.length !== 0)
     ) {
+      setIsLoading(true)
       updatedEditRecipients.map(async (updRec) => {
         try {
           const user_id = loggedInUserDetail?.user?.id;
           const updRecUid = { ...updRec, user_id };
-          setLoading(true);
+          // setIsLoading(true);
           const response = await updateTemplatePositions(updRecUid);
-          setLoading(false);
+          // setIsLoading(false);
           if (response.ok) {
             const data = await response.json();
           } else {
@@ -544,9 +541,9 @@ function SplitButtonSign({
               oneRec.pagePositions[pageNum].forEach((position) => {
                 const { x, y } = position;
                 const apiCallObj = { ...apiObj, x, y };
-                setLoading(true);
+                // setLoading(true);
                 promises.push(saveTemplateDraggedData(apiCallObj));
-                setLoading(false);
+                // setLoading(false);
               });
             });
           } else {
@@ -557,6 +554,7 @@ function SplitButtonSign({
         await Promise.all(promises);
         updateRecData.length = 0;
       }
+      setIsLoading(true)
       // navigate("/userdashboard");
       navigate("/userdashboard", { state: { tabIndex: 1 } });
       toastDisplayer("success", "Template updated successfully!!");

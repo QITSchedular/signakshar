@@ -52,9 +52,9 @@ function DocumentMain({
   setEditRecData,
   setUpdatedEditRecipients,
   updatedEditRecipients,
-  setIsSigned
+  setIsSigned,
 }) {
-  const { user,userDetailAuth } = useAuth();
+  const { user, userDetailAuth } = useAuth();
   const [numPages, setNumPages] = useState(0);
   const [mainContentUrls, setMainContentUrls] = useState([]);
   const mainContainerRef = useRef(null);
@@ -327,53 +327,126 @@ function DocumentMain({
     }
   };
 
+  //// prev version
+  // const handleRecipientDrag = (recipientId, newPosition, pageIndex) => {
+  //   if (recipientId) {
+  //     const updatedRecipients = [...draggedData];
+  //     const recipientIndex = updatedRecipients.findIndex(
+  //       (item) => item.id === recipientId
+  //     );
+  //     updatedRecipients[recipientIndex].pagePositions[pageIndex].forEach(
+  //       (position) => {
+  //         position.x = newPosition.x;
+  //         position.y = newPosition.y;
+  //       }
+  //     );
+
+  //     updatedRecipients[recipientIndex].x = newPosition.x;
+  //     updatedRecipients[recipientIndex].y = newPosition.y;
+  //     setDraggedData(updatedRecipients);
+  //   } else {
+  //     console.log("handleRecipientDrag else");
+  //   }
+  // };
+
+  ///// rajvi's version
   const handleRecipientDrag = (recipientId, newPosition, pageIndex) => {
     if (recipientId) {
       const updatedRecipients = [...draggedData];
       const recipientIndex = updatedRecipients.findIndex(
         (item) => item.id === recipientId
       );
-      updatedRecipients[recipientIndex].pagePositions[pageIndex].forEach(
-        (position) => {
+
+      if (recipientIndex !== -1) {
+        const recipient = updatedRecipients[recipientIndex];
+        recipient.pagePositions[pageIndex].forEach((position) => {
           position.x = newPosition.x;
           position.y = newPosition.y;
-        }
-      );
+        });
 
-      updatedRecipients[recipientIndex].x = newPosition.x;
-      updatedRecipients[recipientIndex].y = newPosition.y;
-      setDraggedData(updatedRecipients);
-    } else {
-      console.log("handleRecipientDrag else");
+        // Update both recipient position and signatureData position
+        recipient.x = newPosition.x;
+        recipient.y = newPosition.y;
+
+        if (recipient.signatureData) {
+          recipient.signatureData.x = newPosition.x;
+          recipient.signatureData.y = newPosition.y;
+        }
+
+        setDraggedData(updatedRecipients);
+      }
     }
   };
 
+  //// prev version
+  // const handleRecipientResize = (
+  //   recipientId,
+  //   newWidth,
+  //   newHeight,
+  //   position,
+  //   pageIndex,
+  //   recipient
+  // ) => {
+  //   if (recipientId) {
+  //     const updatedRecipients = [...draggedData];
+  //     const recipientIndex = updatedRecipients.findIndex(
+  //       (item) => item.id === recipientId
+  //     );
+  //     if (recipientIndex !== -1) {
+  //       updatedRecipients[recipientIndex].size.width = parseInt(newWidth);
+  //       updatedRecipients[recipientIndex].size.height = parseInt(newHeight);
+  //       updatedRecipients[recipientIndex].pagePositions[pageIndex].forEach(
+  //         (pos) => {
+  //           pos.x = position.x;
+  //           pos.y = position.y;
+  //         }
+  //       );
+  //       updatedRecipients[recipientIndex].x = parseInt(position.x);
+  //       updatedRecipients[recipientIndex].y = parseInt(position.y);
+  //       updatedRecipients[recipientIndex].width = parseInt(newWidth);
+  //       updatedRecipients[recipientIndex].height = parseInt(newHeight);
+  //       setDraggedData(updatedRecipients);
+  //     }
+  //   }
+  // };
+
+  //// rajvi's version
   const handleRecipientResize = (
     recipientId,
     newWidth,
     newHeight,
     position,
-    pageIndex,
-    recipient
+    pageIndex
   ) => {
     if (recipientId) {
       const updatedRecipients = [...draggedData];
       const recipientIndex = updatedRecipients.findIndex(
         (item) => item.id === recipientId
       );
+
       if (recipientIndex !== -1) {
-        updatedRecipients[recipientIndex].size.width = parseInt(newWidth);
-        updatedRecipients[recipientIndex].size.height = parseInt(newHeight);
-        updatedRecipients[recipientIndex].pagePositions[pageIndex].forEach(
-          (pos) => {
-            pos.x = position.x;
-            pos.y = position.y;
-          }
-        );
-        updatedRecipients[recipientIndex].x = parseInt(position.x);
-        updatedRecipients[recipientIndex].y = parseInt(position.y);
-        updatedRecipients[recipientIndex].width = parseInt(newWidth);
-        updatedRecipients[recipientIndex].height = parseInt(newHeight);
+        const recipient = updatedRecipients[recipientIndex];
+
+        recipient.size.width = parseInt(newWidth);
+        recipient.size.height = parseInt(newHeight);
+        recipient.pagePositions[pageIndex].forEach((pos) => {
+          pos.x = position.x;
+          pos.y = position.y;
+        });
+
+        // Update both recipient size/position and signatureData size/position
+        recipient.x = position.x;
+        recipient.y = position.y;
+        recipient.width = parseInt(newWidth);
+        recipient.height = parseInt(newHeight);
+
+        if (recipient.signatureData) {
+          recipient.signatureData.x = position.x;
+          recipient.signatureData.y = position.y;
+          recipient.signatureData.width = parseInt(newWidth);
+          recipient.signatureData.height = parseInt(newHeight);
+        }
+
         setDraggedData(updatedRecipients);
       }
     }
@@ -381,15 +454,15 @@ function DocumentMain({
 
   const handleDeleteRecipient = async (recipientIdToDelete, e) => {
     setIsAnyFieldClicked(false);
-    console.log("recipientIdTodekete:",recipientIdToDelete);
+    console.log("recipientIdTodekete:", recipientIdToDelete);
     if (typeof recipientIdToDelete === "string") {
-      console.log("string",draggedData);
+      console.log("string", draggedData);
       setDraggedData((prevDraggedData) =>
         prevDraggedData.filter(
           (recipient) => recipient.id !== recipientIdToDelete
         )
       );
-          console.log("ddd",downloadDraggedData);
+      console.log("ddd", downloadDraggedData);
       // setDownloadDraggedData((prevDragData) =>
       //   prevDragData.filter((recipient) => recipient.id !== recipientIdToDelete)
       // );
@@ -405,9 +478,6 @@ function DocumentMain({
         }
       );
       if (delresponse.status === 200) {
-        console.log("delresponse:",delresponse);
-        console.log("recipientIdToDelete:",recipientIdToDelete);
-        console.log("updatedEditRecipients:",updatedEditRecipients);
         // setUpdatedEditRecipients((prevUpdEdit) =>
         //   prevUpdEdit.filter(
         //     (rec) => rec !== null && rec.id !== recipientIdToDelete
@@ -467,7 +537,6 @@ function DocumentMain({
     if (activeFieldData) {
       const { x, y, width, height, fieldName } = activeFieldData;
       const updatedDraggedData = [...draggedData];
-      console.log("updatedDraggedData11111:",updatedDraggedData)
       for (let i = 0; i < numPages; i++) {
         const existingFieldOnPage = updatedDraggedData.find(
           (field) =>
@@ -478,7 +547,6 @@ function DocumentMain({
             field.width === width &&
             field.height === height
         );
-        console.log("existingFieldOnPage:",existingFieldOnPage);
         if (!existingFieldOnPage) {
           updatedDraggedData.push({
             id: generateUniqueId(),
@@ -501,7 +569,6 @@ function DocumentMain({
           });
         }
       }
-      console.log("updatedDraggedData22222:",updatedDraggedData)
       setDraggedData(updatedDraggedData);
     }
   };
@@ -1068,6 +1135,116 @@ function DocumentMain({
     updateDownloadSignData(updatedDraggedData);
   };
 
+  ///// prev version
+  // const handleNameDone = async () => {
+  //   const fontStyles = [
+  //     "20px Brush Script MT",
+  //     "20px Times New Roman",
+  //     "20px Lucida Handwriting",
+  //     "20px Pacifico",
+  //   ];
+
+  //   const currentFontStyle = fontStyles[fontStyleIndex];
+  //   setFontStyleIndex((prevIndex) => (prevIndex + 1) % fontStyles.length);
+  //   const currentName = loggedInUserDetail.user.full_name;
+  //   const updatedDraggedData = [...draggedData];
+  //   if (screenValue === "Document" && tempYEs === "yes") {
+  //     const fetchPromises = [];
+  //     for (const field of updatedDraggedData) {
+  //       if (field.fieldName === "Name") {
+  //         const namedata = await fetchTempApplyRecipientById(field.signerId);
+  //         fetchPromises.push(namedata);
+  //       }
+  //     }
+  //     const fetchedRecipientDetails = await Promise.all(fetchPromises);
+  //     const matchingRecipients = fetchedRecipientDetails.filter(
+  //       (recipient) => recipient.email === loggedInUserDetail.user.email
+  //     );
+
+  //     updatedDraggedData.forEach((field) => {
+  //       if (
+  //         field.fieldName === "Name" &&
+  //         matchingRecipients.some(
+  //           (recipient) => recipient.id === field.signerId
+  //         )
+  //       ) {
+  //         const { x, y, width, height, pageNum } = field;
+
+  //         const canvas = document.createElement("canvas");
+  //         const context = canvas.getContext("2d");
+  //         canvas.width = width;
+  //         canvas.height = height;
+  //         context.fillStyle = "transparent";
+  //         context.fillRect(0, 0, canvas.width, canvas.height);
+  //         context.font = currentFontStyle;
+  //         context.fillStyle = "#344450";
+  //         context.textAlign = "center";
+  //         context.textBaseline = "middle";
+  //         context.fillText(currentName, canvas.width / 2, canvas.height / 2);
+  //         const imageDataURL = canvas.toDataURL();
+  //         const adjustedLeft = (x / pdfImageSize.width) * pdfImageRect.width;
+  //         const adjustedTop = (y / pdfImageSize.height) * pdfImageRect.height;
+  //         const adjustedWidth =
+  //           (parseFloat(width) / pdfImageSize.width) * pdfImageRect.width;
+  //         const adjustedHeight =
+  //           (parseFloat(height) / pdfImageSize.height) * pdfImageRect.height;
+
+  //         field.signatureData = {
+  //           imageData: imageDataURL,
+  //           x: adjustedLeft,
+  //           y: adjustedTop,
+  //           width: adjustedWidth,
+  //           height: adjustedHeight,
+  //           pageNumber: pageNum,
+  //         };
+  //       }
+  //     });
+  //   } else {
+  //     updatedDraggedData.forEach((field) => {
+  //       if (
+  //         field.fieldName === "Name" &&
+  //         (field.email === loggedInUserDetail.user.email ||
+  //           field.name === "You")
+  //       ) {
+  //         const { x, y, width, height, pageNum } = field;
+
+  //         const canvas = document.createElement("canvas");
+  //         const context = canvas.getContext("2d");
+  //         canvas.width = width;
+  //         canvas.height = height;
+
+  //         context.fillStyle = "transparent";
+  //         context.fillRect(0, 0, canvas.width, canvas.height);
+  //         context.font = currentFontStyle;
+  //         context.fillStyle = "#344450";
+  //         context.textAlign = "center";
+  //         context.textBaseline = "middle";
+  //         context.fillText(currentName, canvas.width / 2, canvas.height / 2);
+  //         const imageDataURL = canvas.toDataURL();
+  //         const adjustedLeft = (x / pdfImageSize.width) * pdfImageRect.width;
+  //         const adjustedTop = (y / pdfImageSize.height) * pdfImageRect.height;
+  //         const adjustedWidth =
+  //           (parseFloat(width) / pdfImageSize.width) * pdfImageRect.width;
+  //         const adjustedHeight =
+  //           (parseFloat(height) / pdfImageSize.height) * pdfImageRect.height;
+  //         field.signatureData = {
+  //           imageData: imageDataURL,
+  //           x: adjustedLeft,
+  //           y: adjustedTop,
+  //           width: adjustedWidth,
+  //           height: adjustedHeight,
+  //           pageNumber: pageNum,
+  //         };
+  //       }
+  //     });
+  //   }
+  //   setDraggedData(updatedDraggedData);
+  //   setDownloadDraggedData(updatedDraggedData);
+  //   updateDownloadSignData(updatedDraggedData);
+  // };
+
+  /////rajvi's version
+
   const handleNameDone = async () => {
     const fontStyles = [
       "20px Brush Script MT",
@@ -1080,14 +1257,12 @@ function DocumentMain({
     setFontStyleIndex((prevIndex) => (prevIndex + 1) % fontStyles.length);
     const currentName = loggedInUserDetail.user.full_name;
     const updatedDraggedData = [...draggedData];
+
     if (screenValue === "Document" && tempYEs === "yes") {
-      const fetchPromises = [];
-      for (const field of updatedDraggedData) {
-        if (field.fieldName === "Name") {
-          const namedata = await fetchTempApplyRecipientById(field.signerId);
-          fetchPromises.push(namedata);
-        }
-      }
+      const fetchPromises = updatedDraggedData
+        .filter((field) => field.fieldName === "Name")
+        .map((field) => fetchTempApplyRecipientById(field.signerId));
+
       const fetchedRecipientDetails = await Promise.all(fetchPromises);
       const matchingRecipients = fetchedRecipientDetails.filter(
         (recipient) => recipient.email === loggedInUserDetail.user.email
@@ -1144,7 +1319,6 @@ function DocumentMain({
           const context = canvas.getContext("2d");
           canvas.width = width;
           canvas.height = height;
-
           context.fillStyle = "transparent";
           context.fillRect(0, 0, canvas.width, canvas.height);
           context.font = currentFontStyle;
@@ -1159,6 +1333,7 @@ function DocumentMain({
             (parseFloat(width) / pdfImageSize.width) * pdfImageRect.width;
           const adjustedHeight =
             (parseFloat(height) / pdfImageSize.height) * pdfImageRect.height;
+
           field.signatureData = {
             imageData: imageDataURL,
             x: adjustedLeft,
@@ -1170,6 +1345,9 @@ function DocumentMain({
         }
       });
     }
+
+    console.log("updatedDraggedData:", updatedDraggedData);
+    // Update dragged data and re-render
     setDraggedData(updatedDraggedData);
     setDownloadDraggedData(updatedDraggedData);
     updateDownloadSignData(updatedDraggedData);
@@ -1653,7 +1831,7 @@ function DocumentMain({
                               }}
                               onDragOver={(e) => e.preventDefault()}
                             >
-                              {draggedData &&
+                              {/* {draggedData &&
                                 draggedData.map((recipient, i) => {
                                   const pagePositions =
                                     recipient.pagePositions[index];
@@ -1808,6 +1986,256 @@ function DocumentMain({
                                         )
                                       );
                                     }
+                                  }
+                                  return null;
+                                })} */}
+
+                              {/* {draggedData &&
+                                draggedData.map((recipient, i) => {
+                                  const pagePositions =
+                                    recipient.pagePositions[index];
+                                  if (
+                                    recipient.id &&
+                                    pagePositions &&
+                                    pagePositions.length > 0
+                                  ) {
+                                    const signatureData =
+                                      recipient.signatureData;
+
+                                    const isDateField =
+                                      recipient.fieldName === "Date" ||
+                                      recipient.fieldName === "Name";
+
+                                    const minWidth = isDateField ? 100 : 80;
+                                    const minHeight = isDateField ? 50 : 40;
+
+                                    return pagePositions.map((position, j) => (
+                                      <Rnd
+                                        key={`${i}_${j}`}
+                                        bounds="parent"
+                                        size={
+                                          // signatureData
+                                          //   ? {
+                                          //       width: signatureData.width,
+                                          //       height: signatureData.height,
+                                          //     }
+                                          //   : 
+                                            recipient.size
+                                        }
+                                        position={
+                                          // signatureData
+                                          //   ? {
+                                          //       x: signatureData.x,
+                                          //       y: signatureData.y,
+                                          //     }
+                                          //   : 
+                                            { x: position.x, y: position.y }
+                                        }
+                                        className="drag-box"
+                                        style={{
+                                          backgroundColor: recipient.color,
+                                          height: "auto",
+                                        }}
+                                        minWidth={minWidth}
+                                        minHeight={minHeight}
+                                        maxWidth={dimensions.maxWidth}
+                                        maxHeight={dimensions.maxHeight}
+                                        enableResizing={{
+                                          topRight: true,
+                                          bottomRight: true,
+                                          bottomLeft: true,
+                                          topLeft: true,
+                                        }}
+                                        onDragStop={(e, d) => {
+                                          handleRecipientDrag(
+                                            recipient.id,
+                                            d,
+                                            index
+                                          );
+                                        }}
+                                        onResizeStop={(
+                                          e,
+                                          direction,
+                                          ref,
+                                          delta,
+                                          position
+                                        ) => {
+                                          handleRecipientResize(
+                                            recipient.id,
+                                            ref.style.width,
+                                            ref.style.height,
+                                            position,
+                                            index
+                                          );
+                                        }}
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          handleDragDropBoxClicked(recipient);
+                                          if (recipient.fieldName === "Name") {
+                                            handleNameDone();
+                                          } else if (
+                                            recipient.fieldName === "Date"
+                                          ) {
+                                            handleDateDone();
+                                          }
+                                        }}
+                                      >
+                                        <div className="recipient-box">
+                                          {!signatureData && (
+                                            <div className="recipient-box-data">
+                                              <p className="dropped-box-field-name">
+                                                {recipient.fieldName}
+                                              </p>
+                                              <p className="dropped-box-recipient-name">
+                                                {recipient.name}
+                                              </p>
+                                            </div>
+                                          )}
+                                        </div>
+                                        {signatureData && (
+                                          <img
+                                            src={signatureData.imageData}
+                                            alt={`Value for ${recipient.fieldName} field`}
+                                          />
+                                        )}
+                                        <IconDelete
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleDeleteRecipient(
+                                              recipient.id,
+                                              e
+                                            );
+                                          }}
+                                          className="recipient-box-delete"
+                                        />
+                                      </Rnd>
+                                    ));
+                                  }
+                                  return null;
+                                })} */}
+
+                              {draggedData &&
+                                draggedData.map((recipient, i) => {
+                                  const pagePositions =
+                                    recipient.pagePositions[index];
+                                  if (
+                                    recipient.id &&
+                                    pagePositions &&
+                                    pagePositions.length > 0
+                                  ) {
+                                    const signatureData =
+                                      recipient.signatureData;
+
+                                    const isDateField =
+                                      recipient.fieldName === "Date" ||
+                                      recipient.fieldName === "Name";
+
+                                    const minWidth = isDateField ? 100 : 80;
+                                    const minHeight = isDateField ? 50 : 40;
+
+                                    return pagePositions.map((position, j) => (
+                                      <Rnd
+                                        key={`${i}_${j}`}
+                                        bounds="parent"
+                                        size={
+                                          signatureData
+                                            ? {
+                                                width: signatureData.width,
+                                                height: signatureData.height,
+                                              }
+                                            : recipient.size
+                                        }
+                                        position={
+                                          signatureData
+                                            ? {
+                                                x: signatureData.x,
+                                                y: signatureData.y,
+                                              }
+                                            : { x: position.x, y: position.y }
+                                        }
+                                        className="drag-box"
+                                        style={{
+                                          backgroundColor: recipient.color,
+                                          height: "auto",
+                                        }}
+                                        minWidth={minWidth}
+                                        minHeight={minHeight}
+                                        maxWidth={dimensions.maxWidth}
+                                        maxHeight={dimensions.maxHeight}
+                                        enableResizing={{
+                                          topRight: true,
+                                          bottomRight: true,
+                                          bottomLeft: true,
+                                          topLeft: true,
+                                        }}
+                                        onDragStop={(e, d) => {
+                                          handleRecipientDrag(
+                                            recipient.id,
+                                            d,
+                                            index
+                                          );
+                                        }}
+                                        onResizeStop={(
+                                          e,
+                                          direction,
+                                          ref,
+                                          delta,
+                                          position
+                                        ) => {
+                                          handleRecipientResize(
+                                            recipient.id,
+                                            ref.style.width,
+                                            ref.style.height,
+                                            position,
+                                            index
+                                          );
+                                        }}
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          handleDragDropBoxClicked(recipient);
+                                          if (recipient.fieldName === "Name") {
+                                            handleNameDone();
+                                          } else if (
+                                            recipient.fieldName === "Date"
+                                          ) {
+                                            handleDateDone();
+                                          }
+                                        }}
+                                      >
+                                        <div className="recipient-box ">
+                                          {!signatureData && (
+                                            <div className="recipient-box-data">
+                                              <p className="dropped-box-field-name">
+                                                {recipient.fieldName}
+                                              </p>
+                                              <p className="dropped-box-recipient-name">
+                                                {recipient.name}
+                                              </p>
+                                            </div>
+                                          )}
+                                        </div>
+                                        {signatureData && (
+                                          <img
+                                            draggable={false}
+                                            style={{
+                                              pointerEvents: "none",
+                                            }}
+                                            src={signatureData.imageData}
+                                            alt={`Value for ${recipient.fieldName} field`}
+                                          />
+                                        )}
+                                        <IconDelete
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleDeleteRecipient(
+                                              recipient.id,
+                                              e
+                                            );
+                                          }}
+                                          className="recipient-box-delete"
+                                        />
+                                      </Rnd>
+                                    ));
                                   }
                                   return null;
                                 })}
@@ -2144,7 +2572,7 @@ function DocumentMain({
                                 draggedData.map((recipient, i) => {
                                   const pagePositions =
                                     recipient.pagePositions[index];
-                                    
+
                                   if (
                                     recipient.id &&
                                     pagePositions &&
@@ -2235,7 +2663,6 @@ function DocumentMain({
                                   return null;
                                 })}
 
-                     
                               {editRecData &&
                                 editRecData.flat().map((recipient, i) => {
                                   const recfullName =
@@ -2283,10 +2710,6 @@ function DocumentMain({
                                           position: "absolute",
                                         }}
                                         onDragStop={(e, d) => {
-                                          console.log(
-                                            "recipient.id",
-                                            recipient
-                                          );
                                           handleEditDragStop(
                                             i,
                                             d.x,
