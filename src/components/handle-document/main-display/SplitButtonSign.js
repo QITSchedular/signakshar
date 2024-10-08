@@ -12,6 +12,9 @@ import {
   generateSignedPdfonAws,
 } from "../../manageUser/signatureSetup/PdfUtils";
 import { LoadPanel } from "devextreme-react";
+
+import { format } from 'date-fns';
+
 import {
   deleteDocument,
   deleteTemplate,
@@ -56,6 +59,27 @@ function SplitButtonSign({
   const [isDocSendOnce, setIsDocSendOnce] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [recEmailForStatus, setRecEmailForStatus] = useState("");
+  const [triggerStatusUpdate, setTriggerStatusUpdate] = useState(false);
+  const [selectedDate1, setSelectedDate1] = useState("");
+
+  // const [scheduleDateState, setscheduleDateState] = useState(
+  //   new Date().toLocaleDateString()
+  // );
+
+  const [scheduleDateState, setScheduleDateState] = useState('');
+
+  useEffect(() => {
+    // console.log("new Date().toLocaleDateString() : ",new Date().toLocaleDateString())
+    setScheduleDateState(new Date().toLocaleDateString());
+  }, []); // Runs only on mount
+
+  const [selectedDate, setSelectedDate] = useState(scheduleDateState);
+  useEffect(() => {
+    // Check if selectedDate is valid
+    console.log("heloo=====================",selectedDate);
+  }, [selectedDate]);
+  
   
 
   useEffect(() => {
@@ -71,8 +95,10 @@ function SplitButtonSign({
   }, [user]);
   const mergeDateAndTime = (dateString, timeString) => {
     var formattedDateTime;
+    console.log("Date string  : ",dateString)
     if (dateString === new Date().toLocaleDateString()) {
-      const [month, day, year] = dateString.split("/"); // Adjust parsing for MM/DD/YYYY format
+      console.log("=========== inside if")
+      const [day,month, year] = dateString.split("/"); // Adjust parsing for MM/DD/YYYY format
       const [hours, minutes] = timeString.split(":");
       // Create a new Date object by parsing the components
       const mergedDate = new Date(
@@ -91,6 +117,7 @@ function SplitButtonSign({
         hour12: false,
       });
     } else {
+      console.log("=========== inside else")
       const [day, month, year] = dateString.split("/");
       const [hours, minutes] = timeString.split(":");
       const mergedDate = new Date(
@@ -122,13 +149,9 @@ function SplitButtonSign({
     }
   };
 
-  const [recEmailForStatus, setRecEmailForStatus] = useState("");
-  const [triggerStatusUpdate, setTriggerStatusUpdate] = useState(false);
-  const [scheduleDateState, setscheduleDateState] = useState(
-    new Date().toLocaleDateString()
-  );
-  const [selectedDate1, setSelectedDate1] = useState("");
-  const [selectedDate, setSelectedDate] = useState(scheduleDateState);
+
+
+  console.log("selectedDate",scheduleDateState)
 
   const handleSendButtonClick = async (scheduleTime, scheduleDate) => {
     setIsLoading(true);
@@ -251,7 +274,7 @@ function SplitButtonSign({
               }
             })
           );
-
+          console.log("scheduleDateAndTime : ",scheduleDateAndTime)
           const newPayload = {
             docId: did,
             s_send: false,
