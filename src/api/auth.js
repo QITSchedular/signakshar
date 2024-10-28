@@ -68,7 +68,6 @@ export async function signInWithGoogleAPI(access_token) {
           token: access_token,
         }
       );
-      console.log("--:",response.data);
       const token = response.data.jwt;
       localStorage.setItem("jwt", token);
       toastDisplayer("success", "Login Successful");
